@@ -12,6 +12,8 @@ create table Room(
 [price] money	
 )
 
+--TODO nhập phòng
+
 create table Person(
 [idPerson] varchar (10) primary key,  -- Id thuoc FPT (bao gom sinh vien va nhan vien quan ly) 
 [roomId] varchar (5),
@@ -69,12 +71,12 @@ create table ElectricWaterUsed (
 [date] date,
 [oldElectricityIndex] int,
 [newElectricityIndex] int,
-
 [oldWaterIndex] int,
 [newWaterIndex] int,
 CONSTRAINT fk_ewu foreign key (roomId) references Room(roomId)
 )
 
+--TODO tạo bill
 
 create table Bill(
 [billId] int identity(1,1) primary key,
@@ -84,7 +86,8 @@ create table Bill(
 [semester] varchar (5),
 CONSTRAINT fk_bill foreign key (userId) references Account (userId)
 )
- 
+ --TODO tạo bill
+
 create table StudentRequest(
 [RequestId] int identity(1,1) primary key,
 [userId] int,
@@ -112,6 +115,6 @@ create table Notification(
 CONSTRAINT fk_Notification foreign key (userId) references Account (userId)
 )
 
-Drop table RegisterRoom
-Drop table Notification
-Drop table RequestToChangeRoom
+--drop table RegisterRoom
+--drop table Notification
+--drop table RequestToChangeRoom
