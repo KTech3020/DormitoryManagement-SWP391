@@ -53,8 +53,9 @@
                         <a href="LogoutServlet">Đăng xuất</a>
                     </li>
                 </c:if>    
-                <li><a href="list">Danh sách sinh viên</a></li>
-
+                <c:if test="${sessionScope.accountS.isAdmin==1}">
+                    <a href="listStudent.jsp" class="nav-item nav-link">Quản lý thông tin sinh viên</a>
+                </c:if>
             </ul>
         </nav>
 
