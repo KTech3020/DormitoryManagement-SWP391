@@ -1,18 +1,18 @@
 ﻿create database Dorm
 use Dorm
 
-DROP DATABASE Dorm
+--DROP DATABASE Dorm
 
 
-Drop table Account
-DROP table Room
-DROP table Person
-DROP table  Bill
+--Drop table Account
+--DROP table Room
+--DROP table Person
+--DROP table  Bill
 
-Drop table Notification
-Drop table RequestToChangeRoom
-Drop table ElectricWaterUsed
-Drop table RegisterRoom
+--Drop table Notification
+--Drop table RequestToChangeRoom
+--Drop table ElectricWaterUsed
+--Drop table RegisterRoom
 
 
 create table Room(
@@ -20,7 +20,7 @@ create table Room(
 [roomSize] int,  -- suc chua toi da
 [roomAttendees] int,   -- so nguoi hien dang o
 [gender] char (1) check (gender in ('F', 'M')),	
-[airConditional] char (1) check (airConditional in ('Y', 'N')),	
+[hasAirConditioner] char (1) check (hasAirConditioner in ('Y', 'N')),	
 [price] money	
 )
 

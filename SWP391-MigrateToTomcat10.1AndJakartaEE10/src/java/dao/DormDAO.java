@@ -7,6 +7,7 @@ package dao;
 import entity.Person;
 import context.DBContext;
 import entity.Account;
+import entity.Room;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -117,7 +118,7 @@ public class DormDAO {
         return null;
     }
 
-    public void updateProfile(String idPerson, String roomId, String img, String name, String cmnd, 
+    public void updateProfile(String idPerson, String roomId, String img, String name, String cmnd,
             String dob, String gender, String phone, String email, String address) {
         try {
             String sql = "update Person set [roomId] = ?,[img] = ?, [fullname] = ?, "
@@ -140,6 +141,43 @@ public class DormDAO {
         }
     }
 
-    
-    
+    public ArrayList returnAllRooms() {
+        ArrayList<Room> result = new ArrayList();
+        String sql = "select * from Room";
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                result.add(new Room(rs.getInt(1), rs.getInt(2), rs.getInt(3),
+                        rs.getString(4), rs.getString(5), rs.getDouble(6)));
+
+            }
+            return result;
+        } catch (Exception e) {
+        }
+        return null;
+    }
+
+    public ArrayList returnRoomMatchQuery(String roomSize, String roomAttendees,
+            String gender, String hasAirCon, String price) {
+        ArrayList<Room> result = new ArrayList();
+        String sql = "select * from Room where roomSize = ? AND roomAttendees <= ? AND gender = ? AND hasAirConditioner = ? AND price <= ?";
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, roomSize);
+            ps.setString(2, roomAttendees);
+            ps.setString(3, gender);
+            ps.setString(4, hasAirCon);
+            ps.setString(5, price);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                result.add(new Room(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getString(5), rs.getDouble(6)));
+            }
+            return result;
+        } catch (Exception e) {
+        }
+        return null;
+    }
 }

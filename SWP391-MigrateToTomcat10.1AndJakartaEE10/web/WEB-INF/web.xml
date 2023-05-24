@@ -19,6 +19,10 @@
         <servlet-class>Controller.ForgotpassServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>RoomSearchServlet</servlet-name>
+        <servlet-class>Controller.RoomSearchServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>ManageProfile</servlet-name>
         <servlet-class>Controller.ManageProfile</servlet-class>
     </servlet>
@@ -27,8 +31,6 @@
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
     </servlet-mapping>
-    
-
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/RegisterServlet</url-pattern>
@@ -44,6 +46,10 @@
     <servlet-mapping>
         <servlet-name>ManageProfile</servlet-name>
         <url-pattern>/ManageProfile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RoomSearchServlet</servlet-name>
+        <url-pattern>/RoomSearchServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
