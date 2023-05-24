@@ -49,38 +49,38 @@
                                 </div>
                                 <div class="form-group">
                                     <label>ID Phòng ở</label>
-                                    <input value="${person.roomId}" name="roomId" type="text" class="form-control" required>
+                                    <input value="${person.roomId}" name="roomId" type="text" class="form-control" readonly required>
                                 </div>
                                 <div class="form-group">
                                     <label>Họ và tên</label>
-                                    <input value="${person.name}" name="name" type="text" class="form-control" readonly required>
+                                    <input value="${person.name}" name="name" type="text" class="form-control" required>
                                 </div>
                                 <div class="form-group">
                                     <label>CMND</label>
-                                    <input value="${person.cmnd}" name="cmnd" type="text" class="form-control" readonly required>
+                                    <input value="${person.cmnd}" name="cmnd" type="text" class="form-control" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Giới tính</label>
                                     <c:choose>
                                         <c:when test="${person.gender==M}">
-                                            <input value="${person.gender}" name="gender" type="text" class="form-control" readonly required>
+                                            <input value="${person.gender}" name="gender" type="text" class="form-control" required>
                                         </c:when>
                                         <c:otherwise>
-                                            <input value="${person.gender}" name="gender" type="text" class="form-control" readonly required>
+                                            <input value="${person.gender}" name="gender" type="text" class="form-control" required>
                                         </c:otherwise>
                                     </c:choose>
                                 </div>
                                 <div class="form-group">
                                     <label>Ngày sinh</label>
-                                    <input value="${person.dob}" name="dob" type="text" class="form-control" readonly required>
+                                    <input value="${person.dob}" name="dob" type="text" class="form-control" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Điện thoại</label>
-                                    <input value="${person.phone}" name="phone" type="text" class="form-control" readonly required>
+                                    <input value="${person.phone}" name="phone" type="text" class="form-control" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Email</label>
-                                    <input value="${person.email}" name="email" type="text" class="form-control" readonly required>
+                                    <input value="${person.email}" name="email" type="text" class="form-control" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Địa chỉ</label>
