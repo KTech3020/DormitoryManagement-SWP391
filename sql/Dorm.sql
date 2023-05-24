@@ -164,3 +164,5 @@ select * from Account
 UPDATE Account SET password = '123456' WHERE idPerson = 'SE160094';
 
 select * from Person where idPerson = 'SE160094'
+
+select * from Room
