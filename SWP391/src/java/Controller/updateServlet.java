@@ -57,7 +57,7 @@ public class updateServlet extends HttpServlet {
     throws ServletException, IOException {
         DormDAO dao = new DormDAO();
         String id = request.getParameter("id");
-        Person p = dao.getPersonProfile("id");
+        Person p = dao.getPersonProfile(id);
         request.setAttribute("person", p);
         request.getRequestDispatcher("updateStudent.jsp").forward(request, response);
     } 
