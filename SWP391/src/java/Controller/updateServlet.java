@@ -84,7 +84,7 @@ public class updateServlet extends HttpServlet {
         String email = request.getParameter("email");
         String address = request.getParameter("address");
         
-        dao.updateProfile(roomId, img, name, cmnd, dob, gender, phone, email, address, idPerson);
+        dao.updateProfile(idPerson, roomId, img, name, cmnd, dob, gender, phone, email, address);
         
         response.sendRedirect("listStudent.jsp");
     }
