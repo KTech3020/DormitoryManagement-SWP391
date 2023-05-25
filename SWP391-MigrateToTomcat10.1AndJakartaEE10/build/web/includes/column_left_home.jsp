@@ -26,6 +26,7 @@
             </style>
             <ul class="navigation-menu">
                 <li><a href="index.jsp">Trang chủ</a></li>
+                <li><a href="rules.jsp">Nội quy KTX</a></li>              
                 <li><a href="services.jsp">Dịch vụ</a></li>
                 <li><a href="#">Liên hệ</a></li>
                     <c:if test="${sessionScope.accountS==null}">
@@ -35,7 +36,7 @@
                 </c:if>
                 <c:if test="${sessionScope.accountS.isAdmin==0}">
                     <li>
-                        <a href="#" class="nav-item nav-link">Xem và tìm kiếm phòng</a>
+                        <a href="RoomSearchServlet" class="nav-item nav-link">Xem và tìm kiếm phòng</a>
                     </li>
                     <li>
                         <a href="#" class="nav-item nav-link">Quản lí hóa đơn</a>
