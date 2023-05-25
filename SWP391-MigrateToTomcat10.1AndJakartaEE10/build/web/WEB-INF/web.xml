@@ -26,6 +26,10 @@
         <servlet-name>ManageProfile</servlet-name>
         <servlet-class>Controller.ManageProfile</servlet-class>
     </servlet>
+	<servlet>
+        <servlet-name>UpdateServlet</servlet-name>
+        <servlet-class>Controller.UpdateServlet</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -50,6 +54,10 @@
     <servlet-mapping>
         <servlet-name>RoomSearchServlet</servlet-name>
         <url-pattern>/RoomSearchServlet</url-pattern>
+    </servlet-mapping>
+	<servlet-mapping>
+        <servlet-name>UpdateServlet</servlet-name>
+        <url-pattern>/UpdateServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -118,6 +118,23 @@ public class DormDAO {
         return null;
     }
 
+    public ArrayList<Person> getPersonProfileManager() {
+        String sql = "select * from Person where exists (select * from Room where Person.roomId = Room.roomId)";
+        ArrayList<Person> list = new ArrayList<>();
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Person(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6),
+                rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10)));
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+        return list;
+    }
+    
     public void updateProfile(String idPerson, String roomId, String img, String name, String cmnd,
             String dob, String gender, String phone, String email, String address) {
         try {

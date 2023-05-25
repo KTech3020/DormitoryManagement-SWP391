@@ -50,7 +50,7 @@
                         <a href="#" class="nav-item nav-link">Quản lí thông báo</a>
                     </li>
                     <li>
-                        <a href="#" class="nav-item nav-link">Quản lí sinh viên</a>
+                        <a href="listStudent.jsp" class="nav-item nav-link">Quản lí sinh viên</a>
                     </li>
                     <li>
                         <a href="#" class="nav-item nav-link">Quản lí phòng ở</a>

@@ -1,9 +1,6 @@
 ﻿create database Dorm
 use Dorm
 
---DROP DATABASE Dorm
-
-
 --Drop table Account
 --DROP table Room
 --DROP table Person
@@ -30,7 +27,7 @@ create table Person(
 [img] Nvarchar (50),
 [fullname] Nvarchar (50),
 [CMND] nvarchar(10),
-[birth] smalldatetime,
+[birth] date,
 [gender] char (1) check (gender in ('F', 'M')),		
 [phone] char (10), 
 [email] varchar (30),
@@ -166,3 +163,7 @@ UPDATE Account SET password = '123456' WHERE idPerson = 'SE160094';
 select * from Person where idPerson = 'SE160094'
 
 select * from Room
+
+-- use master
+-- ALTER database Dorm set offline with ROLLBACK IMMEDIATE;
+-- DROP database Dorm;
