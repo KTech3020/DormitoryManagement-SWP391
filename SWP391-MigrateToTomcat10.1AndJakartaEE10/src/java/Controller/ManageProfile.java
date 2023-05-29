@@ -14,12 +14,21 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.annotation.MultipartConfig;
+import jakarta.servlet.http.Part;
+import java.io.File;
+
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
+        maxFileSize = 1024 * 1024 * 10, // 10MB
+        maxRequestSize = 1024 * 1024 * 50) // 50MB
 
 /**
  *
  * @author LENOVO
  */
 public class ManageProfile extends HttpServlet {
+
+    String savePath = "C:\\Users\\HP\\Desktop\\GitHub\\DormitoryManagement-SWP391\\SWP391-MigrateToTomcat10.1AndJakartaEE10\\web\\images";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,7 +42,7 @@ public class ManageProfile extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -82,7 +91,7 @@ public class ManageProfile extends HttpServlet {
         DormDAO dao = new DormDAO();
         String idPerson = request.getParameter("idPerson");
         String roomId = request.getParameter("roomId");
-        String img = request.getParameter("img");
+        //String img = request.getParameter("img");
         String name = request.getParameter("name");
         String cmnd = request.getParameter("cmnd");
         String dob = request.getParameter("dob");
@@ -91,6 +100,19 @@ public class ManageProfile extends HttpServlet {
         String email = request.getParameter("email");
         String address = request.getParameter("address");
 
+        String img = idPerson.concat(".png");
+        
+        for (Part part : request.getParts()) {
+            System.out.println(part.getHeader("content-disposition"));
+            if (!part.getHeader("content-disposition").contains("filename")) {
+                continue;
+            }
+            if (img != null && img.length() > 0) {
+                String filePath = savePath + File.separator + img;
+                part.write(filePath);
+            }
+
+        }
 //        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 //        java.util.Date date = null;
 //        try {
@@ -98,7 +120,6 @@ public class ManageProfile extends HttpServlet {
 //        } catch (ParseException ex) {
 //        }       
 //        java.sql.Date dob = new java.sql.Date(date.getTime());
-
         dao.updateProfile(idPerson, roomId, img, name, cmnd, dob, gender, phone, email, address);
         response.sendRedirect("index.jsp");
     }

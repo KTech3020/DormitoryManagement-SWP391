@@ -1,5 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@include file="/includes/header.jsp" %> 
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
@@ -201,77 +201,99 @@
                     <div class="table-title">
                         <div class="row">
                             <div class="col-sm-8">
-                                <h2>Danh sách <b>Sinh viên</b></h2>
-                                <a href="index.jsp">Trang chủ</a>
+                                <h2>Danh sách sinh viên</h2>
                             </div>
                         </div>
                     </div>
-                    <table class="table table-bordered" style="text-align: ">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>ID Phòng ở</th>
-                                <th>Họ và tên</th>
-                                <th>CMND</th>
-                                <th>Giới tính</th>
-                                <th>Ngày sinh</th>
-                                <th>SĐT</th>
-                                <th>Email</th>
-                                <th>Địa chỉ</th>
-                                <th>Image</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <c:forEach items="${studentArr.personProfileManager}" var="l" begin="${(page-1)*pagesize}" end="${(page*pagesize)-1}" >
+
+                    <div class="row gtr-uniform">
+                        <form>
+                            <label> Tìm Sinh viên theo MSSV </label>
+                            <div class="col-4 col-12-small">
+                                <input type="text" name="MSSV" placeholder="Nhập MSSV tìm kiếm">
+                            </div>
+                            <div class="col-2 col-12-xsmall">
+                                <input type="button" name="TÌM">
+                            </div>
+
+                        </form>
+                        <div class="col-4 col-12-xsmall"></div>
+                        <div class="col-2 col-12-xsmall">
+                            <form action="AddStudentServlet">
+                                <input type="button" name="Thêm sinh viên">
+                            </form>
+                        </div>
+                        
+                    </div>
+                    <div>
+                        <table class="table table-bordered" style="text-align: ">
+                            <thead>
                                 <tr>
-                                    <th>${l.idPerson}</th>
-                                    <td>${l.roomId}</td>
-                                    <td class="des-css">${l.name}<span>${l.name}</span></td>
-                                    <td class="des-css">${l.cmnd}<span>${l.cmnd}</span></td>
-                                    <td>${l.gender}</td>
-                                    <td>${l.dob}</td>
-                                    <td class="des-css">${l.phone}<span>${l.phone}</span></td>
-                                    <td class="des-css">${l.email}<span>${l.email}</span></td>
-                                    <td class="des-css">${l.address}<span>${l.address}</span></td>
-                                    <td><img style="width: 100%;" src="images/${l.img}" alt="alt"/></td>
-                                    <td>
-
-                                        <a class="edit" title="Edit" data-toggle="tooltip" href="UpdateServlet?id=${l.idPerson}"><i class="material-icons">&#xE254;</i></a>
-
-                                    </td>
+                                    <th>ID</th>
+                                    <th>Phòng</th>
+                                    <th>Họ và tên</th>
+                                    <th>CMND/ CCCD</th>
+                                    <th>Giới tính</th>
+                                    <th>Ngày sinh</th>
+                                    <th>SĐT</th>
+                                    <th>Email</th>
+                                    <th>Địa chỉ</th>
+                                    <th>Ảnh</th>
                                 </tr>
-                            </c:forEach>
-
-                        </tbody>
-
-
-                    </table>
+                            </thead>
+                            <tbody>
+                                <c:forEach items="${studentArr.personProfileManager}" var="l" begin="${(page-1)*pagesize}" end="${(page*pagesize)-1}" >
+                                    <tr>
+                                        <th>${l.idPerson}</th>
+                                        <td>${l.roomId}</td>
+                                        <td class="des-css">${l.name}<span>${l.name}</span></td>
+                                        <td class="des-css">${l.cmnd}<span>${l.cmnd}</span></td>
+                                        <td>${l.gender}</td>
+                                        <td>${l.dob}</td>
+                                        <td class="des-css">${l.phone}<span>${l.phone}</span></td>
+                                        <td class="des-css">${l.email}<span>${l.email}</span></td>
+                                        <td class="des-css">${l.address}<span>${l.address}</span></td>
+                                        <td><img style="width: 100%;" src="images/${l.img}" alt="alt"/></td>
+                                        <td>
+                                            <a class="edit" title="Update" href="UpdateServlet?id=${l.idPerson}">Update</a>
+                                            <a class="delete" title="Delete" href="DeleteServlet?id=${l.idPerson}">Delete</a>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="paggingmanage">
+            <div class="paggingmanage">
 
-            <div class="pagging active">
-                <a href="listStudent.jsp?index=${1}"><<</a>  
+                <div>
+                    <a href="listStudent.jsp?index=${1}"><<</a>  
+                </div>
+                <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                <div>
+                    <c:choose>
+                        <c:when test="${page == 1}"><a href="listStudent.jsp?index=${1}">Prev</a></c:when> 
+                        <c:otherwise> <a href="listStudent.jsp?index=${page - 1}">Prev</a></c:otherwise>
+                    </c:choose>
+                </div>
+                <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                <div>
+                    <c:choose>
+                        <c:when test="${page == lastpage}"><a href="listStudent.jsp?index=${lastpage}">Next</a></c:when> 
+                        <c:otherwise> <a href="listStudent.jsp?index=${page + 1}">Next</a></c:otherwise>
+                    </c:choose>   
+                </div>
+                <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                <div>
+                    <a href="listStudent.jsp?index=${lastpage}">>></a>
+                </div>
             </div>
-            <div class="pagging">
-                <c:choose>
-                    <c:when test="${page == 1}"><a href="listStudent.jsp?index=${1}">Prev</a></c:when> 
-                    <c:otherwise> <a href="listStudent.jsp?index=${page - 1}">Prev</a></c:otherwise>
-                </c:choose>
-            </div>
-            <div class="pagging">
-                <c:choose>
-                    <c:when test="${page == lastpage}"><a href="listStudent.jsp?index=${lastpage}">Next</a></c:when> 
-                    <c:otherwise> <a href="listStudent.jsp?index=${page + 1}">Next</a></c:otherwise>
-                </c:choose>   
-            </div>
-            <div class="pagging">
-                <a href="listStudent.jsp?index=${lastpage}">>></a>
-            </div>
-        </div>
 
-    </body>
-</html>
+        </div></div>
+
+
+    <%@ include file="/includes/column_left_home.jsp" %> 
+    <%@ include file="/includes/footer.jsp" %> 
 
 

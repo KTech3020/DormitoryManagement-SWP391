@@ -3,14 +3,6 @@
 <!-- Sidebar -->
 <div id="sidebar">
     <div class="inner">
-
-        <!-- Search -->
-        <section id="search" class="alt">
-            <form method="post" action="#">
-                <input type="text" name="query" id="query" placeholder="Search" />
-            </form>
-        </section>
-
         <!-- Menu -->
         <nav id="menu">
             <header class="major">
@@ -27,8 +19,6 @@
             <ul class="navigation-menu">
                 <li><a href="index.jsp">Trang chủ</a></li>
                 <li><a href="rules.jsp">Nội quy KTX</a></li>              
-                <li><a href="services.jsp">Dịch vụ</a></li>
-                <li><a href="#">Liên hệ</a></li>
                     <c:if test="${sessionScope.accountS==null}">
                     <li>
                         <a href="LoginServlet" class="nav-item nav-link">Login</a>
@@ -76,16 +66,6 @@
 
             </ul>
         </nav>
-
-        <!-- Section -->
-        <section>
-            <header class="major">
-                <h2>Sự kiện</h2>
-            </header>
-            <ul class="actions">
-                <li><a href="#" class="button">More</a></li>
-            </ul>
-        </section>
 
         <!-- Section -->
         <section>

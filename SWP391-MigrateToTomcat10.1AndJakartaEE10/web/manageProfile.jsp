@@ -3,9 +3,10 @@
     Created on : Feb 17, 2023, 11:00:35 AM
     Author     : ASUS
 --%>
+
 <%@ include file="/includes/header.jsp" %> 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<form action ="ManageProfile" method ="post">
+<form action ="ManageProfile" method ="post"  enctype="multipart/form-data">
     <table>
         <tr>
             <td>ID</td>
@@ -83,6 +84,10 @@
         </tr>
 
     </table> 
-</form>    
+</form>
+</div></div>
 
+
+<%@ include file="/includes/column_left_home.jsp" %> 
+<%@ include file="/includes/footer.jsp" %> 
 
