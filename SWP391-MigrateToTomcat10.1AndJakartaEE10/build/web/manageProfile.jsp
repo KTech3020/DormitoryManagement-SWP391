@@ -23,7 +23,7 @@
         </tr>
         
         <tr>
-            <td>CMND</td>
+            <td>CMND/CCCD</td>
             <td><input type="text" name="cmnd" value="${profile.cmnd}" required></td>             
         </tr>
         
