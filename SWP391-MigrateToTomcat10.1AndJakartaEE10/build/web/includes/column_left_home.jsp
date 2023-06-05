@@ -4,13 +4,6 @@
 <div id="sidebar">
     <div class="inner">
 
-        <!-- Search -->
-        <section id="search" class="alt">
-            <form method="post" action="#">
-                <input type="text" name="query" id="query" placeholder="Search" />
-            </form>
-        </section>
-
         <!-- Menu -->
         <nav id="menu">
             <header class="major">
@@ -77,16 +70,6 @@
 
             </ul>
         </nav>
-
-        <!-- Section -->
-        <section>
-            <header class="major">
-                <h2>Sự kiện</h2>
-            </header>
-            <ul class="actions">
-                <li><a href="#" class="button">More</a></li>
-            </ul>
-        </section>
 
         <!-- Section -->
         <section>
