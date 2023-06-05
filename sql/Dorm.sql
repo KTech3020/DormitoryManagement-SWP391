@@ -1,15 +1,18 @@
 ﻿create database Dorm
 use Dorm
 
---Drop table Account
---DROP table Room
---DROP table Person
---DROP table  Bill
+DROP DATABASE Dorm
 
---Drop table Notification
---Drop table RequestToChangeRoom
---Drop table ElectricWaterUsed
---Drop table RegisterRoom
+
+Drop table Account
+DROP table Room
+DROP table Person
+DROP table  Bill
+
+Drop table Notification
+Drop table RequestToChangeRoom
+Drop table ElectricWaterUsed
+Drop table RegisterRoom
 
 
 create table Room(
@@ -17,75 +20,87 @@ create table Room(
 [roomSize] int,  -- suc chua toi da
 [roomAttendees] int,   -- so nguoi hien dang o
 [gender] char (1) check (gender in ('F', 'M')),	
-[hasAirConditioner] char (1) check (hasAirConditioner in ('Y', 'N')),	
-[price] money	
+[airConditional] char (1) check (airConditional in ('Y', 'N'))
 )
 
 create table Person(
 [idPerson] varchar (10) primary key,  -- Id thuoc FPT (bao gom sinh vien va nhan vien quan ly) 
-[roomId] varchar (5),
 [img] Nvarchar (50),
 [fullname] Nvarchar (50),
 [CMND] nvarchar(10),
-[birth] date,
+[birth] smalldatetime,
 [gender] char (1) check (gender in ('F', 'M')),		
 [phone] char (10), 
 [email] varchar (30),
-[address] Nvarchar(50),
-CONSTRAINT fk_student foreign key ([roomId]) references Room([roomId])
+[address] Nvarchar(50)
 )
 
 create table Account(
-[userId] int identity(1,1) primary key,
-[idPerson] varchar (10), -- [idPerson] = users
+[userId] varchar (10) primary key,  -- [idPerson] = [userId]
 [password] Nvarchar (50),
 [isAdmin] int,			--	[isAdmin] của manager là 1, của sinh viên là 0
-CONSTRAINT fk_acc foreign key (idPerson) references Person(idPerson)
+CONSTRAINT fk_acc foreign key ([userId]) references Person(idPerson),
+
+)
+
+create table RegisterRoom(
+[reRoomID] int identity(1,1) primary key,
+[roomId] varchar (5),
+[userId] varchar (10),
+[date] datetime,
+[semester] varchar (5),
+[status] varchar(10) check (status in ('Success', 'Registered', 'Rejected')),
+CONSTRAINT fk_register1 foreign key (userId) references Account (userId),
+CONSTRAINT fk_register2 foreign key ([roomId]) references Room ([roomId])
 )
 
 create table ElectricWaterUsed (
 [ElectricWaterUsedID] int identity(1,1) primary key,
-[roomId] varchar (5),
-[date] date,
+[reRoomID] int,
+[dateStartSemester] date,
+[dateEndSemester] date,
+
 [oldElectricityIndex] int,
 [newElectricityIndex] int,
 
 [oldWaterIndex] int,
 [newWaterIndex] int,
-CONSTRAINT fk_ewu foreign key (roomId) references Room(roomId)
+CONSTRAINT fk_ewu2 foreign key ([reRoomID]) references RegisterRoom([reRoomID])
 )
 
 
+
+create table RegisterRoomDetail(
+[reRoomDetailID] int identity(1,1) primary key,
+[roomId] varchar (5),
+[startDay] date,
+[endDay] date,
+[price] money,
+CONSTRAINT fk_registerDetail2 foreign key ([roomId]) references Room ([roomId])
+)
+/*
 create table Bill(
 [billId] int identity(1,1) primary key,
-[userId] int,
 [cost] money,
 [date] datetime,
 [semester] varchar (5),
-CONSTRAINT fk_bill foreign key (userId) references Account (userId)
+[roomId] varchar (5),
+[reRoomID] int,
+CONSTRAINT fk_Bill foreign key ([reRoomID]) references RegisterRoom([reRoomID])
 )
+*/
  
 create table StudentRequest(
 [RequestId] int identity(1,1) primary key,
-[userId] int,
+[userId] varchar (10),
 [request] Ntext,
+[day] date,
 CONSTRAINT fk_changeRoom foreign key (userId) references Account (userId)
-)
-
-create table RegisterRoom(
-[reRoomID] int identity(1,1) primary key,
-[userId] int,
-[roomId] varchar (5),
-[date] datetime,
-[semester] varchar (5),
-[status] varchar(10) check (status in ('Success', 'Registered', 'Rejected')),
-CONSTRAINT fk_register1 foreign key (userId) references Account (userId),
-CONSTRAINT fk_register2 foreign key (roomId) references Room (roomId)
 )
 
 create table Notification(
 [NotifiId] int identity(1,1) primary key,
-[userId] int,
+[userId] varchar (10),
 [Title] Ntext,
 [Date] datetime,
 [Content] Ntext,
@@ -106,6 +121,8 @@ VALUES
 ('108','4','2','F','Y','3400000'),
 ('109','4','3','F','Y','3400000'),
 ('110','6','2','M','Y','3200000')
+
+
 
 insert into Person([idPerson], [img], [fullname], [CMND], [birth], [gender], [phone], [email], [address])
 VALUES
@@ -142,6 +159,9 @@ VALUES
 ('DE152894', N'duongdaihiep@00', 0),
 ('SE160938', N'mylinh0300', 0)
 
+
+
+
 select p.idPerson
 from Account acc, Person p
 where acc.idPerson = p.idPerson
@@ -162,8 +182,11 @@ UPDATE Account SET password = '123456' WHERE idPerson = 'SE160094';
 
 select * from Person where idPerson = 'SE160094'
 
-select * from Room
+select * from Person
 
--- use master
--- ALTER database Dorm set offline with ROLLBACK IMMEDIATE;
--- DROP database Dorm;
+update Person set [roomId] = '102', [img] = 'DE158490.png', [fullname] = 'Duong Qua 22', [CMND] = '8277592856', [birth] = '2001-03-14', [gender] = 'M', [phone] = '0828479109', [email] = 'quadanuongde152894@fpt.edu.vn', [address] = '92 2/9 Hai Chau- Da Nang' where [idPerson] = 'DE152894'
+
+update Person set [roomId] = ?, [img] = ?, [fullname] = ?, [CMND] = ?, [birth] = ?, [gender] = ?, [phone] = ?, [email] = ?, [address] = ? where [idPerson] = ?
+
+select * from Room 
+where roomSize = roomSize AND roomAttendees <= roomAttendees AND gender = gender AND airConditional = airConditional AND price <= price
