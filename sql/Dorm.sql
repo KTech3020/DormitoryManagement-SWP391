@@ -1,18 +1,9 @@
-﻿create database Dorm
+﻿﻿create database Dorm
 use Dorm
 
-DROP DATABASE Dorm
-
-
-Drop table Account
-DROP table Room
-DROP table Person
-DROP table  Bill
-
-Drop table Notification
-Drop table RequestToChangeRoom
-Drop table ElectricWaterUsed
-Drop table RegisterRoom
+-- use master
+-- ALTER database Dorm set offline with ROLLBACK IMMEDIATE;
+-- DROP database Dorm;
 
 
 create table Room(
@@ -107,24 +98,28 @@ create table Notification(
 CONSTRAINT fk_Notification foreign key (userId) references Account (userId)
 )
 
-
+-- TODO FIX ALL DATA
 
 insert into Room
 VALUES
-('101','6','1','F','Y','3400000'),
-('102','6','3','F','Y','3200000'),
-('103','8','2','M','N','3200000'),
-('104','8','5','M','N','3200000'),
-('105','8','1','M','N','3200000'),
-('106','4','1','M','Y','3400000'),
-('107','4','4','F','Y','3400000'),
-('108','4','2','F','Y','3400000'),
-('109','4','3','F','Y','3400000'),
-('110','6','2','M','Y','3200000')
+('101','6','1','F','Y'),
+('102','6','3','F','Y'),
+('103','8','2','M','N'),
+('104','8','5','M','N'),
+('105','8','1','M','N'),
+('106','4','1','M','Y'),
+('107','4','4','F','Y'),
+('108','4','2','F','Y'),
+('109','4','3','F','Y'),
+('110','6','2','M','Y')
 
 
 
-insert into Person([idPerson], [img], [fullname], [CMND], [birth], [gender], [phone], [email], [address])
+
+
+
+
+insert into Person
 VALUES
 ('DE150928', N'DE150928.png', N'Nguyen Hai Dang', N'8278398716', '2001-05-21', 'M', '0986592817', 'dangnhde150928@fpt.edu.vn', N'27 Phan Dang Luu- Hai Chau- Da Nang'),
 ('DE160129', N'DE160129.png', N'Tran Tuan Kiet', N'1040290491', '2002-04-12', 'M', '0912948394', 'kietttde160129@fpt.edu.vn', N'28 Tran Dai Nghia- Ngu Hanh Son- Da Nang'),
@@ -135,18 +130,12 @@ VALUES
 ('MA091773', N'MA091773.png', N'Ho Quang Vinh', N'2839487167', '1985-10-11', 'M', '0981782783', 'vinhhqma091773@fpt.fe.vn', N'57 Hung Vuong- Hai Chau- Da Nang'),
 ('DE170561', N'DE170561.png', N'Dinh Trong Hai Trieu', N'0490093091', '2003-04-02', 'M', '0376511989', 'trieudthde170561@fpt.edu.vn', N'Ky Tuc Xa Mart- Dien Ngoc- Dien Ban- Quang Nam'),
 ('SE170983', N'SE170983.png', N'Le Anh Khoa', N'8287499281', '2003-10-02', 'M', '0398817872', 'khoalase170983@fpt.edu.vn', N'27 Tran Hung Dao- Dien Ngoc- Dien Ban- Quang Nam'),
-('DE170298', N'DE170298.png', N'Le Gia Bao', N'973179283', '2003-07-18', 'M', '0387198563', 'baolgde170298@fpt.edu.vn', N'122 Phan Thanh- Thanh Khe- Da Nang')
-
-
-
-insert into Person
-VALUES
-
-('DE152894', '102', N'DE152894.png', N'Duong Qua', N'8277593284', '2001-03-14', 'M', '0828479109', 'quadanuongde152894@fpt.edu.vn', N'92 2/9 Hai Chau- Da Nang'),
-('SE160938', '104', N'SE160938.png', N'Huynh My Linh', N'8299820919', '2002-12-01', 'F', '0295874909', 'linhhmSE160938@fpt.edu.vn', N'04 Nguyen Cu Trinh- Hai Chau- Da Nang'),
-('SE160094', '104', N'SE160094.png', N'Tran Thi Ly', N'2094174859', '2002-06-02', 'F', '0948756283', 'lyttse160094@fpt.edu.vn', N'K17 Binh An 7- Hai Chau- Da Nang'),
-('DE169019', '105', N'DE169019.png', N'Ho Ngoc An', N'1093276478', '2002-09-13', 'M', '0794857618', 'anhnde169019@fpt.edu.vn', N'45 y Lan Nguyen Phi- Hai Chau- Da Nang'),
-('DE150287', '105', N'DE150287.png', N'Ho Tuan Khai', N'0398618940', '2001-06-14', 'M', '0994872353', 'khaihtde150287@fpt.edu.vn', N'90 Ham Nghi- Ngu Hanh Son- Da Nang')
+('DE170298', N'DE170298.png', N'Le Gia Bao', N'973179283', '2003-07-18', 'M', '0387198563', 'baolgde170298@fpt.edu.vn', N'122 Phan Thanh- Thanh Khe- Da Nang'),
+('DE152894', N'DE152894.png', N'Duong Qua', N'8277593284', '2001-03-14', 'M', '0828479109', 'quadanuongde152894@fpt.edu.vn', N'92 2/9 Hai Chau- Da Nang'),
+('SE160938', N'SE160938.png', N'Huynh My Linh', N'8299820919', '2002-12-01', 'F', '0295874909', 'linhhmSE160938@fpt.edu.vn', N'04 Nguyen Cu Trinh- Hai Chau- Da Nang'),
+('SE160094', N'SE160094.png', N'Tran Thi Ly', N'2094174859', '2002-06-02', 'F', '0948756283', 'lyttse160094@fpt.edu.vn', N'K17 Binh An 7- Hai Chau- Da Nang'),
+('DE169019', N'DE169019.png', N'Ho Ngoc An', N'1093276478', '2002-09-13', 'M', '0794857618', 'anhnde169019@fpt.edu.vn', N'45 y Lan Nguyen Phi- Hai Chau- Da Nang'),
+('DE150287', N'DE150287.png', N'Ho Tuan Khai', N'0398618940', '2001-06-14', 'M', '0994872353', 'khaihtde150287@fpt.edu.vn', N'90 Ham Nghi- Ngu Hanh Son- Da Nang')
 
 
 insert into Account
@@ -159,34 +148,25 @@ VALUES
 ('DE152894', N'duongdaihiep@00', 0),
 ('SE160938', N'mylinh0300', 0)
 
+insert into RegisterRoom
+VALUES
+('101', 'DE169019', '2022-07-18', 'SU22', 'Success')
+
+insert into RegisterRoom
+VALUES
+('102', 'SE160094', '2022-04-18', 'SP22', 'Success'),
+('104', 'DE150287', '2022-12-18', 'FAL22', 'Success'),
+('105', 'DE152894', '2022-01-30', 'SP22', 'Success'),
+('106', 'SE160938', '2022-07-19', 'SU22', 'Success')
 
 
 
-select p.idPerson
-from Account acc, Person p
-where acc.idPerson = p.idPerson
-
-
-insert into Account VALUES(?,?,0)
-
-select * from Account where idPerson = 'DE169019' and password= 'an928001'
-
-
-select * from Account where idPerson = 'SE160094'
-
-select idPerson from Person where idPerson = 'dsfsdf'
-
-select * from Account
-
-UPDATE Account SET password = '123456' WHERE idPerson = 'SE160094';
-
+select * from Account where [userId] = 'SE160094' and password= 'lytran989'
 select * from Person where idPerson = 'SE160094'
 
-select * from Person
+select * from Account where exists (select * from RegisterRoom where RegisterRoom.roomId = Room.roomId)
 
-update Person set [roomId] = '102', [img] = 'DE158490.png', [fullname] = 'Duong Qua 22', [CMND] = '8277592856', [birth] = '2001-03-14', [gender] = 'M', [phone] = '0828479109', [email] = 'quadanuongde152894@fpt.edu.vn', [address] = '92 2/9 Hai Chau- Da Nang' where [idPerson] = 'DE152894'
-
-update Person set [roomId] = ?, [img] = ?, [fullname] = ?, [CMND] = ?, [birth] = ?, [gender] = ?, [phone] = ?, [email] = ?, [address] = ? where [idPerson] = ?
-
-select * from Room 
-where roomSize = roomSize AND roomAttendees <= roomAttendees AND gender = gender AND airConditional = airConditional AND price <= price
+select p.idPerson, p.img , p.fullname, p.CMND, p.birth, p.gender, p.phone, p.email, p.address 
+from Account acc, RegisterRoom reRoom, Person p
+where acc.userId = p.idPerson
+and reRoom.userId = acc.userId
