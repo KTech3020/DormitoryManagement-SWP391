@@ -75,7 +75,6 @@
             <header class="major">
                 <h2>Liên hệ</h2>
             </header>
-            <!--<p>Sed varius enim .</p>-->
             <ul class="contact">
                 <li class="icon solid fa-envelope"><a href="#">dnuni@fe.edu.vn</a></li>
                 <li class="icon solid fa-phone">(0236) 730 0999</li>

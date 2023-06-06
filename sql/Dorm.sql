@@ -1,18 +1,9 @@
-﻿create database Dorm
+﻿﻿create database Dorm
 use Dorm
 
-DROP DATABASE Dorm
-
-
-Drop table Account
-DROP table Room
-DROP table Person
-DROP table  Bill
-
-Drop table Notification
-Drop table RequestToChangeRoom
-Drop table ElectricWaterUsed
-Drop table RegisterRoom
+-- use master
+-- ALTER database Dorm set offline with ROLLBACK IMMEDIATE;
+-- DROP database Dorm;
 
 
 create table Room(
@@ -107,20 +98,20 @@ create table Notification(
 CONSTRAINT fk_Notification foreign key (userId) references Account (userId)
 )
 
-
+-- TODO FIX ALL DATA
 
 insert into Room
 VALUES
-('101','6','1','F','Y','3400000'),
-('102','6','3','F','Y','3200000'),
-('103','8','2','M','N','3200000'),
-('104','8','5','M','N','3200000'),
-('105','8','1','M','N','3200000'),
-('106','4','1','M','Y','3400000'),
-('107','4','4','F','Y','3400000'),
-('108','4','2','F','Y','3400000'),
-('109','4','3','F','Y','3400000'),
-('110','6','2','M','Y','3200000')
+('101','6','1','F','Y'),
+('102','6','3','F','Y'),
+('103','8','2','M','N'),
+('104','8','5','M','N'),
+('105','8','1','M','N'),
+('106','4','1','M','Y'),
+('107','4','4','F','Y'),
+('108','4','2','F','Y'),
+('109','4','3','F','Y'),
+('110','6','2','M','Y')
 
 
 
@@ -159,34 +150,3 @@ VALUES
 ('DE152894', N'duongdaihiep@00', 0),
 ('SE160938', N'mylinh0300', 0)
 
-
-
-
-select p.idPerson
-from Account acc, Person p
-where acc.idPerson = p.idPerson
-
-
-insert into Account VALUES(?,?,0)
-
-select * from Account where idPerson = 'DE169019' and password= 'an928001'
-
-
-select * from Account where idPerson = 'SE160094'
-
-select idPerson from Person where idPerson = 'dsfsdf'
-
-select * from Account
-
-UPDATE Account SET password = '123456' WHERE idPerson = 'SE160094';
-
-select * from Person where idPerson = 'SE160094'
-
-select * from Person
-
-update Person set [roomId] = '102', [img] = 'DE158490.png', [fullname] = 'Duong Qua 22', [CMND] = '8277592856', [birth] = '2001-03-14', [gender] = 'M', [phone] = '0828479109', [email] = 'quadanuongde152894@fpt.edu.vn', [address] = '92 2/9 Hai Chau- Da Nang' where [idPerson] = 'DE152894'
-
-update Person set [roomId] = ?, [img] = ?, [fullname] = ?, [CMND] = ?, [birth] = ?, [gender] = ?, [phone] = ?, [email] = ?, [address] = ? where [idPerson] = ?
-
-select * from Room 
-where roomSize = roomSize AND roomAttendees <= roomAttendees AND gender = gender AND airConditional = airConditional AND price <= price

@@ -63,6 +63,7 @@
                 <th>Giới tính phòng</th>
                 <th>Có điều hòa?</th>
                 <th>Mức giá phòng</th>
+                <th>Đăng ký</th>
             </tr>
 
             <%ArrayList roomList = (ArrayList)request.getAttribute("roomList"); 
@@ -74,6 +75,13 @@
                 <td><%= room.getGender() %></td>
                 <td><%= room.getHasAirConditioner() %></td>
                 <td><%= room.getPrice() %></td>
+                <td>
+                    <%if (room.getRoomAttendees() < room.getRoomSize()) {%>
+                    <a href="RegisterRoomServlet?roomID=<%= room.getRoomID() %>">Đăng ký</a>
+                    <%} else {%>
+                    <a href="#">Phòng đầy!</a>
+                    <%}%>
+                </td>
             </tr>
             <%}%>
         </table>
