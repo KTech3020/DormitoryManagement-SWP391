@@ -19,6 +19,7 @@
             <ul class="navigation-menu">
                 <li><a href="index.jsp">Trang chủ</a></li>
                 <li><a href="rules.jsp">Nội quy KTX</a></li>
+                <li><a href="contact.jsp">Thông tin liên hệ</a></li>
                     <c:if test="${sessionScope.accountS==null}">
                     <li>
                         <a href="LoginServlet" class="nav-item nav-link">Login</a>
@@ -60,7 +61,7 @@
                 </c:if>
                 <c:if test="${sessionScope.accountS!=null}">
                     <li>
-                        <a>Tài khoản: ${sessionScope.accountS.users}</a>
+                        <a>Tài khoản: ${sessionScope.accountS.userid}</a>
                         <a href="ManageProfile">Quản lý tài khoản</a>
                         <a href="LogoutServlet">Đăng xuất</a>
                     </li>

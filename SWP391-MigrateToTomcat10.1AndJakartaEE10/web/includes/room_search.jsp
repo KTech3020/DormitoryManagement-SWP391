@@ -1,5 +1,12 @@
 <%@page contentType="text/html" pageEncoding="utf-8" %>	
 <%@ page import="java.util.ArrayList,entity.Room" %>
+
+<script>
+    function changeMaxSize(){
+        var size = document.getElementById('roomSize').value;
+        document.getElementById('maxMembers').max = size;
+    }
+</script>
 <section id="banner">
     <div class="content">
         <header>
@@ -10,7 +17,7 @@
                 <div class="col-2 col-12-xsmall"></div>
                 <div class="col-4 col-12-xsmall">
                     <label>Kích thước phòng</label>
-                    <select required name="roomSize">
+                    <select id="roomSize" required name="roomSize" oninput="changeMaxSize()">
                         <option value="" disabled selected hidden>Chọn kích thước</option><!-- dummy default option -->
                         <option value="4">Phòng 4 chỗ</option>
                         <option value="6">Phòng 6 chỗ</option>
@@ -28,7 +35,7 @@
                 <div class="col-2 col-12-xsmall"></div><div class="col-2 col-12-xsmall"></div>
                 <div class="col-4 col-12-small">
                     <label>Số lượng người tối đa trong phòng</label>
-                    <input type="number" required step=1 min=0 max=8 placeholder=0 name="roomAttendees"/>
+                    <input id= "maxMembers" type="number" required step=1 min=0 max=0 placeholder=0 name="roomAttendees"/>
                 </div>
                 <div class="col-4 col-12-small">
                     <label>Mức giá tối đa</label>
@@ -77,9 +84,9 @@
                 <td><%= room.getPrice() %></td>
                 <td>
                     <%if (room.getRoomAttendees() < room.getRoomSize()) {%>
-                    <a href="RegisterRoomServlet?roomID=<%= room.getRoomID() %>">Đăng ký</a>
+                    <a href="RegisterRoomServlet?roomID=<%= room.getRoomID() %>&price=<%= room.getPrice() %>">Đăng ký</a>
                     <%} else {%>
-                    <a href="#">Phòng đầy!</a>
+                    <a>Phòng đầy!</a>
                     <%}%>
                 </td>
             </tr>

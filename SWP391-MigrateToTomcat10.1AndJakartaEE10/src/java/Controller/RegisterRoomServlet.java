@@ -60,6 +60,22 @@ public class RegisterRoomServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        LocalDateTime dateIn4Months = LocalDateTime.now().plusMonths(4);
+        int month = dateIn4Months.getMonth().getValue();
+        String semester = "";
+        if (month >= 1 && month <= 4)
+            semester = semester.concat("SP");
+        else if (month >= 5 && month <= 8)
+            semester = semester.concat("SU");
+        else if (month >= 9 && month <= 12)
+            semester = semester.concat("FA");
+
+        String year = Integer.toString(dateIn4Months.getYear());
+        year = year.substring(year.length()-2);
+        semester = semester.concat(year);
+        request.setAttribute("roomID",request.getParameter("roomID"));
+        request.setAttribute("price",request.getParameter("price"));
+        request.setAttribute("semester", semester);
         request.getRequestDispatcher("registerRoom.jsp").forward(request, response);
     }
 
@@ -74,9 +90,7 @@ public class RegisterRoomServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        Account account = (Account) session.getAttribute("accountS");
-        String userID = account.getUsers();
+        String userID = request.getParameter("userID");
         String roomID = request.getParameter("roomID");
         LocalDateTime currentDate = LocalDateTime.now();
     }

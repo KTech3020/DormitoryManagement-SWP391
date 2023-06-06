@@ -5,20 +5,13 @@
 
 package Controller;
 
-import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-import java.io.UnsupportedEncodingException;
-import java.util.Date;
-import java.util.Properties;
+import context.SendMailContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -74,45 +67,12 @@ public class ContactServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException{
-        try {
-            final String fromEmail = "thynhde170122@fpt.edu.vn";
-            final String password = "Hthy1109@";
-            final String toEmail = "ktx.fpt.demo@gmail.com";
-            // Contact content
-            String subject = request.getParameter("username").concat(":" + request.getParameter("email"));
-            String body = request.getParameter("message");
-            
-            Properties pr = new Properties();
-            pr.put("email.smtp.host", "smtp.gmail.com");
-            pr.put("mail.smtp.port", "587");
-            pr.put("mail.smtp.auth", "true");
-            pr.put("mail.smtp.starttls.enable", "true");
-            
-            Authenticator auth = new Authenticator() {
-                protected  PasswordAuthentication getPasswordAuthentication(){
-                    return new PasswordAuthentication(fromEmail,password);
-                }
-            };
-            
-            Session session = Session.getInstance(pr,auth);
-            
-            MimeMessage msg = new MimeMessage(session);
-            msg.addHeader("Content-type", "text/html; charset=UTF-8");
-            msg.addHeader("format", "flowed");
-            msg.addHeader("Content-Transfer-Encoding", "8bit");
-            msg.setFrom(new InternetAddress(fromEmail, "NoReply-JD"));
-            msg.setReplyTo(InternetAddress.parse(fromEmail, false));
-            msg.setSubject(subject, "UTF-8");
-            msg.setText(body, "UTF-8");
-            msg.setSentDate(new Date());
-            msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail, false));
-            Transport.send(msg);
-        } catch (MessagingException ex) {
-            Logger.getLogger(ContactServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        catch(UnsupportedEncodingException e){
-            Logger.getLogger(ContactServlet.class.getName()).log(Level.SEVERE, null, e);
-        }
+        response.setContentType("text/HTML; charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        String subject = request.getParameter("email");
+        String body = request.getParameter("username").concat(":" +request.getParameter("message"));
+        SendMailContext.sendMail(subject, body);
+        response.sendRedirect("contact.jsp");
     }
 
     /** 

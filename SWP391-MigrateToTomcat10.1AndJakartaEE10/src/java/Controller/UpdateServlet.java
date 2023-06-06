@@ -16,6 +16,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.Part;
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
         maxFileSize = 1024 * 1024 * 10, // 10MB
@@ -26,9 +28,6 @@ import java.io.File;
  * @author MSI GL63
  */
 public class UpdateServlet extends HttpServlet {
-
-    // PLEASE edit this to your project folder TY
-    String savePath = "C:\\Users\\HP\\Desktop\\GitHub\\DormitoryManagement-SWP391\\SWP391-MigrateToTomcat10.1AndJakartaEE10\\web\\images";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -98,21 +97,17 @@ public class UpdateServlet extends HttpServlet {
         String email = request.getParameter("email");
         String address = request.getParameter("address");
 
-        String img = idPerson.concat(".png");
+        Part part = request.getPart("img");
 
-        for (Part part : request.getParts()) {
-            System.out.println(part.getHeader("content-disposition"));
-            if (!part.getHeader("content-disposition").contains("filename")) {
-                continue;
-            }
-            if (img != null && img.length() > 0) {
-                String filePath = savePath + File.separator + img;
-                part.write(filePath);
-            }
-
+        String realPath = request.getServletContext().getRealPath("/images");
+        String fileName = Paths.get(part.getSubmittedFileName()).getFileName().toString();
+        if (!Files.exists(Paths.get(realPath))) {
+            Files.createDirectory(Paths.get(realPath));
         }
-        dao.updateProfile(idPerson, roomId, img, name, cmnd, dob, gender, phone, email, address);
-        response.sendRedirect("listStudent.jsp");
+        part.write(realPath + "/" + fileName);
+
+        dao.updateProfile(idPerson, fileName, name, cmnd, dob, gender, phone, email, address);
+        response.sendRedirect("index.jsp");
     }
 
     /**

@@ -1,4 +1,4 @@
-<%-- 
+ <%-- 
     Document   : update
     Created on : Feb 17, 2023, 11:00:35 AM
     Author     : ASUS
@@ -11,11 +11,6 @@
         <tr>
             <td>ID</td>
             <td><input type="text" name="idPerson" value="${profile.idPerson}" readonly></td>             
-        </tr>
-
-        <tr>
-            <td>ID Phòng ở</td>
-            <td><input type="text" name="roomId" value="${profile.roomId}" readonly></td>             
         </tr>
 
         <tr>
@@ -43,12 +38,6 @@
 
             </td>
 
-
-            <!--            <select name="gender">
-                                <option value="M" ${male}>Ma le</option>
-                                <option value="F" ${female}>Female</option>
-                                <option value="L" ${lgbt}>LGBT</option>
-                            </select>-->
            
         </tr>
 
@@ -90,4 +79,3 @@
 
 <%@ include file="/includes/column_left_home.jsp" %> 
 <%@ include file="/includes/footer.jsp" %> 
-

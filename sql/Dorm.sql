@@ -59,8 +59,6 @@ create table ElectricWaterUsed (
 CONSTRAINT fk_ewu2 foreign key ([reRoomID]) references RegisterRoom([reRoomID])
 )
 
-
-
 create table RegisterRoomDetail(
 [reRoomDetailID] int identity(1,1) primary key,
 [roomId] varchar (5),
@@ -113,10 +111,26 @@ VALUES
 ('109','4','3','F','Y'),
 ('110','6','2','M','Y')
 
-
-
-
-
+insert into RegisterRoomDetail ([roomId], [startDay], [endDay], [price])
+VALUES
+( '101', '2020-01-01', '2023-04-30', 2400000),
+( '101', '2023-05-01', null, 3000000),
+( '102', '2020-01-01', '2023-04-30', 2400000),
+( '102', '2023-05-01', null, 3000000),
+( '103', '2020-01-01', '2022-04-30', 2000000),
+( '103', '2022-04-01', '2023-12-31', 2400000),
+( '103', '2024-01-01', null, 2800000),
+( '104', '2020-01-01', '2020-08-31', 2000000),
+( '104', '2020-09-01', null, 1800000),
+( '105', '2020-01-01', '2022-04-30', 1200000),
+( '105', '2022-05-01', null, 2000000),
+( '106', '2020-01-01', null, 2000000),
+( '107', '2020-01-01', null, 2000000),
+( '108', '2020-01-01', '2020-12-31', 2000000),
+( '108', '2021-01-01', null, 2000000),
+( '109', '2020-01-01', null, 2000000),
+( '110', '2020-01-01', '2020-12-31', 2000000),
+( '110', '2021-01-01', null, 2000000)
 
 
 insert into Person
@@ -148,3 +162,7 @@ VALUES
 ('DE152894', N'duongdaihiep@00', 0),
 ('SE160938', N'mylinh0300', 0)
 
+select r.roomId, r.roomSize, r.roomAttendees, r.gender, r.airConditional, rd.price 
+from Room r inner join RegisterRoomDetail rd
+on (r.roomId = rd.roomId AND ((rd.startDay < GETDATE() AND GETDATE() <= rd.endDay) OR (rd.startDay < GETDATE() AND rd.endDay IS NULL))) 
+where roomSize = 6 AND roomAttendees <= 3 AND gender = 'M' AND airConditional = 'Y' AND price <= 3000000

@@ -11,25 +11,16 @@ import java.sql.Date;
  * @author MSI GL63
  */
 public class Person {
-    
-    private String idPerson;   
-    private String roomId;
-    private String img;
-    private String name, cmnd;   
-    private String dob;
-    private String gender, phone, email, address;
+
+    private String idPerson, img, name, cmnd, dob, gender, phone, email, address;
 
     public Person() {
     }
-    
+
     public Person(String idPerson) {
         this.idPerson = idPerson;
     }
 
-    
-    
-    
-    
 //    public String getGender() {
 //        switch(gender){
 //            case 'M': return "Male";
@@ -37,10 +28,8 @@ public class Person {
 //            default: return "Other";
 //        }
 //    }
-
-    public Person(String idPerson, String roomId, String img, String name, String cmnd, String dob, String gender, String phone, String email, String address) {
+    public Person(String idPerson, String img, String name, String cmnd, String dob, String gender, String phone, String email, String address) {
         this.idPerson = idPerson;
-        this.roomId = roomId;
         this.img = img;
         this.name = name;
         this.cmnd = cmnd;
@@ -57,14 +46,6 @@ public class Person {
 
     public void setIdPerson(String idPerson) {
         this.idPerson = idPerson;
-    }
-
-    public String getRoomId() {
-        return roomId;
-    }
-
-    public void setRoomId(String roomId) {
-        this.roomId = roomId;
     }
 
     public String getImg() {
@@ -130,9 +111,5 @@ public class Person {
     public void setAddress(String address) {
         this.address = address;
     }
-    
-    
-    
-    
-    
+
 }
