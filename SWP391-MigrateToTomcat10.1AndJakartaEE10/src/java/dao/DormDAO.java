@@ -26,7 +26,7 @@ public class DormDAO {
     ResultSet rs = null; // nhan ket qua tra ve
 
     public Account login(String username, String password) {
-        String sql = "select * from Account where idPerson = ? and password= ?";
+        String sql = "select * from Account where [userId] = ? and password= ?";
         try {
             con = new DBContext().getConnection();
             ps = con.prepareStatement(sql);
@@ -34,7 +34,7 @@ public class DormDAO {
             ps.setString(2, password);
             rs = ps.executeQuery();
             while (rs.next()) {
-                return new Account(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4));
+                return new Account(rs.getString(1), rs.getString(2), rs.getInt(3));
             }
 
         } catch (Exception e) {
@@ -60,14 +60,14 @@ public class DormDAO {
 
     public Account checkAccountExist(String username) {
         String sql = "select * from Account\n"
-                + "where idPerson = ?";
+                + "where userId = ?";
         try {
             con = new DBContext().getConnection();
             ps = con.prepareStatement(sql);
             ps.setString(1, username);
             rs = ps.executeQuery();
             while (rs.next()) {
-                return new Account(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4));
+                return new Account(rs.getString(1), rs.getString(2), rs.getInt(3));
             }
 
         } catch (Exception e) {
@@ -110,7 +110,7 @@ public class DormDAO {
             rs = ps.executeQuery();
             while (rs.next()) {
                 return new Person(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6),
-                        rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10));
+                        rs.getString(7), rs.getString(8), rs.getString(9));
             }
 
         } catch (Exception e) {
@@ -119,7 +119,10 @@ public class DormDAO {
     }
 
     public ArrayList<Person> getPersonProfileManager() {
-        String sql = "select * from Person where exists (select * from Room where Person.roomId = Room.roomId)";
+        String sql = "select p.idPerson, p.img , p.fullname, p.CMND, p.birth, p.gender, p.phone, p.email, p.address \n"
+                + "from Account acc, RegisterRoom reRoom, Person p\n"
+                + "where acc.userId = p.idPerson\n"
+                + "and reRoom.userId = acc.userId";
         ArrayList<Person> list = new ArrayList<>();
         try {
             con = new DBContext().getConnection();
@@ -127,32 +130,31 @@ public class DormDAO {
             rs = ps.executeQuery();
             while (rs.next()) {
                 list.add(new Person(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6),
-                rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10)));
+                        rs.getString(7), rs.getString(8), rs.getString(9)));
             }
         } catch (Exception e) {
             System.out.println("Error: " + e);
         }
         return list;
     }
-    
-    public void updateProfile(String idPerson, String roomId, String img, String name, String cmnd,
+
+    public void updateProfile(String idPerson, String img, String name, String cmnd,
             String dob, String gender, String phone, String email, String address) {
         try {
-            String sql = "update Person set [roomId] = ?,[img] = ?, [fullname] = ?, "
+            String sql = "update Person set [img] = ?, [fullname] = ?, "
                     + "[CMND] = ?, [birth] = ?, [gender] = ?, [phone] = ?, "
                     + "[email] = ?, [address] = ? where [idPerson] = ?";
             con = new DBContext().getConnection();
             ps = con.prepareStatement(sql);
-            ps.setString(1, roomId);
-            ps.setString(2, img);
-            ps.setString(3, name);
-            ps.setString(4, cmnd);
-            ps.setString(5, dob);
-            ps.setString(6, gender);
-            ps.setString(7, phone);
-            ps.setString(8, email);
-            ps.setString(9, address);
-            ps.setString(10, idPerson);
+            ps.setString(1, img);
+            ps.setString(2, name);
+            ps.setString(3, cmnd);
+            ps.setString(4, dob);
+            ps.setString(5, gender);
+            ps.setString(6, phone);
+            ps.setString(7, email);
+            ps.setString(8, address);
+            ps.setString(9, idPerson);
             ps.executeUpdate();
         } catch (Exception e) {
         }

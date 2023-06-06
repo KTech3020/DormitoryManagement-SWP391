@@ -1,4 +1,4 @@
-<%-- 
+ <%-- 
     Document   : update
     Created on : Feb 17, 2023, 11:00:35 AM
     Author     : ASUS
@@ -14,17 +14,12 @@
         </tr>
 
         <tr>
-            <td>ID Phòng ở</td>
-            <td><input type="text" name="roomId" value="${profile.roomId}" readonly></td>             
-        </tr>
-
-        <tr>
             <td>Họ và tên</td>
             <td><input type="text" name="name" value="${profile.name}" required></td>             
         </tr>
         
         <tr>
-            <td>CMND</td>
+            <td>CMND/CCCD</td>
             <td><input type="text" name="cmnd" value="${profile.cmnd}" required></td>             
         </tr>
         
@@ -43,12 +38,6 @@
 
             </td>
 
-
-            <!--            <select name="gender">
-                                <option value="M" ${male}>Ma le</option>
-                                <option value="F" ${female}>Female</option>
-                                <option value="L" ${lgbt}>LGBT</option>
-                            </select>-->
            
         </tr>
 

@@ -9,35 +9,25 @@ package entity;
  * @author LENOVO
  */
 public class Account {
-    private int userid;
-    private String users;
+    private String userid;
     private String pass;
     private int isAdmin;
 
     public Account() {
     }
 
-    public Account(int userid, String users, String pass, int isAdmin) {
+    public Account(String userid, String pass, int isAdmin) {
         this.userid = userid;
-        this.users = users;
         this.pass = pass;
         this.isAdmin = isAdmin;
     }
 
-    public int getUserid() {
+    public String getUserid() {
         return userid;
     }
 
-    public void setUserid(int userid) {
+    public void setUserid(String userid) {
         this.userid = userid;
-    }
-
-    public String getUsers() {
-        return users;
-    }
-
-    public void setUsers(String users) {
-        this.users = users;
     }
 
     public String getPass() {
@@ -56,10 +46,5 @@ public class Account {
         this.isAdmin = isAdmin;
     }
 
-    @Override
-    public String toString() {
-        return "Account{" + "userid=" + userid + ", users=" + users + ", pass=" + pass + ", isAdmin=" + isAdmin + '}';
-    }
-    
     
 }

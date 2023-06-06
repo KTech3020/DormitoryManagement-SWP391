@@ -18,7 +18,7 @@
             </style>
             <ul class="navigation-menu">
                 <li><a href="index.jsp">Trang chủ</a></li>
-                <li><a href="rules.jsp">Nội quy KTX</a></li>              
+                <li><a href="rules.jsp">Nội quy KTX</a></li>
                     <c:if test="${sessionScope.accountS==null}">
                     <li>
                         <a href="LoginServlet" class="nav-item nav-link">Login</a>
@@ -29,24 +29,27 @@
                         <a href="RoomSearchServlet" class="nav-item nav-link">Xem và tìm kiếm phòng</a>
                     </li>
                     <li>
-                        <a href="#" class="nav-item nav-link">Quản lí hóa đơn</a>
+                        <a href="#" class="nav-item nav-link">Quản lý, thanh toán hóa đơn</a>
                     </li>
                     <li>
                         <a href="#" class="nav-item nav-link">Gửi yêu cầu/khiếu nại</a>
                     </li>
+                    <li>
+                        <a href="#" class="nav-item nav-link">Lịch sử đăng ký</a>
+                    </li>
                 </c:if>
                 <c:if test="${sessionScope.accountS.isAdmin==1}">
                     <li>
-                        <a href="#" class="nav-item nav-link">Quản lí thông báo</a>
+                        <a href="#" class="nav-item nav-link">Quản lý thông báo</a>
                     </li>
                     <li>
-                        <a href="listStudent.jsp" class="nav-item nav-link">Quản lí sinh viên</a>
+                        <a href="listStudent.jsp" class="nav-item nav-link">Quản lý sinh viên</a>
                     </li>
                     <li>
-                        <a href="#" class="nav-item nav-link">Quản lí phòng ở</a>
+                        <a href="#" class="nav-item nav-link">Quản lý phòng ở</a>
                     </li>
                     <li>
-                        <a href="#" class="nav-item nav-link">Quản lí hóa đơn</a>
+                        <a href="#" class="nav-item nav-link">Quản lý hóa đơn</a>
                     </li>
                     <li>
                         <a href="#" class="nav-item nav-link">Xem yêu cầu, khiếu nại</a>
@@ -57,7 +60,7 @@
                 </c:if>
                 <c:if test="${sessionScope.accountS!=null}">
                     <li>
-                        <a href="">Tài khoản: ${sessionScope.accountS.users}</a>
+                        <a>Tài khoản: ${sessionScope.accountS.userid}</a>
                         <a href="ManageProfile">Quản lý tài khoản</a>
                         <a href="LogoutServlet">Đăng xuất</a>
                     </li>
@@ -72,7 +75,6 @@
             <header class="major">
                 <h2>Liên hệ</h2>
             </header>
-            <!--<p>Sed varius enim .</p>-->
             <ul class="contact">
                 <li class="icon solid fa-envelope"><a href="#">dnuni@fe.edu.vn</a></li>
                 <li class="icon solid fa-phone">(0236) 730 0999</li>
