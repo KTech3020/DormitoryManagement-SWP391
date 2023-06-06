@@ -140,11 +140,11 @@ VALUES
 
 insert into Account
 VALUES
-('MA093891', N'honghp83', 1),
-('MA091773', N'vinhhq85', 1),
-('SE160094', N'lytran989', 0),
-('DE169019', N'an928001', 0),
-('DE150287', N'khaiht666', 0),
-('DE152894', N'duongdaihiep@00', 0),
-('SE160938', N'mylinh0300', 0)
+('honghp83', N'manager@123', 1),
+('vinhho85', N'manager@321', 1),
+('lytran989', N'cheemsbonk666', 0),
+('an92801', N'sinhvienxuatsac23', 0),
+('khaiht', N'khaidz123', 0),
+('duongqua', N'duongdaihiep@00', 0),
+('mylinh0300', N'linhxinhgai', 0)
 
