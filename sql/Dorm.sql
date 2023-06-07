@@ -159,6 +159,11 @@ VALUES
 ('105', 'DE152894', '2022-01-30', 'SP22', 'Success'),
 ('106', 'SE160938', '2022-07-19', 'SU22', 'Success')
 
+insert into RegisterRoom
+VALUES
+('101', 'DE169019', '2021-01-18', 'SP22', 'Registered'),
+
+
 
 insert into RegisterRoomDetail ([roomId], [startDay], [endDay], [price])
 VALUES
@@ -192,3 +197,46 @@ select p.idPerson, reRoom.roomId, p.img , p.fullname, p.CMND, p.birth, p.gender,
 from Account acc, RegisterRoom reRoom, Person p
 where acc.userId = p.idPerson
 and reRoom.userId = acc.userId
+and reRoom.status = 'Success'
+
+select r.roomId, r.roomSize, r.roomAttendees, r.gender, r.airConditional, rd.price 
+from Room r inner join RegisterRoomDetail rd 
+on (r.roomId = rd.roomId AND ((rd.startDay < GETDATE() AND GETDATE() <= rd.endDay) OR (rd.startDay < GETDATE() AND rd.endDay IS NULL))) 
+ 
+ 
+ select count(*) from Room
+
+
+ 
+select r.roomId, r.roomSize, r.roomAttendees, r.gender, r.airConditional, rd.price
+from RegisterRoomDetail rd, Room r
+where rd.roomId = r.roomId
+and r.roomId= '101'
+and (rd.startDay < GETDATE() AND rd.endDay IS NULL)
+
+update Room set roomSize= '8', roomAttendees= '2', gender= 'M', airConditional='N'
+where roomId = '101'
+
+update RegisterRoomDetail set price= '2000000' 
+where roomId = '101' and (RegisterRoomDetail.startDay < GETDATE() AND RegisterRoomDetail.endDay IS NULL)
+
+
+update Room set roomSize= ?, roomAttendees= ?, gender= ?, airConditional=?
+where roomId = ?
+
+update RegisterRoomDetail set price= ?
+where roomId = ? and (RegisterRoomDetail.startDay < GETDATE() AND RegisterRoomDetail.endDay IS NULL)
+
+
+insert into product(Name,Img,Price,Description,CateId,IdAdmin)\n"
+                + "	values(?,?,?,?,?,?)
+
+
+
+insert into Room VALUES (?,?,?,?,?)
+
+insert into RegisterRoomDetail ([roomId], [startDay], [endDay], [price]) VALUES ( ?, ?, null, ?)
+
+
+delete from RegisterRoomDetail where [roomId] ='111' and (RegisterRoomDetail.startDay < GETDATE() AND RegisterRoomDetail.endDay IS NULL)
+delete from Room where [roomId] ='111'
