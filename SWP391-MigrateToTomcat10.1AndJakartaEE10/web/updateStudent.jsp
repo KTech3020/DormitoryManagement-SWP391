@@ -45,11 +45,11 @@
                             <div class="modal-body">					
                                 <div class="form-group">
                                     <label>ID</label>
-                                    <input value="${person.idPerson}" name="idPerson" type="text" class="form-control" readonly required>
+                                    <input value="${person.idPerson}" name="idPerson" type="text" class="form-control" readonly>
                                 </div>
                                 <div class="form-group">
                                     <label>ID Phòng ở</label>
-                                    <input value="${person.roomId}" name="roomId" type="text" class="form-control" readonly required>
+                                    <input value="${person.roomId}" name="roomId" type="text" class="form-control" readonly>
                                 </div>
                                 <div class="form-group">
                                     <label>Họ và tên</label>

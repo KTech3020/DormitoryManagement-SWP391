@@ -290,7 +290,7 @@
                 </div>
             </div>
 
-        </div></div>
+        </div><div></div>
 
 
     <%@ include file="/includes/column_left_home.jsp" %> 

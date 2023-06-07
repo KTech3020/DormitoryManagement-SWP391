@@ -3,12 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/HP/Desktop/GitHub/DormitoryManagement-SWP391/SWP391-MigrateToTomcat10.1AndJakartaEE10/src/java/Controller/RoomSearchServlet.java</file>
-            <file>file:/C:/Users/HP/Desktop/GitHub/DormitoryManagement-SWP391/SWP391-MigrateToTomcat10.1AndJakartaEE10/web/includes/room_register.jsp</file>
-            <file>file:/C:/Users/HP/Desktop/GitHub/DormitoryManagement-SWP391/SWP391-MigrateToTomcat10.1AndJakartaEE10/src/java/dao/DormDAO.java</file>
-            <file>file:/C:/Users/HP/Desktop/GitHub/DormitoryManagement-SWP391/SWP391-MigrateToTomcat10.1AndJakartaEE10/src/java/context/DBContext.java</file>
-            <file>file:/C:/Users/HP/Desktop/GitHub/DormitoryManagement-SWP391/SWP391-MigrateToTomcat10.1AndJakartaEE10/web/includes/room_search.jsp</file>
-            <file>file:/C:/Users/HP/Desktop/GitHub/DormitoryManagement-SWP391/SWP391-MigrateToTomcat10.1AndJakartaEE10/src/java/Controller/RegisterRoomServlet.java</file>
+            <file>file:/D:/FPT%20U/Ky%205/SWP391/Nhom/V2/New/SWP391-MigrateToTomcat10.1AndJakartaEE10/src/java/Controller/ManageProfile.java</file>
+            <file>file:/D:/FPT%20U/Ky%205/SWP391/Nhom/V2/New/SWP391-MigrateToTomcat10.1AndJakartaEE10/web/listStudent.jsp</file>
+            <file>file:/D:/FPT%20U/Ky%205/SWP391/Nhom/V2/New/SWP391-MigrateToTomcat10.1AndJakartaEE10/src/java/dao/DormDAO.java</file>
+            <file>file:/D:/FPT%20U/Ky%205/SWP391/Nhom/V2/New/SWP391-MigrateToTomcat10.1AndJakartaEE10/src/java/Controller/UpdateServlet.java</file>
+            <file>file:/D:/FPT%20U/Ky%205/SWP391/Nhom/V2/New/SWP391-MigrateToTomcat10.1AndJakartaEE10/web/updateStudent.jsp</file>
         </group>
     </open-files>
 </project-private>
