@@ -18,7 +18,7 @@
 
         <tr>
             <td>Số người đang ở</td>
-            <td><input type="text" name="roomAttendees" value="${room.roomAttendees}" ></td>             
+            <td><input type="text" name="roomAttendees" value="${room.roomAttendees}" readonly></td>             
         </tr>
 
 

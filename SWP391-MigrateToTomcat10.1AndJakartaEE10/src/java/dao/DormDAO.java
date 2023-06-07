@@ -122,7 +122,8 @@ public class DormDAO {
         String sql = "select p.idPerson, reRoom.roomId, p.img , p.fullname, p.CMND, p.birth, p.gender, p.phone, p.email, p.address \n"
                 + "from Account acc, RegisterRoom reRoom, Person p\n"
                 + "where acc.userId = p.idPerson\n"
-                + "and reRoom.userId = acc.userId";
+                + "and reRoom.userId = acc.userId"
+                + "and reRoom.status = 'Success'";
         ArrayList<Person> list = new ArrayList<>();
         try {
             con = new DBContext().getConnection();
@@ -182,6 +183,26 @@ public class DormDAO {
         return null;
     }
 
+    public ArrayList<Room> displayAllRoom() {
+        String sql = "select r.roomId, r.roomSize, r.roomAttendees, r.gender, r.airConditional, rd.price  \n"
+                + "from Room r,  RegisterRoomDetail rd \n"
+                + "where r.roomId = rd.roomId\n"
+                + "AND ((rd.startDay < GETDATE() AND GETDATE() <= rd.endDay) OR (rd.startDay < GETDATE() AND rd.endDay IS NULL))";
+        ArrayList<Room> list = new ArrayList<>();
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Room(rs.getInt(1), rs.getInt(2), rs.getInt(3),
+                        rs.getString(4), rs.getString(5), rs.getDouble(6)));
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+        return list;
+    }
+
     public ArrayList returnRoomMatchQuery(String roomSize, String roomAttendees,
             String gender, String hasAirCon, String price) {
         ArrayList<Room> result = new ArrayList();
@@ -211,7 +232,10 @@ public class DormDAO {
 
     public int lastPagesP(int size) {
         int lastPages = 0;
-        String createQuery = "select count(*) from Room";
+        String createQuery = "select count(*) \n"
+                + "from Room r,  RegisterRoomDetail rd \n"
+                + "where r.roomId = rd.roomId\n"
+                + "AND ((rd.startDay < GETDATE() AND GETDATE() <= rd.endDay) OR (rd.startDay < GETDATE() AND rd.endDay IS NULL))";
         try {
             con = new DBContext().getConnection();
             ps = con.prepareStatement(createQuery);

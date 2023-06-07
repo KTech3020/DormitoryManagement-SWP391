@@ -206,7 +206,7 @@
                         </div>
                     </div>
 
-                    <div class="row gtr-uniform">
+<!--                    <div class="row gtr-uniform">
                         <form>
                             <label> Tìm Sinh viên theo MSSV </label>
                             <div class="col-4 col-12-small">
@@ -224,7 +224,7 @@
                             </form>
                         </div>
 
-                    </div>
+                    </div>-->
                     <div>
                         <table class="table table-bordered">
                             <thead  >
@@ -290,7 +290,8 @@
                 </div>
             </div>
 
-        </div><div></div>
+        </div>
+    </div></div>
 
 
     <%@ include file="/includes/column_left_home.jsp" %> 

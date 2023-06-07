@@ -57,7 +57,7 @@ public class ManageRoomServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         DormDAO dao = new DormDAO();
-        ArrayList<Room> list = dao.returnAllRooms();
+        ArrayList<Room> list = dao.displayAllRoom();
         
         int lastPage = dao.lastPagesP(5); 
         if (list.isEmpty()) {
