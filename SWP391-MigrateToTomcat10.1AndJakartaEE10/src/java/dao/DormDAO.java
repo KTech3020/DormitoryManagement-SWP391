@@ -208,4 +208,105 @@ public class DormDAO {
         }
         return null;
     }
+
+    public int lastPagesP(int size) {
+        int lastPages = 0;
+        String createQuery = "select count(*) from Room";
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(createQuery);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int total = rs.getInt(1);
+                lastPages = total / size;
+
+                if (total % size != 0) {
+                    lastPages++;
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+        return lastPages;
+    }
+
+    public Room getRoomById(int id) {
+        String sql = "select r.roomId, r.roomSize, r.roomAttendees, r.gender, r.airConditional, rd.price\n"
+                + "from RegisterRoomDetail rd, Room r\n"
+                + "where rd.roomId = r.roomId\n"
+                + "and r.roomId= ?\n"
+                + "and (rd.startDay < GETDATE() AND rd.endDay IS NULL)";
+
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return new Room(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getString(5), rs.getDouble(6));
+            }
+        } catch (Exception e) {
+        }
+
+        return null;
+    }
+
+    public void updateRoom(int roomID, int roomSize, int roomAttendees, String gender, String hasAirConditioner, double price) {
+        String sql = "update Room set roomSize= ?, roomAttendees= ?, gender= ?, airConditional=?\n"
+                + "where roomId = ?\n"
+                + "\n"
+                + "update RegisterRoomDetail set price= ?\n"
+                + "where roomId = ? and (RegisterRoomDetail.startDay < GETDATE() AND RegisterRoomDetail.endDay IS NULL)";
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, roomSize);
+            ps.setInt(2, roomAttendees);
+            ps.setString(3, gender);
+            ps.setString(4, hasAirConditioner);
+            ps.setInt(5, roomID);
+            ps.setDouble(6, price);
+            ps.setInt(7, roomID);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+    }
+
+    public void addRoom(int roomID, int roomSize, int roomAttendees, String gender, String hasAirConditioner, double price, Date startDay) {
+        String sql = "insert into Room VALUES (?,?,?,?,?)\n"
+                + "\n"
+                + "insert into RegisterRoomDetail ([roomId], [startDay], [endDay], [price]) VALUES ( ?, ?, null, ?)";
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, roomID);
+            ps.setInt(2, roomSize);
+            ps.setInt(3, roomAttendees);
+            ps.setString(4, gender);
+            ps.setString(5, hasAirConditioner);
+            ps.setInt(6, roomID);
+            ps.setDate(7, startDay);
+            ps.setDouble(8, price);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+    }
+
+    public void deleteRoom(int roomID) {
+        String sql = "delete from RegisterRoomDetail where [roomId] =? and (RegisterRoomDetail.startDay < GETDATE() AND RegisterRoomDetail.endDay IS NULL)\n"
+                + "delete from Room where [roomId] =?";
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, roomID);
+            ps.setInt(2, roomID);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
 }

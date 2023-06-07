@@ -47,7 +47,7 @@
                         <a href="listStudent.jsp" class="nav-item nav-link">Quản lý sinh viên</a>
                     </li>
                     <li>
-                        <a href="#" class="nav-item nav-link">Quản lý phòng ở</a>
+                        <a href="ManageRoomServlet" class="nav-item nav-link">Quản lý phòng ở</a>
                     </li>
                     <li>
                         <a href="#" class="nav-item nav-link">Quản lý hóa đơn</a>
