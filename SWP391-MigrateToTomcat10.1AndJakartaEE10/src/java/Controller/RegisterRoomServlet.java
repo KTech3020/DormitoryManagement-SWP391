@@ -4,7 +4,7 @@
  */
 package Controller;
 
-import entity.Account;
+import dao.DormDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -12,7 +12,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
-import jakarta.servlet.http.HttpSession;
 
 
 
@@ -93,6 +92,11 @@ public class RegisterRoomServlet extends HttpServlet {
         String userID = request.getParameter("userID");
         String roomID = request.getParameter("roomID");
         LocalDateTime currentDate = LocalDateTime.now();
+        String semester = request.getParameter("semester");
+        DormDAO dao = new DormDAO();
+        dao.createRegisterRoomRequest(roomID, userID, currentDate, semester);
+        request.setAttribute("success", "Đăng kí phòng thành công.");
+        request.getRequestDispatcher("registerRoom.jsp").forward(request, response);
     }
 
     /**

@@ -9,12 +9,12 @@ package entity;
  * @author HP
  */
 public class Room {
-    int roomID;
-    int roomSize;
-    int roomAttendees;
-    String gender;
-    String hasAirConditioner;
-    double price;
+    private int roomID;
+    private int roomSize;
+    private int roomAttendees;
+    private String gender;
+    private String hasAirConditioner;
+    private double price;
 
     public Room() {
     }

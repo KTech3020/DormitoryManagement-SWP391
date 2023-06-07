@@ -36,7 +36,7 @@
                         <a href="#" class="nav-item nav-link">Gửi yêu cầu/khiếu nại</a>
                     </li>
                     <li>
-                        <a href="#" class="nav-item nav-link">Lịch sử đăng ký</a>
+                        <a href="StudentViewRegistrationServlet" class="nav-item nav-link">Lịch sử đăng ký</a>
                     </li>
                 </c:if>
                 <c:if test="${sessionScope.accountS.isAdmin==1}">
@@ -47,7 +47,7 @@
                         <a href="listStudent.jsp" class="nav-item nav-link">Quản lý sinh viên</a>
                     </li>
                     <li>
-                        <a href="#" class="nav-item nav-link">Quản lý phòng ở</a>
+                        <a href="ManageRoomServlet" class="nav-item nav-link">Quản lý phòng ở</a>
                     </li>
                     <li>
                         <a href="#" class="nav-item nav-link">Quản lý hóa đơn</a>
@@ -77,7 +77,7 @@
                 <h2>Liên hệ</h2>
             </header>
             <ul class="contact">
-                <li class="icon solid fa-envelope"><a href="#">dnuni@fe.edu.vn</a></li>
+                <li class="icon solid fa-envelope"><a href="mailto:dnuni@fe.edu.vn">dnuni@fe.edu.vn</a></li>
                 <li class="icon solid fa-phone">(0236) 730 0999</li>
                 <li class="icon solid fa-home">Khu Đô Thị FPT Đà Nẵng,<br /> P. Hòa Hải, Q.Ngũ Hành Sơn, TP Đà Nẵng</li>
             </ul>

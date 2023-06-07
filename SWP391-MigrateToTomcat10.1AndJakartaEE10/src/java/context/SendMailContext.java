@@ -15,11 +15,11 @@ import javax.mail.internet.*;
  * @author MSI GL63
  */
 public class SendMailContext {
-    public static void sendMail(String sub, String msg){
+    public static String sendMail(String sub, String msg){
         final String fromEmail = "ktx.fpt.demo@gmail.com";
         final String password = "vgryybbkhetguyyb";
         final String toEmail = "ktx.fpt.demo@gmail.com";
-
+        String messageResult = "";
         Properties pr = new Properties();
         //System.getProperties()
         pr.put("mail.smtp.auth", "true");
@@ -43,11 +43,13 @@ public class SendMailContext {
             message.setSubject(sub);
             message.setText(msg);
             message.setSentDate(new Date());
-
             Transport.send(message);
+            messageResult = "The email was sent successfully!";
         } catch (Exception e) {
             e.printStackTrace();
+            messageResult = "There were an error:" + e.getMessage();
         }
+        return messageResult;
     }
 
 }

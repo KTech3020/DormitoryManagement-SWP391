@@ -3,8 +3,7 @@
     Created on : Jun 7, 2023, 5:21:18 PM
     Author     : MSI GL63
 --%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@include file="/includes/header.jsp" %> 
+<%@page contentType="text/html" pageEncoding="utf-8" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <session>
     <head>
@@ -33,7 +32,6 @@
         <div class="table-wrapper">
             <div class="table-title">
                 <h2>Danh sách sinh viên</h2>
-                <a href="index.jsp">Trang chủ</a>
             </div>
             <table class="table table-bordered">
                 <thead >
@@ -48,7 +46,6 @@
                         <th>Email</th>
                         <th>Địa chỉ</th>
                         <th>Ảnh</th>
-                        <th>Chức năng</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -95,10 +92,8 @@
         <div>
             <a href="listStudent.jsp?index=${lastpage}">>></a>
         </div>
-    </div></div></div>
-<%@ include file="/includes/column_left_home.jsp" %>
-<%@ include file="/includes/footer.jsp" %>
-
+    </div>
+</session>
 <style>
     body {
         color: #404E67;
@@ -261,5 +256,3 @@
         font-size: 20px;
     }
 </style>
-
-

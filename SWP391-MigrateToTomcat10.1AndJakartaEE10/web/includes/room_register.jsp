@@ -13,7 +13,7 @@
 
                 <tr>
                     <td>MSSV</td>
-                    <td><input type="text" name="user" value="${sessionScope.accountS.userid}" readonly></td>             
+                    <td><input type="text" name="userID" value="<%if (request.getAttribute("success") == null){%>${sessionScope.accountS.userid}<%} %>" readonly></td>             
                 </tr>
 
                 <tr>
@@ -25,10 +25,23 @@
                     <td>Phí cần trả</td>
                     <td><input type="text" name="price" value="${price}" readonly></td>             
                 </tr>
+                <%if (request.getAttribute("success") !=null){%>
+            </table>
+        </form> 
+        <form action="index.jsp">
+            <table>
                 <tr>
-                    <td><button type = "submit">Xác nhận đăng ký</button></td>
+                    <td><button>Quay về trang chủ</button></td>
+                    <td><span style="color: green">${success}</span></td>
                 </tr>
             </table>
+        </form>
+        <%} else {%>
+        <tr>
+            <td><button type = "submit">Xác nhận đăng ký</button></td>
+        </tr>
+        <%} %>
+        </table>
         </form>        
     </div>
 </section>

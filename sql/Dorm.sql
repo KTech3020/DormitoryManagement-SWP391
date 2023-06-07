@@ -7,7 +7,7 @@ use Dorm
 
 
 create table Room(
-[roomId] varchar (5) primary key,
+[roomId] int (5) primary key,
 [roomSize] int,  -- suc chua toi da
 [roomAttendees] int,   -- so nguoi hien dang o
 [gender] char (1) check (gender in ('F', 'M')),	
@@ -118,7 +118,7 @@ VALUES
 ( '102', '2020-01-01', '2023-04-30', 2400000),
 ( '102', '2023-05-01', null, 3000000),
 ( '103', '2020-01-01', '2022-04-30', 2000000),
-( '103', '2022-04-01', '2023-12-31', 2400000),
+( '103', '2022-05-01', '2023-12-31', 2400000),
 ( '103', '2024-01-01', null, 2800000),
 ( '104', '2020-01-01', '2020-08-31', 2000000),
 ( '104', '2020-09-01', null, 1800000),
@@ -162,7 +162,45 @@ VALUES
 ('DE152894', N'duongdaihiep@00', 0),
 ('SE160938', N'mylinh0300', 0)
 
+insert into RegisterRoom
+VALUES
+('101', 'DE169019', '2022-07-18', 'SU22', 'Success')
+
+insert into RegisterRoom
+VALUES
+('102', 'SE160094', '2022-04-18', 'SP22', 'Success'),
+('104', 'DE150287', '2022-12-18', 'FA22', 'Success'),
+('105', 'DE152894', '2022-01-30', 'SP22', 'Success'),
+('106', 'SE160938', '2022-07-19', 'SU22', 'Success')
+
+insert into RegisterRoom
+VALUES
+('101', 'DE169019', '2021-01-18', 'SP22', 'Registered')
+
 select r.roomId, r.roomSize, r.roomAttendees, r.gender, r.airConditional, rd.price 
 from Room r inner join RegisterRoomDetail rd
 on (r.roomId = rd.roomId AND ((rd.startDay < GETDATE() AND GETDATE() <= rd.endDay) OR (rd.startDay < GETDATE() AND rd.endDay IS NULL))) 
 where roomSize = 6 AND roomAttendees <= 3 AND gender = 'M' AND airConditional = 'Y' AND price <= 3000000
+
+create view RoomDetailView as
+select r.roomId, r.roomSize, r.roomAttendees, r.gender, r.airConditional, rd.price
+from Room r inner join RegisterRoomDetail rd
+on (r.roomId = rd.roomId AND ((rd.startDay < GETDATE() AND GETDATE() <= rd.endDay) OR (rd.startDay < GETDATE() AND rd.endDay IS NULL))) 
+
+select * from RoomDetailView where roomSize = 6 AND roomAttendees <= 3 AND gender = 'M' AND airConditional = 'Y' AND price <= 3000000
+
+select * from RegisterRoom
+select * from RegisterRoomDetail
+
+create view RoomRegistrationView as
+select rg.reRoomID, rg.roomId, rg.userId, rg.date, rg.semester, rg.status, rd.price 
+from RegisterRoom rg inner join Room r on rg.roomId = r.roomId
+inner join RegisterRoomDetail rd
+on (r.roomId = rd.roomId AND ((rd.startDay < GETDATE() AND GETDATE() <= rd.endDay) OR (rd.startDay < GETDATE() AND rd.endDay IS NULL)))
+where userId = 'SE160094'
+
+select * from [RoomRegistrationView]
+where userId = 'SE160094'
+order by reRoomID
+
+select * from [RoomRegistrationView] order by reRoomID

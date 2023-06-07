@@ -6,7 +6,6 @@ package Controller;
 
 import entity.Person;
 import dao.DormDAO;
-import jakarta.servlet.ServletContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -15,7 +14,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.Part;
-import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -70,7 +68,7 @@ public class UpdateServlet extends HttpServlet {
         DormDAO dao = new DormDAO();
         String id = request.getParameter("id");
         Person p = dao.getPersonProfile(id);
-        request.setAttribute("person", p);
+        request.setAttribute("profile", p);
         request.getRequestDispatcher("updateStudent.jsp").forward(request, response);
     }
 
@@ -87,7 +85,7 @@ public class UpdateServlet extends HttpServlet {
             throws ServletException, IOException {
         DormDAO dao = new DormDAO();
         String idPerson = request.getParameter("idPerson");
-        String roomId = request.getParameter("roomId");
+        //String roomId = request.getParameter("roomId");
         //String img = request.getParameter("img");
         String name = request.getParameter("name");
         String cmnd = request.getParameter("cmnd");
@@ -107,7 +105,7 @@ public class UpdateServlet extends HttpServlet {
         part.write(realPath + "/" + fileName);
 
         dao.updateProfile(idPerson, fileName, name, cmnd, dob, gender, phone, email, address);
-        response.sendRedirect("index.jsp");
+        response.sendRedirect("listStudent.jsp");
     }
 
     /**
