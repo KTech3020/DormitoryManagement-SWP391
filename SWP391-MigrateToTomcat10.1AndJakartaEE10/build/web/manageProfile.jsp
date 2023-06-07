@@ -79,4 +79,3 @@
 
 <%@ include file="/includes/column_left_home.jsp" %> 
 <%@ include file="/includes/footer.jsp" %> 
-

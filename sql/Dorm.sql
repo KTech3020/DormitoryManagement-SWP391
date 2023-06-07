@@ -160,13 +160,35 @@ VALUES
 ('106', 'SE160938', '2022-07-19', 'SU22', 'Success')
 
 
+insert into RegisterRoomDetail ([roomId], [startDay], [endDay], [price])
+VALUES
+( '101', '2020-01-01', '2023-04-30', 2400000),
+( '101', '2023-05-01', null, 3000000),
+( '102', '2020-01-01', '2023-04-30', 2400000),
+( '102', '2023-05-01', null, 3000000),
+( '103', '2020-01-01', '2022-04-30', 2000000),
+( '103', '2022-04-01', '2023-12-31', 2400000),
+( '103', '2024-01-01', null, 2800000),
+( '104', '2020-01-01', '2020-08-31', 2000000),
+( '104', '2020-09-01', null, 1800000),
+( '105', '2020-01-01', '2022-04-30', 1200000),
+( '105', '2022-05-01', null, 2000000),
+( '106', '2020-01-01', null, 2000000),
+( '107', '2020-01-01', null, 2000000),
+( '108', '2020-01-01', '2020-12-31', 2000000),
+( '108', '2021-01-01', null, 2000000),
+( '109', '2020-01-01', null, 2000000),
+( '110', '2020-01-01', '2020-12-31', 2000000),
+( '110', '2021-01-01', null, 2000000)
+
+
 
 select * from Account where [userId] = 'SE160094' and password= 'lytran989'
 select * from Person where idPerson = 'SE160094'
 
 select * from Account where exists (select * from RegisterRoom where RegisterRoom.roomId = Room.roomId)
 
-select p.idPerson, p.img , p.fullname, p.CMND, p.birth, p.gender, p.phone, p.email, p.address 
+select p.idPerson, reRoom.roomId, p.img , p.fullname, p.CMND, p.birth, p.gender, p.phone, p.email, p.address 
 from Account acc, RegisterRoom reRoom, Person p
 where acc.userId = p.idPerson
 and reRoom.userId = acc.userId

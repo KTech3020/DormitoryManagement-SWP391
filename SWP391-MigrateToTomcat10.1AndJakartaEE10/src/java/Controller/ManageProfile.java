@@ -21,7 +21,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
         maxFileSize = 1024 * 1024 * 10, // 10MB
         maxRequestSize = 1024 * 1024 * 50) // 50MB
@@ -33,7 +32,6 @@ import java.nio.file.Paths;
 public class ManageProfile extends HttpServlet {
 
     //String savePath = "C:\\Users\\HP\\Desktop\\GitHub\\DormitoryManagement-SWP391\\SWP391-MigrateToTomcat10.1AndJakartaEE10\\web\\images";
-
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -46,7 +44,7 @@ public class ManageProfile extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -94,7 +92,7 @@ public class ManageProfile extends HttpServlet {
         //processRequest(request, response);
         DormDAO dao = new DormDAO();
         String idPerson = request.getParameter("idPerson");
-        
+
         String name = request.getParameter("name");
         String cmnd = request.getParameter("cmnd");
         String dob = request.getParameter("dob");
@@ -102,18 +100,16 @@ public class ManageProfile extends HttpServlet {
         String phone = request.getParameter("phone");
         String email = request.getParameter("email");
         String address = request.getParameter("address");
-        
-      
+
         Part part = request.getPart("img");
-        
-        
+
         String realPath = request.getServletContext().getRealPath("/images");
         String fileName = Paths.get(part.getSubmittedFileName()).getFileName().toString();
-        if(!Files.exists(Paths.get(realPath))){
-            Files.createDirectory(Paths.get(realPath));           
+        if (!Files.exists(Paths.get(realPath))) {
+            Files.createDirectory(Paths.get(realPath));
         }
-        part.write(realPath+"/"+fileName); 
-     
+        part.write(realPath + "/" + fileName);
+
         dao.updateProfile(idPerson, fileName, name, cmnd, dob, gender, phone, email, address);
         response.sendRedirect("index.jsp");
     }

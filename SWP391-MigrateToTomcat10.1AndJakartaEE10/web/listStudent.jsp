@@ -223,12 +223,12 @@
                                 <input type="button" name="Thêm sinh viên">
                             </form>
                         </div>
-                        
+
                     </div>
                     <div>
-                        <table class="table table-bordered" style="text-align: ">
-                            <thead>
-                                <tr>
+                        <table class="table table-bordered">
+                            <thead  >
+                                <tr style="text-align: center">
                                     <th>ID</th>
                                     <th>Phòng</th>
                                     <th>Họ và tên</th>
@@ -244,7 +244,7 @@
                             <tbody>
                                 <c:forEach items="${studentArr.personProfileManager}" var="l" begin="${(page-1)*pagesize}" end="${(page*pagesize)-1}" >
                                     <tr>
-                                        <th>${l.idPerson}</th>
+                                        <td>${l.idPerson}</td>
                                         <td>${l.roomId}</td>
                                         <td class="des-css">${l.name}<span>${l.name}</span></td>
                                         <td class="des-css">${l.cmnd}<span>${l.cmnd}</span></td>

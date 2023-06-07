@@ -119,7 +119,7 @@ public class DormDAO {
     }
 
     public ArrayList<Person> getPersonProfileManager() {
-        String sql = "select p.idPerson, p.img , p.fullname, p.CMND, p.birth, p.gender, p.phone, p.email, p.address \n"
+        String sql = "select p.idPerson, reRoom.roomId, p.img , p.fullname, p.CMND, p.birth, p.gender, p.phone, p.email, p.address \n"
                 + "from Account acc, RegisterRoom reRoom, Person p\n"
                 + "where acc.userId = p.idPerson\n"
                 + "and reRoom.userId = acc.userId";
@@ -130,7 +130,7 @@ public class DormDAO {
             rs = ps.executeQuery();
             while (rs.next()) {
                 list.add(new Person(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6),
-                        rs.getString(7), rs.getString(8), rs.getString(9)));
+                        rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10)));
             }
         } catch (Exception e) {
             System.out.println("Error: " + e);
@@ -162,14 +162,18 @@ public class DormDAO {
 
     public ArrayList returnAllRooms() {
         ArrayList<Room> result = new ArrayList();
-        String sql = "select * from Room";
+        String sql = "select r.roomId, r.roomSize, r.roomAttendees, r.gender, r.airConditional, rd.price "
+                + "from Room r inner join RegisterRoomDetail rd "
+                + "on (r.roomId = rd.roomId AND ((rd.startDay < GETDATE() AND GETDATE() <= rd.endDay) OR (rd.startDay < GETDATE() AND rd.endDay IS NULL))) ";
         try {
             con = new DBContext().getConnection();
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
-                result.add(new Room(rs.getInt(1), rs.getInt(2), rs.getInt(3),
-                        rs.getString(4), rs.getString(5), rs.getDouble(6)));
+                if (rs.getInt(2) != rs.getInt(3)) {
+                    result.add(new Room(rs.getInt(1), rs.getInt(2), rs.getInt(3),
+                            rs.getString(4), rs.getString(5), rs.getDouble(6)));
+                }
 
             }
             return result;
@@ -181,7 +185,10 @@ public class DormDAO {
     public ArrayList returnRoomMatchQuery(String roomSize, String roomAttendees,
             String gender, String hasAirCon, String price) {
         ArrayList<Room> result = new ArrayList();
-        String sql = "select * from Room where roomSize = ? AND roomAttendees <= ? AND gender = ? AND hasAirConditioner = ? AND price <= ?";
+        String sql = "select r.roomId, r.roomSize, r.roomAttendees, r.gender, r.airConditional, rd.price "
+                + "from Room r inner join RegisterRoomDetail rd on (r.roomId = rd.roomId AND "
+                + "((rd.startDay < GETDATE() AND GETDATE() <= rd.endDay) OR (rd.startDay < GETDATE() AND rd.endDay IS NULL))) "
+                + "where roomSize = ? AND roomAttendees <= ? AND gender = ? AND airConditional = ? AND price <= ?";
         try {
             con = new DBContext().getConnection();
             ps = con.prepareStatement(sql);
@@ -192,7 +199,9 @@ public class DormDAO {
             ps.setString(5, price);
             rs = ps.executeQuery();
             while (rs.next()) {
-                result.add(new Room(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getString(5), rs.getDouble(6)));
+                if (rs.getInt(2) != rs.getInt(3)) {
+                    result.add(new Room(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getString(5), rs.getDouble(6)));
+                }
             }
             return result;
         } catch (Exception e) {

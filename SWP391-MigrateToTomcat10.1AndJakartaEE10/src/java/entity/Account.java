@@ -9,6 +9,7 @@ package entity;
  * @author LENOVO
  */
 public class Account {
+
     private String userid;
     private String pass;
     private int isAdmin;
@@ -46,5 +47,4 @@ public class Account {
         this.isAdmin = isAdmin;
     }
 
-    
 }
