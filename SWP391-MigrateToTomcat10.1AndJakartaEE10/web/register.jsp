@@ -6,7 +6,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="assets/css/loginlogout.css"/>
-        <title>JSP Page</title>
+        <title>Đăng ký</title>
     </head>
     <body>
 

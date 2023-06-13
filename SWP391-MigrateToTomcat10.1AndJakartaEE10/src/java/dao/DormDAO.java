@@ -89,7 +89,7 @@ public class DormDAO {
     }
 
     public void updateAccount(String password, String username) {
-        String sql = "UPDATE Account SET password = ? WHERE idPerson = ?;";
+        String sql = "UPDATE Account SET password = ? WHERE userID = ?;";
 
         try {
             con = new DBContext().getConnection();
@@ -161,13 +161,10 @@ public class DormDAO {
         } catch (Exception e) {
         }
     }
+
     //for manage
     public ArrayList<Room> displayAllRoom() {
-        String sql = """
-                     select r.roomId, r.roomSize, r.roomAttendees, r.gender, r.airConditional, rd.price  
-                     from Room r,  RegisterRoomDetail rd 
-                     where r.roomId = rd.roomId
-                     AND ((rd.startDay < GETDATE() AND GETDATE() <= rd.endDay) OR (rd.startDay < GETDATE() AND rd.endDay IS NULL))""";
+        String sql = "select * from RoomDetailView";
         ArrayList<Room> list = new ArrayList<>();
         try {
             con = new DBContext().getConnection();
@@ -182,8 +179,9 @@ public class DormDAO {
         }
         return list;
     }
+
     //for student
-    public ArrayList returnAllRooms() {
+    public ArrayList returnAllNonFullRooms() {
         ArrayList<Room> result = new ArrayList();
         String sql = "select * from RoomDetailView";
         try {
@@ -251,7 +249,7 @@ public class DormDAO {
             rs = ps.executeQuery();
             while (rs.next()) {
                 result.add(new RoomRegistration(rs.getInt(1), rs.getInt(2), rs.getString(3),
-                        rs.getTimestamp(4).toLocalDateTime(),rs.getString(5),
+                        rs.getTimestamp(4).toLocalDateTime(), rs.getString(5),
                         rs.getString(6), rs.getDouble(7)));
             }
             return result;
@@ -269,9 +267,9 @@ public class DormDAO {
             ps = con.prepareStatement(sql);
             ps.setString(1, userID);
             rs = ps.executeQuery();
-            while (rs.next()) {               
+            while (rs.next()) {
                 result.add(new RoomRegistration(rs.getInt(1), rs.getInt(2), rs.getString(3),
-                        rs.getTimestamp(4).toLocalDateTime(),rs.getString(5),
+                        rs.getTimestamp(4).toLocalDateTime(), rs.getString(5),
                         rs.getString(6), rs.getDouble(7)));
             }
             return result;
@@ -280,9 +278,10 @@ public class DormDAO {
         }
         return null;
     }
-    
-    public void updateRegistrationStatus(String registerID, String status){
+
+    public void updateRegistrationStatus(String registerID, String status) {
         String sql = "update RegisterRoom set status = ? where reRoomID = ?";
+        int roomID;
         try {
             con = new DBContext().getConnection();
             ps = con.prepareStatement(sql);
@@ -292,11 +291,12 @@ public class DormDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
-    
+
     public int lastPagesP(int size) {
         int lastPages = 0;
-       String createQuery = """
+        String createQuery = """
                             select count(*) 
                             from Room r,  RegisterRoomDetail rd 
                             where r.roomId = rd.roomId
@@ -321,12 +321,7 @@ public class DormDAO {
     }
 
     public Room getRoomById(int id) {
-        String sql = """
-                     select r.roomId, r.roomSize, r.roomAttendees, r.gender, r.airConditional, rd.price
-                     from RegisterRoomDetail rd, Room r
-                     where rd.roomId = r.roomId
-                     and r.roomId= ?
-                     and (rd.startDay < GETDATE() AND rd.endDay IS NULL)""";
+        String sql = "select * from RoomDetailView where roomID = ? ";
 
         try {
             con = new DBContext().getConnection();

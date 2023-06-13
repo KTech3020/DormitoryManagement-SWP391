@@ -3,12 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/HP/Desktop/GitHub/DormitoryManagement-SWP391/SWP391-MigrateToTomcat10.1AndJakartaEE10/src/java/Controller/RoomSearchServlet.java</file>
-            <file>file:/C:/Users/HP/Desktop/GitHub/DormitoryManagement-SWP391/SWP391-MigrateToTomcat10.1AndJakartaEE10/web/includes/room_register.jsp</file>
-            <file>file:/C:/Users/HP/Desktop/GitHub/DormitoryManagement-SWP391/SWP391-MigrateToTomcat10.1AndJakartaEE10/src/java/dao/DormDAO.java</file>
-            <file>file:/C:/Users/HP/Desktop/GitHub/DormitoryManagement-SWP391/SWP391-MigrateToTomcat10.1AndJakartaEE10/src/java/context/DBContext.java</file>
-            <file>file:/C:/Users/HP/Desktop/GitHub/DormitoryManagement-SWP391/SWP391-MigrateToTomcat10.1AndJakartaEE10/web/includes/room_search.jsp</file>
-            <file>file:/C:/Users/HP/Desktop/GitHub/DormitoryManagement-SWP391/SWP391-MigrateToTomcat10.1AndJakartaEE10/src/java/Controller/RegisterRoomServlet.java</file>
+            <file>file:/C:/Users/HP/Desktop/GitHub/DormitoryManagement-SWP391/SWP391-MigrateToTomcat10.1AndJakartaEE10/web/includes/banner_news.jsp</file>
+            <file>file:/C:/Users/HP/Desktop/GitHub/DormitoryManagement-SWP391/SWP391-MigrateToTomcat10.1AndJakartaEE10/web/includes/footer.jsp</file>
+            <file>file:/C:/Users/HP/Desktop/GitHub/DormitoryManagement-SWP391/SWP391-MigrateToTomcat10.1AndJakartaEE10/web/includes/column_left_home.jsp</file>
+            <file>file:/C:/Users/HP/Desktop/GitHub/DormitoryManagement-SWP391/SWP391-MigrateToTomcat10.1AndJakartaEE10/web/index.jsp</file>
         </group>
     </open-files>
 </project-private>

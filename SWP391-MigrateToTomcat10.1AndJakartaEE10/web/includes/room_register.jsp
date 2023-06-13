@@ -4,6 +4,10 @@
         <header>
             <h1>XÁC NHẬN ĐĂNG KÝ PHÒNG: ${roomID}</h1>
         </header>
+        <%if (request.getAttribute("error") !=null){%>
+        <div style="color: red">${error}</div>
+        <a href="index.jsp"><button>Quay về trang chủ</button></a>
+        <%} else {%>
         <form class="dangkiphong" action ="RegisterRoomServlet" method="POST">
             <table>
                 <tr>
@@ -42,7 +46,8 @@
         </tr>
         <%} %>
         </table>
-        </form>        
+        </form>
+        <%} %>
     </div>
 </section>
 </div>

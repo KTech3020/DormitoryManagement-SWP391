@@ -13,8 +13,8 @@
         <servlet-class>Controller.LogoutServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ForgotpassServlet</servlet-name>
-        <servlet-class>Controller.ForgotpassServlet</servlet-class>
+        <servlet-name>ChangePasswordServlet</servlet-name>
+        <servlet-class>Controller.ChangePasswordServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>RoomSearchServlet</servlet-name>
@@ -44,7 +44,7 @@
         <servlet-name>ManageRoomRegistrationServlet</servlet-name>
         <servlet-class>Controller.ManageRoomRegistrationServlet</servlet-class>
     </servlet>
-     <servlet>
+    <servlet>
         <servlet-name>ManageRoomServlet</servlet-name>
         <servlet-class>Controller.ManageRoomServlet</servlet-class>
     </servlet>
@@ -60,7 +60,6 @@
         <servlet-name>DeleteRoomServlet</servlet-name>
         <servlet-class>Controller.DeleteRoomServlet</servlet-class>
     </servlet>
-    
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -74,8 +73,8 @@
         <url-pattern>/LogoutServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ForgotpassServlet</servlet-name>
-        <url-pattern>/ForgotpassServlet</url-pattern>
+        <servlet-name>ChangePasswordServlet</servlet-name>
+        <url-pattern>/ChangePasswordServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ManageProfile</servlet-name>
@@ -121,7 +120,6 @@
         <servlet-name>DeleteRoomServlet</servlet-name>
         <url-pattern>/DeleteRoomServlet</url-pattern>
     </servlet-mapping>
-    
     <session-config>
         <session-timeout>
             30

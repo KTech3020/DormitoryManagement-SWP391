@@ -56,8 +56,7 @@ public class UpdateRoomServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         DormDAO dao = new DormDAO();
-        int roomId = Integer.parseInt(request.getParameter("roomID"));
-        Room room = dao.getRoomById(roomId);
+        Room room = dao.getRoomById(Integer.parseInt(request.getParameter("roomID")));
         request.setAttribute("room", room);
         request.getRequestDispatcher("updateRoom.jsp").forward(request, response);
     } 

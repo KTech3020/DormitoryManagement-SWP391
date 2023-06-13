@@ -150,6 +150,7 @@ VALUES
 ('SE160094', N'SE160094.png', N'Tran Thi Ly', N'2094174859', '2002-06-02', 'F', '0948756283', 'lyttse160094@fpt.edu.vn', N'K17 Binh An 7- Hai Chau- Da Nang'),
 ('DE169019', N'DE169019.png', N'Ho Ngoc An', N'1093276478', '2002-09-13', 'M', '0794857618', 'anhnde169019@fpt.edu.vn', N'45 y Lan Nguyen Phi- Hai Chau- Da Nang'),
 ('DE150287', N'DE150287.png', N'Ho Tuan Khai', N'0398618940', '2001-06-14', 'M', '0994872353', 'khaihtde150287@fpt.edu.vn', N'90 Ham Nghi- Ngu Hanh Son- Da Nang')
+select * from Account
 
 
 insert into Account
@@ -189,6 +190,8 @@ on (r.roomId = rd.roomId AND ((rd.startDay < GETDATE() AND GETDATE() <= rd.endDa
 
 select * from RoomDetailView where roomSize = 6 AND roomAttendees <= 3 AND gender = 'M' AND airConditional = 'Y' AND price <= 3000000
 
+select * from RoomDetailView where roomID = 101
+
 select * from RegisterRoom
 select * from RegisterRoomDetail
 
@@ -204,3 +207,25 @@ where userId = 'SE160094'
 order by reRoomID
 
 select * from [RoomRegistrationView] order by reRoomID
+
+select * from RoomDetailView
+update RegisterRoom set status = 'Rejected' where reRoomID = 19
+
+select * from Account
+select * from Person
+
+
+select roomID from RoomRegistrationView where reroomID = 1
+
+
+create trigger updateRoomAttendeesTrigger on RegisterRoom AFTER INSERT, UPDATE, DELETE AS
+BEGIN
+update Room set roomAttendees = (select COUNT(roomID) from RegisterRoom rg where rg.roomId = Room.roomID AND rg.status LIKE 'Success') 
+END
+
+--create view DynamicRoomDetailView as
+--select r.roomId, r.roomSize, (select COUNT(rg.roomId) from RegisterRoom rg where rg.roomId = r.roomID AND rg.status LIKE 'Success') as roomAttendees, r.gender, r.airConditional, rd.price
+--from Room r inner join RegisterRoomDetail rd
+--on (r.roomId = rd.roomId AND ((rd.startDay < GETDATE() AND GETDATE() <= rd.endDay) OR (rd.startDay < GETDATE() AND rd.endDay IS NULL))) 
+
+--drop view DynamicRoomDetailView
