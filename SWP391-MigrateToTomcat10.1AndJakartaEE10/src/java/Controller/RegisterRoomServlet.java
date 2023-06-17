@@ -16,7 +16,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.time.LocalDateTime;
-
+import context.SendMailContext;
 /**
  *
  * @author HP
@@ -110,6 +110,8 @@ public class RegisterRoomServlet extends HttpServlet {
         String semester = request.getParameter("semester");
         DormDAO dao = new DormDAO();
         dao.createRegisterRoomRequest(roomID, userID, currentDate, semester);
+        SendMailContext send = new SendMailContext();
+        send.sendMailToStudentRegister(dao.getPersonProfile(userID));
         request.setAttribute("success", "Đăng kí phòng thành công.");
         request.getRequestDispatcher("registerRoom.jsp").forward(request, response);
     }
