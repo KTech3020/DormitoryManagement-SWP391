@@ -119,12 +119,11 @@ public class DormDAO {
     }
 
     public ArrayList<Person> getPersonProfileManager() {
-        String sql = """
-                     select p.idPerson, reRoom.roomId, p.img , p.fullname, p.CMND, p.birth, p.gender, p.phone, p.email, p.address 
-                     from Account acc, RegisterRoom reRoom, Person p
-                     where acc.userId = p.idPerson
-                     and reRoom.userId = acc.userId
-                     and reRoom.status = 'Success'""";
+        String sql = "select p.idPerson, reRoom.roomId, p.img , p.fullname, p.CMND, p.birth, p.gender, p.phone, p.email, p.address"
+                     + " from Account acc, RegisterRoom reRoom, Person p"
+                     + " where acc.userId = p.idPerson"
+                     + " and reRoom.userId = acc.userId"
+                     + "and reRoom.status = 'Success'";
         ArrayList<Person> list = new ArrayList<>();
         try {
             con = new DBContext().getConnection();
@@ -296,11 +295,9 @@ public class DormDAO {
 
     public int lastPagesP(int size) {
         int lastPages = 0;
-        String createQuery = """
-                            select count(*) 
-                            from Room r,  RegisterRoomDetail rd 
-                            where r.roomId = rd.roomId
-                            AND ((rd.startDay < GETDATE() AND GETDATE() <= rd.endDay) OR (rd.startDay < GETDATE() AND rd.endDay IS NULL))""";
+        String createQuery = "select count(*) from Room r,  RegisterRoomDetail rd "
+                            + "where r.roomId = rd.roomId "
+                            + "AND ((rd.startDay < GETDATE() AND GETDATE() <= rd.endDay) OR (rd.startDay < GETDATE() AND rd.endDay IS NULL))";
         try {
             con = new DBContext().getConnection();
             ps = con.prepareStatement(createQuery);
@@ -338,11 +335,10 @@ public class DormDAO {
     }
 
     public void updateRoom(int roomID, int roomSize, int roomAttendees, String gender, String hasAirConditioner, double price) {
-        String sql = """
-                     update Room set roomSize= ?, roomAttendees= ?, gender= ?, airConditional=?
-                     where roomId = ?
-                     update RegisterRoomDetail set price= ?
-                     where roomId = ? and (RegisterRoomDetail.startDay < GETDATE() AND RegisterRoomDetail.endDay IS NULL)""";
+        String sql = "update Room set roomSize= ?, roomAttendees= ?, gender= ?, airConditional=? "
+                    + "where roomId = ? "
+                    + "update RegisterRoomDetail set price= ? "
+                    + "where roomId = ? and (RegisterRoomDetail.startDay < GETDATE() AND RegisterRoomDetail.endDay IS NULL)";
         try {
             con = new DBContext().getConnection();
             ps = con.prepareStatement(sql);
@@ -360,9 +356,8 @@ public class DormDAO {
     }
 
     public void addRoom(int roomID, int roomSize, int roomAttendees, String gender, String hasAirConditioner, double price, Date startDay) {
-        String sql = """
-                     insert into Room VALUES (?,?,?,?,?)
-                     insert into RegisterRoomDetail ([roomId], [startDay], [endDay], [price]) VALUES ( ?, ?, null, ?)""";
+        String sql = "insert into Room VALUES (?,?,?,?,?) "
+                    + "insert into RegisterRoomDetail ([roomId], [startDay], [endDay], [price]) VALUES ( ?, ?, null, ?)";
         try {
             con = new DBContext().getConnection();
             ps = con.prepareStatement(sql);

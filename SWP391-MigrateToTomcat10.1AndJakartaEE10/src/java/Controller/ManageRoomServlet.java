@@ -58,7 +58,6 @@ public class ManageRoomServlet extends HttpServlet {
     throws ServletException, IOException {
         DormDAO dao = new DormDAO();
         ArrayList<Room> list = dao.displayAllRoom();
-        
         int lastPage = dao.lastPagesP(5); 
         if (list.isEmpty()) {
             request.setAttribute("err", "Không có phòng");
