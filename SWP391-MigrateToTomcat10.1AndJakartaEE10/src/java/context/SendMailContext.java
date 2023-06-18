@@ -39,7 +39,6 @@ public class SendMailContext {
 
         try {
             MimeMessage message = new MimeMessage(session);
-            message.setHeader("Content-Type", "text/plain; charset=UTF-8");
             message.setFrom(new InternetAddress(fromEmail));
             InternetAddress[] toAddresses = {new InternetAddress(toEmail)};
             message.addRecipients(Message.RecipientType.TO, toAddresses);
