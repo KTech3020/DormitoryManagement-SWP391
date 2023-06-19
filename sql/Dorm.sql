@@ -1,9 +1,9 @@
-﻿﻿create database Dorm
-use Dorm
+﻿use SQL
 
 -- use master
 -- ALTER database Dorm set offline with ROLLBACK IMMEDIATE;
 -- DROP database Dorm;
+
 
 
 create table Room(
@@ -34,6 +34,7 @@ CONSTRAINT fk_acc foreign key ([userId]) references Person(idPerson),
 
 )
 
+
 create table RegisterRoom(
 [reRoomID] int identity(1,1) primary key,
 [roomId] varchar (5),
@@ -58,8 +59,6 @@ create table ElectricWaterUsed (
 [newWaterIndex] int,
 CONSTRAINT fk_ewu2 foreign key ([reRoomID]) references RegisterRoom([reRoomID])
 )
-
-
 
 create table RegisterRoomDetail(
 [reRoomDetailID] int identity(1,1) primary key,
@@ -97,6 +96,35 @@ create table Notification(
 [Content] Ntext,
 CONSTRAINT fk_Notification foreign key (userId) references Account (userId)
 )
+create table News(
+[notiID] varchar (5) primary key,
+[subject] varchar(3000), --Tieu de
+[content] varchar(3000), --Noi dung
+[userId] varchar(10), --ID admin
+[time] date, --Ngay dang
+CONSTRAINT fk_noti foreign key (userId) references Person (idPerson)
+)
+
+ALTER DATABASE SCOPED CONFIGURATION 
+  SET VERBOSE_TRUNCATION_WARNINGS = ON;
+
+insert into News
+VALUES
+
+('N001','Sử dụng Ký túc xá Đại học FPT Hà Nội làm khu cách ly tập trung','(1) Tất cả sinh viên đang ở hoặc đang để đồ tại KTX nhanh chóng thu dọn, giải phóng đồ đạc và dời khỏi KTX trước 12h00 ngày 13/5/2021. Sau thời hạn trên, nếu sinh viên không thu dọn, nhà trường không chịu trách nhiệm về đồ đạc của sinh viên để lại trong phòng. Đồ đạc không dùng tới có thể đóng gói dán nhãn và gửi vào kho của trường.
+
+(2) Tuân thủ nguyên tắc 5K trong quá trình thu dọn (khẩu trang – khử khuẩn – khoảng cách – không tụ tập – khai báo y tế).
+
+(3) Không để việc thu dọn KTX ảnh hưởng đến việc học tập học kỳ Summer 2021.
+
+Đây là tình huống bất khả kháng cùng thành phố Hà Nội và cả nước phòng ngừa và ngăn chặn dịch bệnh COVID-19, đề nghị tất cả các bạn sinh viên thực hiện nghiêm túc.
+
+Trân trọng thông báo!','MA093891','2022-10-05', 1),
+
+('N002','Đại học FPT Hà Nội bố trí xe miễn phí đưa sinh viên đang cách ly tại ký túc xá về quê ăn Tết','Nhà trường đã ra thông báo, kể từ ngày 5/2/2021, nhà trường sẽ đóng cửa và ngưng các dịch vụ tiện ích, ký túc xá để chuẩn bị cho khả năng tình hình COVID-19 tại Hà nội có thể phức tạp, Hà nội thành điểm nóng, Campus ĐH FPT Hà nội có thể được trưng dụng làm khu cách ly tập trung theo đề nghị của UBND TP HN. Nhà trường yêu cầu tất cả sinh viên hiện tại đang còn ở KTX FPTU Hoà Lạc thực hiện: Thu dọn đồ, cho vào tủ khóa lại trước khi về nhà ăn Tết từ sáng ngày 04/02/2021; trên đường trở về địa phương nơi cư trú thực hiện nghiêm các nội dung phòng chống dịch theo hướng dẫn 5K (Khẩu trang – Khử khuẩn – Khoảng cách – Không tập trung – Khai báo y tế', 'MA093891','11-03-04', 1),
+( 'N003','Review KTX cho sinh viên', 'rường Đại học FPT với kiến trúc xanh và không gian như một khu resort sang xịn mịn cùng hàng loạt góc sống ảo đẹp không góc chết. Và ký túc xá sinh viên thì được trang hoàng chả khác gì khách sạn luôn.
+
+Nằm ở Hòa Lạc, các trung tâm thành phố khoảng 30km, Trường Đại học FPT như 1 khu resort đích thực khi kiến trúc xịn sò, quang cảnh tuyệt đẹp và đặc biệt là siêu yên tĩnh. Nếu như sinh viên các trường bị ám ảnh bởi cuộc sống ở những khu ký túc xá cũ đầy tối tăm, chật hẹp thì sinh viên FPT lại rất tự hào và hãnh diện vì cuộc sống sinh viên nơi đây sướng hơn cả ở khách sạn.', 'MA093891', '2022-11-06', 1)
 
 -- TODO FIX ALL DATA
 
@@ -113,10 +141,26 @@ VALUES
 ('109','4','3','F','Y'),
 ('110','6','2','M','Y')
 
-
-
-
-
+insert into RegisterRoomDetail ([roomId], [startDay], [endDay], [price])
+VALUES
+( '101', '2020-01-01', '2023-04-30', 2400000),
+( '101', '2023-05-01', null, 3000000),
+( '102', '2020-01-01', '2023-04-30', 2400000),
+( '102', '2023-05-01', null, 3000000),
+( '103', '2020-01-01', '2022-04-30', 2000000),
+( '103', '2022-05-01', '2023-12-31', 2400000),
+( '103', '2024-01-01', null, 2800000),
+( '104', '2020-01-01', '2020-08-31', 2000000),
+( '104', '2020-09-01', null, 1800000),
+( '105', '2020-01-01', '2022-04-30', 1200000),
+( '105', '2022-05-01', null, 2000000),
+( '106', '2020-01-01', null, 2000000),
+( '107', '2020-01-01', null, 2000000),
+( '108', '2020-01-01', '2020-12-31', 2000000),
+( '108', '2021-01-01', null, 2000000),
+( '109', '2020-01-01', null, 2000000),
+( '110', '2020-01-01', '2020-12-31', 2000000),
+( '110', '2021-01-01', null, 2000000)
 
 
 insert into Person
@@ -136,15 +180,82 @@ VALUES
 ('SE160094', N'SE160094.png', N'Tran Thi Ly', N'2094174859', '2002-06-02', 'F', '0948756283', 'lyttse160094@fpt.edu.vn', N'K17 Binh An 7- Hai Chau- Da Nang'),
 ('DE169019', N'DE169019.png', N'Ho Ngoc An', N'1093276478', '2002-09-13', 'M', '0794857618', 'anhnde169019@fpt.edu.vn', N'45 y Lan Nguyen Phi- Hai Chau- Da Nang'),
 ('DE150287', N'DE150287.png', N'Ho Tuan Khai', N'0398618940', '2001-06-14', 'M', '0994872353', 'khaihtde150287@fpt.edu.vn', N'90 Ham Nghi- Ngu Hanh Son- Da Nang')
+select * from Account
 
 
 insert into Account
 VALUES
-('honghp83', N'manager@123', 1),
-('vinhho85', N'manager@321', 1),
-('lytran989', N'cheemsbonk666', 0),
-('an92801', N'sinhvienxuatsac23', 0),
-('khaiht', N'khaidz123', 0),
-('duongqua', N'duongdaihiep@00', 0),
-('mylinh0300', N'linhxinhgai', 0)
+('MA093891', N'honghp83', 1),
+('MA091773', N'vinhhq85', 1),
+('SE160094', N'lytran989', 0),
+('DE169019', N'an928001', 0),
+('DE150287', N'khaiht666', 0),
+('DE152894', N'duongdaihiep@00', 0),
+('SE160938', N'mylinh0300', 0)
 
+insert into RegisterRoom
+VALUES
+('101', 'DE169019', '2022-07-18', 'SU22', 'Success')
+
+insert into RegisterRoom
+VALUES
+('102', 'SE160094', '2022-04-18', 'SP22', 'Success'),
+('104', 'DE150287', '2022-12-18', 'FA22', 'Success'),
+('105', 'DE152894', '2022-01-30', 'SP22', 'Success'),
+('106', 'SE160938', '2022-07-19', 'SU22', 'Success')
+
+insert into RegisterRoom
+VALUES
+('101', 'DE169019', '2021-01-18', 'SP22', 'Registered')
+
+select r.roomId, r.roomSize, r.roomAttendees, r.gender, r.airConditional, rd.price 
+from Room r inner join RegisterRoomDetail rd
+on (r.roomId = rd.roomId AND ((rd.startDay < GETDATE() AND GETDATE() <= rd.endDay) OR (rd.startDay < GETDATE() AND rd.endDay IS NULL))) 
+where roomSize = 6 AND roomAttendees <= 3 AND gender = 'M' AND airConditional = 'Y' AND price <= 3000000
+
+create view RoomDetailView as
+select r.roomId, r.roomSize, r.roomAttendees, r.gender, r.airConditional, rd.price
+from Room r inner join RegisterRoomDetail rd
+on (r.roomId = rd.roomId AND ((rd.startDay < GETDATE() AND GETDATE() <= rd.endDay) OR (rd.startDay < GETDATE() AND rd.endDay IS NULL))) 
+
+select * from RoomDetailView where roomSize = 6 AND roomAttendees <= 3 AND gender = 'M' AND airConditional = 'Y' AND price <= 3000000
+
+select * from RoomDetailView where roomID = 101
+
+select * from RegisterRoom
+select * from RegisterRoomDetail
+
+create view RoomRegistrationView as
+select rg.reRoomID, rg.roomId, rg.userId, rg.date, rg.semester, rg.status, rd.price 
+from RegisterRoom rg inner join Room r on rg.roomId = r.roomId
+inner join RegisterRoomDetail rd
+on (r.roomId = rd.roomId AND ((rd.startDay < GETDATE() AND GETDATE() <= rd.endDay) OR (rd.startDay < GETDATE() AND rd.endDay IS NULL)))
+where userId = 'SE160094'
+
+select * from [RoomRegistrationView]
+where userId = 'SE160094'
+order by reRoomID
+
+select * from [RoomRegistrationView] order by reRoomID
+
+select * from RoomDetailView
+update RegisterRoom set status = 'Rejected' where reRoomID = 19
+
+select * from Account
+select * from Person
+
+
+select roomID from RoomRegistrationView where reroomID = 1
+
+
+create trigger updateRoomAttendeesTrigger on RegisterRoom AFTER INSERT, UPDATE, DELETE AS
+BEGIN
+update Room set roomAttendees = (select COUNT(roomID) from RegisterRoom rg where rg.roomId = Room.roomID AND rg.status LIKE 'Success') 
+END
+
+--create view DynamicRoomDetailView as
+--select r.roomId, r.roomSize, (select COUNT(rg.roomId) from RegisterRoom rg where rg.roomId = r.roomID AND rg.status LIKE 'Success') as roomAttendees, r.gender, r.airConditional, rd.price
+--from Room r inner join RegisterRoomDetail rd
+--on (r.roomId = rd.roomId AND ((rd.startDay < GETDATE() AND GETDATE() <= rd.endDay) OR (rd.startDay < GETDATE() AND rd.endDay IS NULL))) 
+
+--drop view DynamicRoomDetailView
