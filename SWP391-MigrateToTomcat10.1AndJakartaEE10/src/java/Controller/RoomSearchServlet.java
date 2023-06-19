@@ -61,7 +61,7 @@ public class RoomSearchServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         DormDAO dao = new DormDAO();
-        ArrayList<Room> result = dao.returnAllRooms();
+        ArrayList<Room> result = dao.returnAllNonFullRooms();
         if (result.isEmpty()) {
             request.setAttribute("err", "Không tồn tại phòng");
             request.getRequestDispatcher("room_search.jsp").forward(request, response);

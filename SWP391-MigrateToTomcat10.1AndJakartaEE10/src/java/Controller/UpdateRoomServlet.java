@@ -5,7 +5,8 @@
 
 package Controller;
 
-import context.SendMailContext;
+import dao.DormDAO;
+import entity.Room;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -15,9 +16,9 @@ import jakarta.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author MSI GL63
+ * @author LENOVO
  */
-public class ContactServlet extends HttpServlet {
+public class UpdateRoomServlet extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -34,10 +35,10 @@ public class ContactServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ContactServlet</title>");  
+            out.println("<title>Servlet UpdateRoomServlet</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ContactServlet at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet UpdateRoomServlet at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -54,7 +55,10 @@ public class ContactServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        DormDAO dao = new DormDAO();
+        Room room = dao.getRoomById(Integer.parseInt(request.getParameter("roomID")));
+        request.setAttribute("room", room);
+        request.getRequestDispatcher("updateRoom.jsp").forward(request, response);
     } 
 
     /** 
@@ -66,14 +70,17 @@ public class ContactServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException{
-        response.setContentType("text/HTML; charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        String subject = request.getParameter("email");
-        String body = request.getParameter("username").concat(":" +request.getParameter("message"));
-        String message = SendMailContext.sendMail(subject, body);
-        request.setAttribute("mess", message);
-        response.sendRedirect("contact.jsp");
+    throws ServletException, IOException {
+        DormDAO dao = new DormDAO();
+        int roomId = Integer.parseInt(request.getParameter("roomID"));       
+        int roomSize = Integer.parseInt(request.getParameter("roomSize"));
+        int roomAttendees = Integer.parseInt(request.getParameter("roomAttendees"));
+        String gender = request.getParameter("gender");
+        String hasAirConditioner = request.getParameter("hasAirConditioner");
+        double price = Double.parseDouble(request.getParameter("price"));
+        
+        dao.updateRoom(roomId, roomSize, roomAttendees, gender, hasAirConditioner, price);
+        response.sendRedirect("ManageRoomServlet");
     }
 
     /** 

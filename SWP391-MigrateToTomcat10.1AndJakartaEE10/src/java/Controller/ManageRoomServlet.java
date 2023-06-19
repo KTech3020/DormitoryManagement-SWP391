@@ -5,19 +5,21 @@
 
 package Controller;
 
-import context.SendMailContext;
+import dao.DormDAO;
+import entity.Room;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 
 /**
  *
- * @author MSI GL63
+ * @author LENOVO
  */
-public class ContactServlet extends HttpServlet {
+public class ManageRoomServlet extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -34,10 +36,10 @@ public class ContactServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ContactServlet</title>");  
+            out.println("<title>Servlet ManageRoomServlet</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ContactServlet at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet ManageRoomServlet at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -54,7 +56,18 @@ public class ContactServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        DormDAO dao = new DormDAO();
+        ArrayList<Room> list = dao.displayAllRoom();
+        
+        int lastPage = dao.lastPagesP(5); 
+        if (list.isEmpty()) {
+            request.setAttribute("err", "Không có phòng");
+            request.getRequestDispatcher("manageRoom.jsp").forward(request, response);
+        } else {
+            request.setAttribute("roomList", list);
+            request.setAttribute("lastPage", lastPage);  
+            request.getRequestDispatcher("manageRoom.jsp").forward(request, response);
+        }
     } 
 
     /** 
@@ -66,14 +79,8 @@ public class ContactServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException{
-        response.setContentType("text/HTML; charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        String subject = request.getParameter("email");
-        String body = request.getParameter("username").concat(":" +request.getParameter("message"));
-        String message = SendMailContext.sendMail(subject, body);
-        request.setAttribute("mess", message);
-        response.sendRedirect("contact.jsp");
+    throws ServletException, IOException {
+        processRequest(request, response);
     }
 
     /** 

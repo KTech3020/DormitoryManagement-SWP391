@@ -16,7 +16,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.Part;
-import java.io.File;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
         maxFileSize = 1024 * 1024 * 10, // 10MB
@@ -28,8 +31,7 @@ import java.io.File;
  */
 public class ManageProfile extends HttpServlet {
 
-    String savePath = "C:\\Users\\HP\\Desktop\\GitHub\\DormitoryManagement-SWP391\\SWP391-MigrateToTomcat10.1AndJakartaEE10\\web\\images";
-
+    //String savePath = "C:\\Users\\HP\\Desktop\\GitHub\\DormitoryManagement-SWP391\\SWP391-MigrateToTomcat10.1AndJakartaEE10\\web\\images";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -72,7 +74,7 @@ public class ManageProfile extends HttpServlet {
         DormDAO dao = new DormDAO();
         HttpSession session = request.getSession();
         Account account = (Account) session.getAttribute("accountS");
-        request.setAttribute("profile", dao.getPersonProfile(account.getUsers()));
+        request.setAttribute("profile", dao.getPersonProfile(account.getUserid()));
         request.getRequestDispatcher("manageProfile.jsp").forward(request, response);
     }
 
@@ -90,8 +92,7 @@ public class ManageProfile extends HttpServlet {
         //processRequest(request, response);
         DormDAO dao = new DormDAO();
         String idPerson = request.getParameter("idPerson");
-        String roomId = request.getParameter("roomId");
-        //String img = request.getParameter("img");
+
         String name = request.getParameter("name");
         String cmnd = request.getParameter("cmnd");
         String dob = request.getParameter("dob");
@@ -100,27 +101,16 @@ public class ManageProfile extends HttpServlet {
         String email = request.getParameter("email");
         String address = request.getParameter("address");
 
-        String img = idPerson.concat(".png");
-        
-        for (Part part : request.getParts()) {
-            System.out.println(part.getHeader("content-disposition"));
-            if (!part.getHeader("content-disposition").contains("filename")) {
-                continue;
-            }
-            if (img != null && img.length() > 0) {
-                String filePath = savePath + File.separator + img;
-                part.write(filePath);
-            }
+        Part part = request.getPart("img");
 
+        String realPath = request.getServletContext().getRealPath("/images");
+        String fileName = Paths.get(part.getSubmittedFileName()).getFileName().toString();
+        if (!Files.exists(Paths.get(realPath))) {
+            Files.createDirectory(Paths.get(realPath));
         }
-//        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-//        java.util.Date date = null;
-//        try {
-//            date = format.parse(updateDob);
-//        } catch (ParseException ex) {
-//        }       
-//        java.sql.Date dob = new java.sql.Date(date.getTime());
-        dao.updateProfile(idPerson, roomId, img, name, cmnd, dob, gender, phone, email, address);
+        part.write(realPath + "/" + fileName);
+
+        dao.updateProfile(idPerson, fileName, name, cmnd, dob, gender, phone, email, address);
         response.sendRedirect("index.jsp");
     }
 

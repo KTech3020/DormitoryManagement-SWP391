@@ -3,33 +3,21 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package entity;
-
-import java.sql.Date;
-
 /**
  *
  * @author MSI GL63
  */
 public class Person {
-    
-    private String idPerson;   
-    private String roomId;
-    private String img;
-    private String name, cmnd;   
-    private String dob;
-    private String gender, phone, email, address;
 
+    private String idPerson, roomId, img, name, cmnd, dob, gender, phone, email, address;
+    
     public Person() {
     }
-    
+
     public Person(String idPerson) {
         this.idPerson = idPerson;
     }
 
-    
-    
-    
-    
 //    public String getGender() {
 //        switch(gender){
 //            case 'M': return "Male";
@@ -37,6 +25,17 @@ public class Person {
 //            default: return "Other";
 //        }
 //    }
+    public Person(String idPerson, String img, String name, String cmnd, String dob, String gender, String phone, String email, String address) {
+        this.idPerson = idPerson;
+        this.img = img;
+        this.name = name;
+        this.cmnd = cmnd;
+        this.dob = dob;
+        this.gender = gender;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+    }
 
     public Person(String idPerson, String roomId, String img, String name, String cmnd, String dob, String gender, String phone, String email, String address) {
         this.idPerson = idPerson;
@@ -51,20 +50,21 @@ public class Person {
         this.address = address;
     }
 
-    public String getIdPerson() {
-        return idPerson;
-    }
-
-    public void setIdPerson(String idPerson) {
-        this.idPerson = idPerson;
-    }
-
     public String getRoomId() {
         return roomId;
     }
 
     public void setRoomId(String roomId) {
         this.roomId = roomId;
+    }
+
+    
+    public String getIdPerson() {
+        return idPerson;
+    }
+
+    public void setIdPerson(String idPerson) {
+        this.idPerson = idPerson;
     }
 
     public String getImg() {
@@ -130,9 +130,5 @@ public class Person {
     public void setAddress(String address) {
         this.address = address;
     }
-    
-    
-    
-    
-    
+
 }
