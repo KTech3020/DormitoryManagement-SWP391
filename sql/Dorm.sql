@@ -122,7 +122,7 @@ VALUES
 Trân trọng thông báo!','MA093891','2022-10-05', 1),
 
 ('N002','Đại học FPT Hà Nội bố trí xe miễn phí đưa sinh viên đang cách ly tại ký túc xá về quê ăn Tết','Nhà trường đã ra thông báo, kể từ ngày 5/2/2021, nhà trường sẽ đóng cửa và ngưng các dịch vụ tiện ích, ký túc xá để chuẩn bị cho khả năng tình hình COVID-19 tại Hà nội có thể phức tạp, Hà nội thành điểm nóng, Campus ĐH FPT Hà nội có thể được trưng dụng làm khu cách ly tập trung theo đề nghị của UBND TP HN. Nhà trường yêu cầu tất cả sinh viên hiện tại đang còn ở KTX FPTU Hoà Lạc thực hiện: Thu dọn đồ, cho vào tủ khóa lại trước khi về nhà ăn Tết từ sáng ngày 04/02/2021; trên đường trở về địa phương nơi cư trú thực hiện nghiêm các nội dung phòng chống dịch theo hướng dẫn 5K (Khẩu trang – Khử khuẩn – Khoảng cách – Không tập trung – Khai báo y tế', 'MA093891','11-03-04', 1),
-( 'N003','Review KTX cho sinh viên', 'rường Đại học FPT với kiến trúc xanh và không gian như một khu resort sang xịn mịn cùng hàng loạt góc sống ảo đẹp không góc chết. Và ký túc xá sinh viên thì được trang hoàng chả khác gì khách sạn luôn.
+( 'N003','Review KTX cho sinh viên', 'Trường Đại học FPT với kiến trúc xanh và không gian như một khu resort sang xịn mịn cùng hàng loạt góc sống ảo đẹp không góc chết. Và ký túc xá sinh viên thì được trang hoàng chả khác gì khách sạn luôn.
 
 Nằm ở Hòa Lạc, các trung tâm thành phố khoảng 30km, Trường Đại học FPT như 1 khu resort đích thực khi kiến trúc xịn sò, quang cảnh tuyệt đẹp và đặc biệt là siêu yên tĩnh. Nếu như sinh viên các trường bị ám ảnh bởi cuộc sống ở những khu ký túc xá cũ đầy tối tăm, chật hẹp thì sinh viên FPT lại rất tự hào và hãnh diện vì cuộc sống sinh viên nơi đây sướng hơn cả ở khách sạn.', 'MA093891', '2022-11-06', 1)
 
