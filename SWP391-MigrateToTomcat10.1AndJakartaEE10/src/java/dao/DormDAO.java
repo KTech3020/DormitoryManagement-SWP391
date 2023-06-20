@@ -5,9 +5,9 @@
 package dao;
 
 import entity.Person;
-import entity.News;
 import context.DBContext;
 import entity.Account;
+import entity.News;
 import entity.Room;
 import entity.RoomRegistration;
 import java.sql.Connection;
@@ -16,9 +16,7 @@ import java.sql.ResultSet;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
-import java.time.LocalDate;
 import java.util.List;
-
 
 /**
  *
@@ -415,10 +413,35 @@ public class DormDAO {
         }
         return list;
     }
+    
+     public void deleteNews(int notiID) {
+        String sql = "delete from News where [notiID] =?";
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, notiID);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+     
+     
+     public void editNews(String notiID, String subject, String content, String userId,
+            Date time,int isAdmin) {
+        try {
+            String sql = "update News set , [notiId] = ?, "
+                    + "[subject] = ?, [content] = ?, [userId] = ? where [isAdmin]=1 ";
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, notiID);
+            ps.setString(2, subject);
+            ps.setString(3, content);
+            ps.setString(4, userId);
+            ps.setDate(5, (java.sql.Date) time);
+            ps.setInt(6, isAdmin);
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
 }
-    
-    
-    
-
-
-

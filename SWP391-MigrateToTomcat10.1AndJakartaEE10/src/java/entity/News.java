@@ -10,62 +10,63 @@ package entity;
  */
 import java.util.Date;
 public class News {
-    private String NotiID;
-    private String Subject;
-    private String Content;
+    private String notiID;
+    private String subject;
+    private String content;
     private String userId;
-    private Date Time;
+    private Date time;
     private int isAdmin;
 
     public News() {
     }
 
-    public News(String NotiID, String Subject, String Content,String userId, Date Time, int isAdmin) {
-        this.NotiID = NotiID;
-        this.Subject = Subject;
-        this.Content = Content;
+    public News(String notiID, String subject, String content,String userId, Date time, int isAdmin) {
+        this.notiID = notiID;
+        this.subject = subject;
+        this.content = content;
         this.userId = userId;
-        this.Time = Time;
+        this.time = time;
         this.isAdmin = isAdmin;
     }
 
     public String getNotiID() {
-        return NotiID;
+        return notiID;
     }
 
-    public void setNotiID(String userid) {
-        this.NotiID = NotiID;
+    public void setNotiID(String notiID) {
+        this.notiID = notiID;
     }
 
     public String getSubject() {
-        return Subject;
+        return subject;
     }
 
-    public void setSubject(String pass) {
-        this.Subject = Subject;
+    public void setSubject(String subject) {
+        this.subject = subject;
     }
-    
+
     public String getContent() {
-        return Content;
+        return content;
     }
 
-    public void setContent(String pass) {
-        this.Content = Content;
+    public void setContent(String content) {
+        this.content = content;
     }
-    
-     public String getuserId() {
+
+    public String getUserId() {
         return userId;
     }
 
-    public void setuserId(String pass) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
+
     public Date getTime() {
-        return Time;
+        return time;
     }
 
-    public void setTime(String pass) {
-        this.Time = Time;
+    public void setTime(Date time) {
+        this.time = time;
     }
 
     public int getIsAdmin() {
@@ -75,4 +76,7 @@ public class News {
     public void setIsAdmin(int isAdmin) {
         this.isAdmin = isAdmin;
     }
+
+    
 }
+
