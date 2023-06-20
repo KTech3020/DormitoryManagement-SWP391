@@ -106,14 +106,20 @@ public class RegisterRoomServlet extends HttpServlet {
             throws ServletException, IOException {
         String userID = request.getParameter("userID");
         String roomID = request.getParameter("roomID");
-        LocalDateTime currentDate = LocalDateTime.now();
-        String semester = request.getParameter("semester");
         DormDAO dao = new DormDAO();
+        if (dao.checkAlreadyRegistered(roomID, userID)){
+            request.setAttribute("error", "Bạn không thể đăng ký phòng này! Lý do: Bạn đã đăng ký rồi.");
+            request.getRequestDispatcher("registerRoom.jsp").forward(request, response);
+        }
+        else {
+        LocalDateTime currentDate = LocalDateTime.now();
+        String semester = request.getParameter("semester");        
         dao.createRegisterRoomRequest(roomID, userID, currentDate, semester);
         SendMailContext send = new SendMailContext();
         send.sendMailToStudentRegister(dao.getPersonProfile(userID));
         request.setAttribute("success", "Đăng kí phòng thành công.");
         request.getRequestDispatcher("registerRoom.jsp").forward(request, response);
+        }
     }
 
     /**

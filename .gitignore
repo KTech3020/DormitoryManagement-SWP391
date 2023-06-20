@@ -2,3 +2,5 @@
 SWP391-MigrateToTomcat10.1AndJakartaEE10/build/
 SWP391-MigrateToTomcat10.1AndJakartaEE10/dist/
 SWP391-MigrateToTomcat10.1AndJakartaEE10/libraries/
+SWP391-MigrateToTomcat10.1AndJakartaEE10/nbproject/
+*.class

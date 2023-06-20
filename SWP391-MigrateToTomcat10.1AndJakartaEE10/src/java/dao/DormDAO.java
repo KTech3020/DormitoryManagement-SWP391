@@ -164,7 +164,7 @@ public class DormDAO {
 
     //for manage
     public ArrayList<Room> displayAllRoom() {
-        String sql = "select * from RoomDetailView";
+        String sql = "select * from RoomDetailView order by roomID";
         ArrayList<Room> list = new ArrayList<>();
         try {
             con = new DBContext().getConnection();
@@ -183,7 +183,7 @@ public class DormDAO {
     //for student
     public ArrayList returnAllNonFullRooms() {
         ArrayList<Room> result = new ArrayList();
-        String sql = "select * from RoomDetailView";
+        String sql = "select * from RoomDetailView order by roomID";
         try {
             con = new DBContext().getConnection();
             ps = con.prepareStatement(sql);
@@ -300,7 +300,7 @@ public class DormDAO {
                             select count(*) 
                             from Room r,  RegisterRoomDetail rd 
                             where r.roomId = rd.roomId
-                            AND ((rd.startDay < GETDATE() AND GETDATE() <= rd.endDay) OR (rd.startDay < GETDATE() AND rd.endDay IS NULL))""";
+                            AND ((rd.startDay <= GETDATE() AND GETDATE() < rd.endDay) OR (rd.startDay <= GETDATE() AND rd.endDay IS NULL))""";
         try {
             con = new DBContext().getConnection();
             ps = con.prepareStatement(createQuery);
@@ -337,12 +337,19 @@ public class DormDAO {
         return null;
     }
 
-    public void updateRoom(int roomID, int roomSize, int roomAttendees, String gender, String hasAirConditioner, double price) {
+    public void updateRoom(int roomID, int roomSize, int roomAttendees, String gender, 
+                           String hasAirConditioner, double newPrice) {
         String sql = """
                      update Room set roomSize= ?, roomAttendees= ?, gender= ?, airConditional=?
                      where roomId = ?
-                     update RegisterRoomDetail set price= ?
-                     where roomId = ? and (RegisterRoomDetail.startDay < GETDATE() AND RegisterRoomDetail.endDay IS NULL)""";
+                     
+                     update RegisterRoomDetail set endDay = (GETDATE() -1)
+                     where roomId = ? and (RegisterRoomDetail.startDay <= GETDATE() AND RegisterRoomDetail.endDay IS NULL)
+                     
+                     insert into RegisterRoomDetail ([roomId], [startDay], [endDay], [price]) VALUES 
+                     (?, GETDATE(), null, ?)
+                     """;
+        
         try {
             con = new DBContext().getConnection();
             ps = con.prepareStatement(sql);
@@ -351,8 +358,9 @@ public class DormDAO {
             ps.setString(3, gender);
             ps.setString(4, hasAirConditioner);
             ps.setInt(5, roomID);
-            ps.setDouble(6, price);
+            ps.setInt(6, roomID);
             ps.setInt(7, roomID);
+            ps.setDouble(8, newPrice);
             ps.executeUpdate();
         } catch (Exception e) {
             System.out.println("Error: " + e);
@@ -392,5 +400,22 @@ public class DormDAO {
         } catch (Exception e) {
             System.out.println(e);
         }
+    }
+    
+    public boolean checkAlreadyRegistered (String roomID, String userID){
+        boolean isRegistered = false;
+        String sql = "select * from RoomRegistrationView where [roomID] = ? AND [userID] = ? AND (status = 'Registered' OR status = 'Success')";
+        try {
+             con = new DBContext().getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, roomID);
+            ps.setString(2, roomID);
+            rs = ps.executeQuery();
+            if (rs != null)
+                isRegistered = true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return isRegistered; 
     }
 }
