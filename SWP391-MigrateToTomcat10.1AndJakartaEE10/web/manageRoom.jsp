@@ -91,6 +91,7 @@
         
         
         <td><button><a href="addRoom.jsp">Thêm phòng</a></button></td>
+        <td><button><a href="ManageRoomRegistrationServlet">Quản lý đăng kí phòng</a></button></td>
 
     </div>
 </section>

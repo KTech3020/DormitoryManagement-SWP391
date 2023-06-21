@@ -4,18 +4,19 @@
  */
 package Controller;
 
+import dao.DormDAO;
 import entity.Account;
+import entity.Person;
+import entity.Room;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.time.LocalDateTime;
 import jakarta.servlet.http.HttpSession;
-
-
-
+import java.time.LocalDateTime;
+import context.SendMailContext;
 /**
  *
  * @author HP
@@ -39,7 +40,7 @@ public class RegisterRoomServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet RegisterRoomServlet</title>");            
+            out.println("<title>Servlet RegisterRoomServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet RegisterRoomServlet at " + request.getContextPath() + "</h1>");
@@ -60,23 +61,36 @@ public class RegisterRoomServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        LocalDateTime dateIn4Months = LocalDateTime.now().plusMonths(4);
-        int month = dateIn4Months.getMonth().getValue();
-        String semester = "";
-        if (month >= 1 && month <= 4)
-            semester = semester.concat("SP");
-        else if (month >= 5 && month <= 8)
-            semester = semester.concat("SU");
-        else if (month >= 9 && month <= 12)
-            semester = semester.concat("FA");
 
-        String year = Integer.toString(dateIn4Months.getYear());
-        year = year.substring(year.length()-2);
-        semester = semester.concat(year);
-        request.setAttribute("roomID",request.getParameter("roomID"));
-        request.setAttribute("price",request.getParameter("price"));
-        request.setAttribute("semester", semester);
-        request.getRequestDispatcher("registerRoom.jsp").forward(request, response);
+        DormDAO dao = new DormDAO();
+        HttpSession session = request.getSession();
+        Account account = (Account) session.getAttribute("accountS");
+        Person person = dao.getPersonProfile(account.getUserid());
+        Room room = dao.getRoomById(Integer.parseInt(request.getParameter("roomID")));
+        if (person.getGender().equals(room.getGender())) {
+
+            LocalDateTime dateIn4Months = LocalDateTime.now().plusMonths(4);
+            int month = dateIn4Months.getMonth().getValue();
+            String semester = "";
+            if (month >= 1 && month <= 4) {
+                semester = semester.concat("SP");
+            } else if (month >= 5 && month <= 8) {
+                semester = semester.concat("SU");
+            } else if (month >= 9 && month <= 12) {
+                semester = semester.concat("FA");
+            }
+
+            String year = Integer.toString(dateIn4Months.getYear());
+            year = year.substring(year.length() - 2);
+            semester = semester.concat(year);
+            request.setAttribute("roomID", request.getParameter("roomID"));
+            request.setAttribute("price", request.getParameter("price"));
+            request.setAttribute("semester", semester);
+            request.getRequestDispatcher("registerRoom.jsp").forward(request, response);
+        } else {
+            request.setAttribute("error", "Bạn không thể đăng ký phòng này! Lý do: Giới tính không trùng với giới tính phòng.");
+            request.getRequestDispatcher("registerRoom.jsp").forward(request, response);
+        }
     }
 
     /**
@@ -92,7 +106,20 @@ public class RegisterRoomServlet extends HttpServlet {
             throws ServletException, IOException {
         String userID = request.getParameter("userID");
         String roomID = request.getParameter("roomID");
+        DormDAO dao = new DormDAO();
+        if (dao.checkAlreadyRegistered(roomID, userID)){
+            request.setAttribute("error", "Bạn không thể đăng ký phòng này! Lý do: Bạn đã đăng ký rồi.");
+            request.getRequestDispatcher("registerRoom.jsp").forward(request, response);
+        }
+        else {
         LocalDateTime currentDate = LocalDateTime.now();
+        String semester = request.getParameter("semester");        
+        dao.createRegisterRoomRequest(roomID, userID, currentDate, semester);
+        SendMailContext send = new SendMailContext();
+        send.sendMailToStudentRegister(dao.getPersonProfile(userID));
+        request.setAttribute("success", "Đăng kí phòng thành công.");
+        request.getRequestDispatcher("registerRoom.jsp").forward(request, response);
+        }
     }
 
     /**

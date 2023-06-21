@@ -13,8 +13,8 @@
         <servlet-class>Controller.LogoutServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ForgotpassServlet</servlet-name>
-        <servlet-class>Controller.ForgotpassServlet</servlet-class>
+        <servlet-name>ChangePasswordServlet</servlet-name>
+        <servlet-class>Controller.ChangePasswordServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>RoomSearchServlet</servlet-name>
@@ -37,6 +37,14 @@
         <servlet-class>Controller.ContactServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>StudentViewRegistrationServlet</servlet-name>
+        <servlet-class>Controller.StudentViewRegistrationServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManageRoomRegistrationServlet</servlet-name>
+        <servlet-class>Controller.ManageRoomRegistrationServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>ManageRoomServlet</servlet-name>
         <servlet-class>Controller.ManageRoomServlet</servlet-class>
     </servlet>
@@ -52,6 +60,26 @@
         <servlet-name>DeleteRoomServlet</servlet-name>
         <servlet-class>Controller.DeleteRoomServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>TypeRequestServlet</servlet-name>
+        <servlet-class>Controller.TypeRequestServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SendChangeRoomServlet</servlet-name>
+        <servlet-class>Controller.SendChangeRoomServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TypeManageRequestServlet</servlet-name>
+        <servlet-class>Controller.TypeManageRequestServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AcceptChangeRoomServlet</servlet-name>
+        <servlet-class>Controller.AcceptChangeRoomServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteChangeRoomServlet</servlet-name>
+        <servlet-class>Controller.DeleteChangeRoomServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -65,8 +93,8 @@
         <url-pattern>/LogoutServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ForgotpassServlet</servlet-name>
-        <url-pattern>/ForgotpassServlet</url-pattern>
+        <servlet-name>ChangePasswordServlet</servlet-name>
+        <url-pattern>/ChangePasswordServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ManageProfile</servlet-name>
@@ -89,6 +117,14 @@
         <url-pattern>/ContactServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>StudentViewRegistrationServlet</servlet-name>
+        <url-pattern>/StudentViewRegistrationServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageRoomRegistrationServlet</servlet-name>
+        <url-pattern>/ManageRoomRegistrationServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ManageRoomServlet</servlet-name>
         <url-pattern>/ManageRoomServlet</url-pattern>
     </servlet-mapping>
@@ -103,6 +139,26 @@
     <servlet-mapping>
         <servlet-name>DeleteRoomServlet</servlet-name>
         <url-pattern>/DeleteRoomServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TypeRequestServlet</servlet-name>
+        <url-pattern>/TypeRequestServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SendChangeRoomServlet</servlet-name>
+        <url-pattern>/SendChangeRoomServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TypeManageRequestServlet</servlet-name>
+        <url-pattern>/TypeManageRequestServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AcceptChangeRoomServlet</servlet-name>
+        <url-pattern>/AcceptChangeRoomServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteChangeRoomServlet</servlet-name>
+        <url-pattern>/DeleteChangeRoomServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

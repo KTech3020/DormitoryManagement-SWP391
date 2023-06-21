@@ -13,39 +13,44 @@
 
         <tr>
             <td>Kích thước phòng</td>
-            <td><input type="text" name="roomSize" value="${room.roomSize}"></td>             
+            <td>
+                <select id="roomSize" required name="roomSize"">
+                    <option <c:if test="${room.roomSize == 4}">selected</c:if> value="4">Phòng 4 chỗ</option>
+                    <option <c:if test="${room.roomSize == 6}">selected</c:if> value="6">Phòng 6 chỗ</option>
+                    <option <c:if test="${room.roomSize == 8}">selected</c:if> value="8">Phòng 8 chỗ</option>
+                </select>
+            </td>          
         </tr>
 
         <tr>
             <td>Số người đang ở</td>
             <td><input type="text" name="roomAttendees" value="${room.roomAttendees}" readonly></td>             
         </tr>
-
-
+        
         <tr>
             <td>Giới tính</td>
             <td>
-                <c:choose>
-                    <c:when test="${room.gender==M}">
-                        <input type="text" name="gender" value="${room.gender}">
-                    </c:when>
-                    <c:otherwise>
-                        <input type="text" name="gender" value="${room.gender}">
-                    </c:otherwise>
-                </c:choose>
-
-            </td>
+                <select required name="gender">
+                    <option <c:if test="${room.gender eq 'M'}">selected</c:if> value="M">Nam</option>
+                    <option <c:if test="${room.gender eq 'F'}">selected</c:if> value="F">Nữ</option>
+                </select>
+            </td> 
         </tr>
-        
-        
+
+
         <tr>
             <td>Có điều hòa?</td>
-            <td><input type="text" name="hasAirConditioner" value="${room.hasAirConditioner}" ></td>   
+            <td>
+                <select required name="hasAirConditioner">
+                    <option <c:if test="${room.hasAirConditioner eq 'Y'}">selected</c:if> value="Y">Có</option>
+                    <option <c:if test="${room.hasAirConditioner eq 'N'}">selected</c:if> value="N">Không</option>
+                </select>
+            </td>   
         </tr>
 
         <tr>
             <td>Mức giá phòng</td>
-            <td><input type="text" name="price" value="${room.price}" ></td>   
+            <td><input type="text" name="price" value="${room.price}" required ></td>   
         </tr>
 
         <tr>

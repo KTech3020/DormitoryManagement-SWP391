@@ -4,6 +4,10 @@
         <header>
             <h1>XÁC NHẬN ĐĂNG KÝ PHÒNG: ${roomID}</h1>
         </header>
+        <%if (request.getAttribute("error") !=null){%>
+        <div style="color: red">${error}</div>
+        <a href="index.jsp"><button>Quay về trang chủ</button></a>
+        <%} else {%>
         <form class="dangkiphong" action ="RegisterRoomServlet" method="POST">
             <table>
                 <tr>
@@ -13,7 +17,7 @@
 
                 <tr>
                     <td>MSSV</td>
-                    <td><input type="text" name="user" value="${sessionScope.accountS.userid}" readonly></td>             
+                    <td><input type="text" name="userID" value="<%if (request.getAttribute("success") == null){%>${sessionScope.accountS.userid}<%} %>" readonly></td>             
                 </tr>
 
                 <tr>
@@ -25,11 +29,25 @@
                     <td>Phí cần trả</td>
                     <td><input type="text" name="price" value="${price}" readonly></td>             
                 </tr>
+                <%if (request.getAttribute("success") !=null){%>
+            </table>
+        </form> 
+        <form action="index.jsp">
+            <table>
                 <tr>
-                    <td><button type = "submit">Xác nhận đăng ký</button></td>
+                    <td><button>Quay về trang chủ</button></td>
+                    <td><span style="color: green">${success}</span></td>
                 </tr>
             </table>
-        </form>        
+        </form>
+        <%} else {%>
+        <tr>
+            <td><button type = "submit">Xác nhận đăng ký</button></td>
+        </tr>
+        <%} %>
+        </table>
+        </form>
+        <%} %>
     </div>
 </section>
 </div>

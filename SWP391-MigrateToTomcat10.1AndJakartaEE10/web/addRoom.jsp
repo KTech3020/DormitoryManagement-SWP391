@@ -13,20 +13,36 @@
 
         <tr>
             <td>Kích thước phòng</td>
-            <td><input type="text" name="roomSize" required></td>             
+            <td>
+                <select id="roomSize" required name="roomSize"">
+                    <option value="" disabled selected hidden>Chọn kích thước</option><!-- dummy default option -->
+                    <option value="4">Phòng 4 chỗ</option>
+                    <option value="6">Phòng 6 chỗ</option>
+                    <option value="8">Phòng 8 chỗ</option>
+                </select>
+            </td>          
         </tr>
 
         <tr>
             <td>Giới tính</td>
             <td>
-                <input type="text" name="gender" required>                   
-            </td>
+                <select required name="gender">
+                    <option value="" disabled selected hidden>Chọn giới tính phòng</option><!-- dummy default option -->
+                    <option value="M">Nam</option>
+                    <option value="F">Nữ</option>
+                </select>
+            </td> 
         </tr>
 
 
         <tr>
             <td>Có điều hòa?</td>
-            <td><input type="text" name="hasAirConditioner" required></td>   
+            <td>
+                <select required name="hasAirConditioner">
+                    <option selected value="Y">Có</option>
+                    <option value="N">Không</option>
+                </select>
+            </td>   
         </tr>
 
         <tr>

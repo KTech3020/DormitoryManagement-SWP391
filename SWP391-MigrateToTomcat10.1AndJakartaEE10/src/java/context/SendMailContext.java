@@ -10,16 +10,18 @@ package context;
 import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
+import entity.Person;
+import java.time.LocalDateTime;
 /**
  *
  * @author MSI GL63
  */
 public class SendMailContext {
-    public static void sendMail(String sub, String msg){
+    public static String sendMail(String sub, String msg){
         final String fromEmail = "ktx.fpt.demo@gmail.com";
         final String password = "vgryybbkhetguyyb";
         final String toEmail = "ktx.fpt.demo@gmail.com";
-
+        String messageResult = "";
         Properties pr = new Properties();
         //System.getProperties()
         pr.put("mail.smtp.auth", "true");
@@ -43,11 +45,52 @@ public class SendMailContext {
             message.setSubject(sub);
             message.setText(msg);
             message.setSentDate(new Date());
-
             Transport.send(message);
+            messageResult = "The email was sent successfully!";
         } catch (Exception e) {
             e.printStackTrace();
+            messageResult = "There were an error:" + e.getMessage();
         }
+        return messageResult;
+    }
+    
+    public static String sendMailToStudentRegister (Person p){
+        final String fromEmail = "ktx.fpt.demo@gmail.com";
+        final String password = "vgryybbkhetguyyb";
+        final String toEmail = p.getEmail();
+        String messageResult = "";
+        Properties pr = new Properties();
+        //System.getProperties()
+        pr.put("mail.smtp.auth", "true");
+        pr.put("mail.smtp.starttls.enable", "true");
+        pr.put("mail.smtp.host", "smtp.gmail.com");
+        pr.put("mail.smtp.port", "587");
+        pr.put("mail.smtp.socketFactory.port", "465");
+        pr.put("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");
+
+        Session session = Session.getInstance(pr, new Authenticator(){
+            protected PasswordAuthentication getPasswordAuthentication(){
+                return new PasswordAuthentication(fromEmail,password);
+            }
+        });
+
+        try {
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(fromEmail));
+            InternetAddress[] toAddresses = {new InternetAddress(toEmail)};
+            message.addRecipients(Message.RecipientType.TO, toAddresses);
+            message.setSubject("Phản hồi yêu cầu đăng ký ký túc xá của sinh viên " + p.getName());
+            message.setText(LocalDateTime.now() + ":\n"
+                            + "Yêu cầu đăng ký phòng của bạn đã thành công. Ban quản lý ký túc xá sẽ phản hồi bạn trong khoảng thời gian ngắn nhất\n"
+                            + "\n\nBan quản lý kí túc xá");
+            message.setSentDate(new Date());
+            Transport.send(message);
+            messageResult = "The email was sent successfully!";
+        } catch (Exception e) {
+            e.printStackTrace();
+            messageResult = "There were an error:" + e.getMessage();
+        }
+        return messageResult;
     }
 
 }

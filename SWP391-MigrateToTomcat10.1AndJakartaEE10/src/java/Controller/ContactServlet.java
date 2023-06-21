@@ -71,7 +71,8 @@ public class ContactServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         String subject = request.getParameter("email");
         String body = request.getParameter("username").concat(":" +request.getParameter("message"));
-        SendMailContext.sendMail(subject, body);
+        String message = SendMailContext.sendMail(subject, body);
+        request.setAttribute("mess", message);
         response.sendRedirect("contact.jsp");
     }
 
