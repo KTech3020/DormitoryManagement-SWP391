@@ -11,7 +11,7 @@
         <%} else if (request.getAttribute("registersList") !=null){%>
         <table style="margin-top: 50px">
             <tr>
-                <th>ID </th>
+                <th>ID</th>
                 <th>ID phòng</th>
                 <th>MSSV</th>
                 <th>Thời gian đăng ký</th>

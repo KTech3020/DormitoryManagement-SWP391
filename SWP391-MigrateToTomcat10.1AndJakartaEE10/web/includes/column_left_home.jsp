@@ -30,7 +30,7 @@
                         <a href="RoomSearchServlet" class="nav-item nav-link">Xem và tìm kiếm phòng</a>
                     </li>
                     <li>
-                        <a href="#" class="nav-item nav-link">Quản lý, thanh toán hóa đơn</a>
+                        <a href="PaymentServlet" class="nav-item nav-link">Quản lý, thanh toán hóa đơn</a>
                     </li>
                     <li>
                         <a href="#" class="nav-item nav-link">Gửi yêu cầu/khiếu nại</a>
@@ -41,7 +41,7 @@
                 </c:if>
                 <c:if test="${sessionScope.accountS.isAdmin==1}">
                     <li>
-                        <a href="#" class="nav-item nav-link">Quản lý thông báo</a>
+                        <a href="ManageNotificationServlet" class="nav-item nav-link">Quản lý thông báo</a>
                     </li>
                     <li>
                         <a href="listStudent.jsp" class="nav-item nav-link">Quản lý sinh viên</a>
@@ -50,7 +50,7 @@
                         <a href="ManageRoomServlet" class="nav-item nav-link">Quản lý phòng ở</a>
                     </li>
                     <li>
-                        <a href="#" class="nav-item nav-link">Quản lý hóa đơn</a>
+                        <a href="" class="nav-item nav-link">Quản lý hóa đơn</a>
                     </li>
                     <li>
                         <a href="#" class="nav-item nav-link">Xem yêu cầu, khiếu nại</a>

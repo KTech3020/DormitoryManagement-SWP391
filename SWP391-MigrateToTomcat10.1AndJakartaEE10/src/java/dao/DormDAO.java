@@ -277,7 +277,40 @@ public class DormDAO {
         }
         return null;
     }
-
+    
+    public ArrayList viewRegisteredRoomByStudent(String userID) {
+        ArrayList<RoomRegistration> result = new ArrayList();
+        String sql = "select * from RoomRegistrationView where userId = ? "
+                    + "and status LIKE 'Registered' order by reRoomID";
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, userID);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                result.add(new RoomRegistration(rs.getInt(1), rs.getInt(2), rs.getString(3),
+                        rs.getTimestamp(4).toLocalDateTime(), rs.getString(5),
+                        rs.getString(6), rs.getDouble(7)));
+            }
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+        public void paymentSuccess(int reRoomID){
+            String sql = "update RegisterRoom set status = 'Success' where reRoomID = ?";
+            try {
+                con = new DBContext().getConnection();
+                ps = con.prepareStatement(sql);
+                ps.setInt(1, reRoomID);
+                ps.executeUpdate();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    
     public void updateRegistrationStatus(String registerID, String status) {
         String sql = "update RegisterRoom set status = ? where reRoomID = ?";
         int roomID;
