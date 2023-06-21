@@ -102,6 +102,7 @@ public class SendChangeRoomServlet extends HttpServlet {
         
         
         if(p == null){
+            
             request.setAttribute("profile", dao.getPersonProfile(account.getUserid()));
             request.setAttribute("error", "Bạn không thể đổi phòng này! Lý do: Sinh viên không tồn tại.");
             request.setAttribute("option", option);

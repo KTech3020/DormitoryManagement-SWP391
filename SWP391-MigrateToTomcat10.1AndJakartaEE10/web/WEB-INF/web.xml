@@ -80,6 +80,10 @@
         <servlet-name>DeleteChangeRoomServlet</servlet-name>
         <servlet-class>Controller.DeleteChangeRoomServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ComplainSeverlet</servlet-name>
+        <servlet-class>Controller.ComplainSeverlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -159,6 +163,10 @@
     <servlet-mapping>
         <servlet-name>DeleteChangeRoomServlet</servlet-name>
         <url-pattern>/DeleteChangeRoomServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ComplainSeverlet</servlet-name>
+        <url-pattern>/ComplainSeverlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

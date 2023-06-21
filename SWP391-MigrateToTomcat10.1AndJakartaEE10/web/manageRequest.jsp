@@ -18,8 +18,8 @@
                 <div class="col-4 col-12-xsmall">
                     <label>Chọn loại yêu cầu</label>
                     <select name="option">
-                        <option value="changeRoom" ${option.equals("circle")?"selected":""}>Đổi phòng</option>
-                        <option value="complain" ${option.equals("square")?"selected":""}>Bảo trì / Khiếu nại</option>
+                        <option value="changeRoom" ${option.equals("changeRoom")?"selected":""}>Đổi phòng</option>
+                        <option value="complain" ${option.equals("complain")?"selected":""}>Bảo trì / Khiếu nại</option>
                     </select>
                 </div>
 

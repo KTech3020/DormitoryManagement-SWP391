@@ -3,6 +3,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 
+
+
+
 <section id="banner">
     <div class="content">
         <header>
@@ -16,8 +19,8 @@
                 <div class="col-4 col-12-xsmall">
                     <label>Chọn loại yêu cầu</label>
                     <select name="option">
-                        <option value="changeRoom" ${option.equals("circle")?"selected":""}>Đổi phòng</option>
-                        <option value="complain" ${option.equals("square")?"selected":""}>Bảo trì / Khiếu nại</option>
+                        <option value="changeRoom" ${option.equals("changeRoom")?"selected":""}>Đổi phòng</option>
+                        <option value="complain" ${option.equals("complain")?"selected":""}>Bảo trì / Khiếu nại</option>
                     </select>
                 </div>
 
@@ -50,11 +53,11 @@
                 </tr>
 
             </table>
-                <div class="row gtr-uniform">
+            <div class="row gtr-uniform">
                 <div class="col-4 col-12-xsmall"></div>
-                
+
                 <div><span style="color: red">${error}</span></div>
-                </div>
+            </div>
             <button type = "submit">Gửi yêu cầu đổi phòng</button>  
         </form>
 
@@ -62,6 +65,36 @@
             }
         %> 
 
+
+        <%
+               if(check.equals("complain")){
+        %> 
+
+        <form action="ComplainSeverlet" method="post">  
+
+            <div class="form-outline mb-4">
+                <label class="form-label" for="form4Example3">Tiêu đề</label>
+                <select name="subject">
+                    <option value="baotri" ${option.equals("circle")?"selected":""}>Bảo trì</option>
+                    <option value="khieunai" ${option.equals("square")?"selected":""}>Khiếu nại</option>
+                </select>
+            </div>
+
+                
+
+            <!-- Message input -->
+            <div class="form-outline mb-4">
+                <label class="form-label" for="form4Example3">Nội dung khiếu nại</label>
+                <textarea class="form-control" id="form4Example3" rows="3" name="message"></textarea>
+            </div>
+            <br>
+            <!-- Submit button -->
+            <div><span style="color: green">${error}</span></div>
+            <button type="submit" class="btn btn-primary btn-block mb-4">Gửi</button>
+        </form>
+        <%
+            }
+        %>
 
 
     </div>
