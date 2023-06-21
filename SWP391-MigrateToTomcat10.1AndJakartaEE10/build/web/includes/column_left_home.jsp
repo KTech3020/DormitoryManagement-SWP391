@@ -30,7 +30,7 @@
                         <a href="RoomSearchServlet" class="nav-item nav-link">Xem và tìm kiếm phòng</a>
                     </li>
                     <li>
-                        <a href="PaymentServlet" class="nav-item nav-link">Quản lý, thanh toán hóa đơn</a>
+                        <a href="LoadPaymentRegistered" class="nav-item nav-link">Quản lý, thanh toán hóa đơn</a>
                     </li>
                     <li>
                         <a href="#" class="nav-item nav-link">Gửi yêu cầu/khiếu nại</a>

@@ -87,6 +87,7 @@
                 <td>
                         <form action="PaymentServlet" method="post">
                             <input type= "hidden" value="<%= room.getRegisterID() %>" name="orderID">
+                            <input type= "hidden" value="<%= room.getUserID() %>" name="userID">
                             <input type= "hidden" value="<%= room.getPriceAtTheTime() %>" name="amount">
                             <button class="button small">Thanh toán</button>
                         </form>
@@ -114,28 +115,41 @@
                 fields.remove("vnp_SecureHash");
             }
             String signValue = Config.hashAllFields(fields);
+            String[] parts = request.getParameter("vnp_OrderInfo").split("-");
+            String userID = parts[0];
+            String reRoomID = parts[1];
             if(signValue.equals(vnp_SecureHash)){
                 if ("00".equals(request.getParameter("vnp_TransactionStatus"))) {
                     DormDAO dao = new DormDAO();
-                    dao.paymentSuccess(Integer.parseInt(request.getParameter("vnp_OrderInfo")));%>
+                    dao.paymentSuccess(Integer.parseInt(reRoomID));
+                    request.setAttribute("userID", userID);%>
                     <script type="text/javascript">
-                        window.onload = function(){paymentStatus(1,event);};
+                        window.onload = function() {
+                            window.location.href = "LoadPaymentRegistered?userID=<%= userID %>";
+                            paymentStatus(1, event);
+                        };
                     </script>
-                <%  request.getRequestDispatcher("PaymentServlet").forward(request, response);                
-                } else {%> 
+                <%   
+                }
+                else{%>
                     <script type="text/javascript">
-                        window.onload = function(){paymentStatus(2,event);};
+                        window.onload = function() {
+                            window.location.href = "LoadPaymentRegistered?userID=<%= userID %>";
+                            paymentStatus(2, event);
+                        };
                     </script>
-                <%  request.getRequestDispatcher("PaymentServlet").forward(request, response);
+                <%
                 }
             }
-            else {%> 
+            else{%>
                 <script type="text/javascript">
-                    window.onload = function(){paymentStatus(2,event);};
-                </script>
-            <%  request.getRequestDispatcher("PaymentServlet").forward(request, response);
-            }
-        %>
+                    window.onload = function() {
+                        window.location.href = "LoadPaymentRegistered?userID=<%= userID %>";
+                        paymentStatus(3, event);
+                    };
+                </script>                
+            <%
+            }%>
         </div>
         <div class="paggingmanage">
 
@@ -164,4 +178,4 @@
 </section>
 </div>
 </div>
-
+</div>

@@ -42,7 +42,6 @@ public class SendMailContext {
             message.setFrom(new InternetAddress(fromEmail));
             InternetAddress[] toAddresses = {new InternetAddress(toEmail)};
             message.addRecipients(Message.RecipientType.TO, toAddresses);
-            message.setHeader("Content-Type", "text/html; charset=UTF-8"); 
             message.setSubject(sub,"UTF-8");
             message.setText(msg,"UTF-8");
             message.setSentDate(new Date());
@@ -78,7 +77,6 @@ public class SendMailContext {
             MimeMessage  message = new MimeMessage(session);
             message.setFrom(new InternetAddress(fromEmail));
             InternetAddress[] toAddresses = {new InternetAddress(toEmail)};
-            message.setHeader("Content-Type", "text/html; charset=UTF-8"); 
             message.addRecipients(Message.RecipientType.TO, toAddresses);
             
             message.setSubject("Phản hồi yêu cầu đăng ký ký túc xá của sinh viên " + p.getName(), "UTF-8");

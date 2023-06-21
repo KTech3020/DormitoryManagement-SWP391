@@ -70,21 +70,6 @@ public class PaymentServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        DormDAO dao = new DormDAO();
-        HttpSession session = request.getSession();
-        Account account = (Account) session.getAttribute("accountS");
-        String userid = account.getUserid();
-        ArrayList<RoomRegistration> result = dao.viewRegisteredRoomByStudent(userid);
-        int lastPage = dao.lastPagesP(10);
-        if(result.isEmpty() || result == null){
-            request.setAttribute("err", "Không có yêu cầu đăng ký phòng cần thanh toán!");            
-            request.getRequestDispatcher("paymentForRoom.jsp").forward(request, response);
-        }
-        else{
-            request.setAttribute("registersList", result);
-            request.setAttribute("lastPage", lastPage);
-            request.getRequestDispatcher("paymentForRoom.jsp").forward(request, response);            
-        }
     } 
 
     /** 
@@ -98,6 +83,7 @@ public class PaymentServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         String orderType = request.getParameter("orderID");
+        String userID = request.getParameter("userID");
         long amount = (long) Double.parseDouble(request.getParameter("amount"));       
         String vnp_TxnRef = Config.getRandomNumber(8);
         String vnp_IpAddr = Config.getIpAddress(request);
@@ -111,7 +97,7 @@ public class PaymentServlet extends HttpServlet {
         vnp_Params.put("vnp_Amount", String.valueOf(amount * 100));
         vnp_Params.put("vnp_CurrCode", "VND");
         vnp_Params.put("vnp_TxnRef", vnp_TxnRef);
-        vnp_Params.put("vnp_OrderInfo", orderType);
+        vnp_Params.put("vnp_OrderInfo", userID + "-" + orderType);
         vnp_Params.put("vnp_ReturnUrl", Config.vnp_Returnurl);
         vnp_Params.put("vnp_IpAddr", vnp_IpAddr);
         if (bankCode != null && !bankCode.isEmpty()) {
@@ -122,7 +108,7 @@ public class PaymentServlet extends HttpServlet {
         vnp_Params.put("vnp_OrderType", "250000");
 //
         vnp_Params.put("vnp_Locale", "vn");
-
+        
         Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
         String vnp_CreateDate = formatter.format(cld.getTime());
