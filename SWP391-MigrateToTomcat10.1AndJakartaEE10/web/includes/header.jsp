@@ -20,7 +20,7 @@
 
                     <!-- Header -->
                     <header id="header">
-                        <a href="index.jsp">
+                        <a href="index">
                             <img src="images/fpt_logo.png" alt="" />
                         </a>
                        

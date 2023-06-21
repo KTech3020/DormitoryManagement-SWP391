@@ -26,7 +26,7 @@
                     <button>Xác nhận</button>
 
                 </form>
-                <a class="home" href="index.jsp">Trang chủ</a>
+                <a class="home" href="index">Trang chủ</a>
             </div>
         </div>
     </body>

@@ -5,21 +5,22 @@
 
 package Controller;
 
+import dao.DormDAO;
+import entity.ChangeRoom;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
 
 /**
  *
  * @author LENOVO
  */
-public class LogoutServlet extends HttpServlet {
-   
+public class TypeManageRequestServlet extends HttpServlet {
+
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
@@ -35,10 +36,10 @@ public class LogoutServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet LogoutServlet</title>");  
+            out.println("<title>Servlet TypeManageRequestServlet</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet LogoutServlet at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet TypeManageRequestServlet at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -55,20 +56,11 @@ public class LogoutServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        HttpSession session = request.getSession(false);
-        session.removeAttribute("accountS");
-        session.invalidate();
-        
-        Cookie cookieUname = new Cookie("cookUname", "");
-        Cookie cookiePass = new Cookie("cookPass", "");
-        Cookie cookieAdminID = new Cookie("role", "");
-        cookieUname.setMaxAge(0);
-        cookiePass.setMaxAge(0);
-        cookieAdminID.setMaxAge(0);
-        response.addCookie(cookieUname);
-        response.addCookie(cookiePass);
-        response.addCookie(cookieAdminID); 
-        response.sendRedirect("index");
+        String option = "";
+        DormDAO dao = new DormDAO();
+
+        request.setAttribute("option", option);       
+        request.getRequestDispatcher("manageRequest.jsp").forward(request, response);
     } 
 
     /** 
@@ -81,7 +73,13 @@ public class LogoutServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        String option = request.getParameter("option");
+        DormDAO dao = new DormDAO();
+        ArrayList<ChangeRoom> list = dao.displayAllChangeRoomRequest();
+        request.setAttribute("list", list);
+
+        request.setAttribute("option", option);
+        request.getRequestDispatcher("manageRequest.jsp").forward(request, response);
     }
 
     /** 

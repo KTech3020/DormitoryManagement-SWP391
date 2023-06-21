@@ -3,7 +3,7 @@
     <header style="text-align: center">
         <h1>Có vẻ như bạn đã gặp lỗi...</h1>
     </header>
-    <p>Nhấn vào <a href="index.jsp">đây</a> để quay lại trang chủ.</p>
+    <p>Nhấn vào <a href="index">đây</a> để quay lại trang chủ.</p>
 </section>
 
 </div>

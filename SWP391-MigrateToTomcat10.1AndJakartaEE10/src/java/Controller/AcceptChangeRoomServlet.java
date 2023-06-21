@@ -5,32 +5,21 @@
 package Controller;
 
 import dao.DormDAO;
-import entity.Account;
-
+import entity.RoomRegistration;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import jakarta.servlet.annotation.MultipartConfig;
-import jakarta.servlet.http.Part;
-
-import java.nio.file.Files;
-import java.nio.file.Paths;
-
-@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
-        maxFileSize = 1024 * 1024 * 10, // 10MB
-        maxRequestSize = 1024 * 1024 * 50) // 50MB
+import java.time.LocalDateTime;
 
 /**
  *
  * @author LENOVO
  */
-public class ManageProfile extends HttpServlet {
+public class AcceptChangeRoomServlet extends HttpServlet {
 
-    //String savePath = "C:\\Users\\HP\\Desktop\\GitHub\\DormitoryManagement-SWP391\\SWP391-MigrateToTomcat10.1AndJakartaEE10\\web\\images";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -43,15 +32,15 @@ public class ManageProfile extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ManageProfile</title>");
+            out.println("<title>Servlet AcceptChangeRoomServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ManageProfile at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet AcceptChangeRoomServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -69,12 +58,7 @@ public class ManageProfile extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
-        DormDAO dao = new DormDAO();
-        HttpSession session = request.getSession();
-        Account account = (Account) session.getAttribute("accountS");
-        request.setAttribute("profile", dao.getPersonProfile(account.getUserid()));
-        request.getRequestDispatcher("manageProfile.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -88,34 +72,38 @@ public class ManageProfile extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
         DormDAO dao = new DormDAO();
-        String idPerson = request.getParameter("idPerson");
+        String userId1 = request.getParameter("userId1");
+        String userId2 = request.getParameter("userId2");
+        String changeRoomID = request.getParameter("changeRoomID");
 
-        String name = request.getParameter("name");
-        String cmnd = request.getParameter("cmnd");
-        String dob = request.getParameter("dob");
-        String gender = request.getParameter("gender");
-        String phone = request.getParameter("phone");
-        String email = request.getParameter("email");
-        String address = request.getParameter("address");
-
-        Part part = request.getPart("img");
-
-        if (part == null || part.getSize()==0) {
-            dao.updateProfileNoImageChange(idPerson, name, cmnd, dob, gender, phone, email, address);
-            response.sendRedirect("index");
-        } else {
-            String realPath = request.getServletContext().getRealPath("/images");
-            String fileName = Paths.get(part.getSubmittedFileName()).getFileName().toString();
-            if (!Files.exists(Paths.get(realPath))) {
-                Files.createDirectory(Paths.get(realPath));
-            }
-            part.write(realPath + "/" + fileName);
-
-            dao.updateProfile(idPerson, fileName, name, cmnd, dob, gender, phone, email, address);
-            response.sendRedirect("index");
+        LocalDateTime dateIn4Months = LocalDateTime.now().plusMonths(4);
+        int month = dateIn4Months.getMonth().getValue();
+        String semester = "";
+        if (month >= 1 && month <= 4) {
+            semester = semester.concat("SP");
+        } else if (month >= 5 && month <= 8) {
+            semester = semester.concat("SU");
+        } else if (month >= 9 && month <= 12) {
+            semester = semester.concat("FA");
         }
+
+        String year = Integer.toString(dateIn4Months.getYear());
+        year = year.substring(year.length() - 2);
+        semester = semester.concat(year);
+
+        RoomRegistration roomRegistration1 = dao.getRegisterRoomByIdAndSemester(userId1, semester);
+        RoomRegistration roomRegistration2 = dao.getRegisterRoomByIdAndSemester(userId2, semester);
+        LocalDateTime dateTime1 = roomRegistration1.getRegistrationTime();
+        LocalDateTime dateTime2 = roomRegistration2.getRegistrationTime();
+
+        dao.acceptChangeRoomRequest1(userId1, userId2, dateTime2);
+        dao.acceptChangeRoomRequest1(userId2, userId1, dateTime1);
+
+
+        dao.deleteChangeRoomRequest(changeRoomID);
+
+        response.sendRedirect("TypeManageRequestServlet");
     }
 
     /**

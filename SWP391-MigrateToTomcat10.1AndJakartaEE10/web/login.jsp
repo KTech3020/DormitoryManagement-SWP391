@@ -21,7 +21,7 @@
                     <button>Đăng nhập</button>
                     <p class="message"><a href="register.jsp">Tạo tài khoản |</a><a href="forgotPass.jsp"> | Đổi mật khẩu</a></p>
                 </form>
-                <a class="home" href="index.jsp">Trang chủ</a>
+                <a class="home" href="index">Trang chủ</a>
             </div>
         </div>
     </body>

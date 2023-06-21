@@ -1,4 +1,4 @@
-﻿﻿create database Dorm
+﻿	﻿create database Dorm
 use Dorm
 
 -- use master
@@ -7,7 +7,7 @@ use Dorm
 
 
 create table Room(
-[roomId] int (5) primary key,
+[roomId] int primary key,
 [roomSize] int,  -- suc chua toi da
 [roomAttendees] int,   -- so nguoi hien dang o
 [gender] char (1) check (gender in ('F', 'M')),	
@@ -67,34 +67,42 @@ create table RegisterRoomDetail(
 [price] money,
 CONSTRAINT fk_registerDetail2 foreign key ([roomId]) references Room ([roomId])
 )
-/*
-create table Bill(
-[billId] int identity(1,1) primary key,
-[cost] money,
-[date] datetime,
-[semester] varchar (5),
-[roomId] varchar (5),
-[reRoomID] int,
-CONSTRAINT fk_Bill foreign key ([reRoomID]) references RegisterRoom([reRoomID])
-)
-*/
- 
-create table StudentRequest(
-[RequestId] int identity(1,1) primary key,
-[userId] varchar (10),
-[request] Ntext,
-[day] date,
-CONSTRAINT fk_changeRoom foreign key (userId) references Account (userId)
-)
+
 
 create table Notification(
-[NotifiId] int identity(1,1) primary key,
-[userId] varchar (10),
-[Title] Ntext,
-[Date] datetime,
-[Content] Ntext,
+[notiID] int identity(1,1) primary key,
+[subject] nvarchar(max), --Tieu de
+[content] nvarchar(max), --Noi dung
+[userId] varchar(10), --ID admin
+[time] datetime, --Ngay dang
+[img] varchar(100), --Anh
 CONSTRAINT fk_Notification foreign key (userId) references Account (userId)
 )
+
+create table ChangeRoom(
+[changeRoomID] int identity(1,1) primary key,
+[userId1] varchar (10),
+[userId2] varchar (10),
+[day] date,
+CONSTRAINT fk_changeRoom foreign key ([userId1]) references Account (userId)
+)
+
+insert into Notification
+VALUES
+(N'Sử dụng Ký túc xá Đại học FPT Hà Nội làm khu cách ly tập trung',
+N'Để chuẩn bị cho việc sử dụng Ký túc xá Đại học làm khu cách ly tập trung, Ban Quản lý yêu cầu tất cả các sinh viên của Ký túc xá cần:\n
+(1) Tất cả sinh viên đang ở hoặc đang để đồ tại KTX nhanh chóng thu dọn, giải phóng đồ đạc và dời khỏi KTX trước 12h00 ngày 13/5/2021. Sau thời hạn trên, nếu sinh viên không thu dọn, nhà trường không chịu trách nhiệm về đồ đạc của sinh viên để lại trong phòng. Đồ đạc không dùng tới có thể đóng gói dán nhãn và gửi vào kho của trường.\n
+(2) Tuân thủ nguyên tắc 5K trong quá trình thu dọn (khẩu trang – khử khuẩn – khoảng cách – không tụ tập – khai báo y tế).\n
+(3) Không để việc thu dọn KTX ảnh hưởng đến việc học tập học kỳ Summer 2021.\n
+Đây là tình huống bất khả kháng cùng thành phố Hà Nội và cả nước phòng ngừa và ngăn chặn dịch bệnh COVID-19, đề nghị tất cả các bạn sinh viên thực hiện nghiêm túc.\n
+Trân trọng thông báo!','MA093891','2022-10-05', 'News1.png'),
+(N'Đại học FPT Hà Nội bố trí xe miễn phí đưa sinh viên đang cách ly tại ký túc xá về quê ăn Tết',
+N'Nhà trường đã ra thông báo, kể từ ngày 5/2/2021, nhà trường sẽ đóng cửa và ngưng các dịch vụ tiện ích, ký túc xá để chuẩn bị cho khả năng tình hình COVID-19 tại Hà Nội có thể phức tạp, Hà Nội thành điểm nóng, Campus ĐH FPT Hà nội có thể được trưng dụng làm khu cách ly tập trung theo đề nghị của UBND TP HN. Nhà trường yêu cầu tất cả sinh viên hiện tại đang còn ở KTX FPTU Hoà Lạc thực hiện: Thu dọn đồ, cho vào tủ khóa lại trước khi về nhà ăn Tết từ sáng ngày 04/02/2021; trên đường trở về địa phương nơi cư trú thực hiện nghiêm các nội dung phòng chống dịch theo hướng dẫn 5K (Khẩu trang – Khử khuẩn – Khoảng cách – Không tập trung – Khai báo y tế', 'MA093891','11-03-04', 'News2.png'),
+(N'Review KTX cho sinh viên', 
+N'Trường Đại học FPT với kiến trúc xanh và không gian như một khu resort sang xịn mịn cùng hàng loạt góc sống ảo đẹp không góc chết. Và ký túc xá sinh viên thì được trang hoàng chả khác gì khách sạn luôn.\n
+Nằm ở Hòa Lạc, các trung tâm thành phố khoảng 30km, Trường Đại học FPT như 1 khu resort đích thực khi kiến trúc xịn sò, quang cảnh tuyệt đẹp và đặc biệt là siêu yên tĩnh. Nếu như sinh viên các trường bị ám ảnh bởi cuộc sống ở những khu ký túc xá cũ đầy tối tăm, chật hẹp thì sinh viên FPT lại rất tự hào và hãnh diện vì cuộc sống sinh viên nơi đây sướng hơn cả ở khách sạn.', 'MA093891', '2022-11-06', 'News3.png')
+
+select * from Account
 
 -- TODO FIX ALL DATA
 
@@ -111,6 +119,8 @@ VALUES
 ('109','4','3','F','Y'),
 ('110','6','2','M','Y')
 
+delete from RegisterRoomDetail
+
 insert into RegisterRoomDetail ([roomId], [startDay], [endDay], [price])
 VALUES
 ( '101', '2020-01-01', '2023-04-30', 2400000),
@@ -118,8 +128,7 @@ VALUES
 ( '102', '2020-01-01', '2023-04-30', 2400000),
 ( '102', '2023-05-01', null, 3000000),
 ( '103', '2020-01-01', '2022-04-30', 2000000),
-( '103', '2022-05-01', '2023-12-31', 2400000),
-( '103', '2024-01-01', null, 2800000),
+( '103', '2022-05-01', null, 2400000),
 ( '104', '2020-01-01', '2020-08-31', 2000000),
 ( '104', '2020-09-01', null, 1800000),
 ( '105', '2020-01-01', '2022-04-30', 1200000),
@@ -180,13 +189,14 @@ VALUES
 
 select r.roomId, r.roomSize, r.roomAttendees, r.gender, r.airConditional, rd.price 
 from Room r inner join RegisterRoomDetail rd
-on (r.roomId = rd.roomId AND ((rd.startDay < GETDATE() AND GETDATE() <= rd.endDay) OR (rd.startDay < GETDATE() AND rd.endDay IS NULL))) 
+on (r.roomId = rd.roomId AND ((rd.startDay <= GETDATE() AND GETDATE() < rd.endDay) OR (rd.startDay <= GETDATE() AND rd.endDay IS NULL))) 
 where roomSize = 6 AND roomAttendees <= 3 AND gender = 'M' AND airConditional = 'Y' AND price <= 3000000
 
 create view RoomDetailView as
 select r.roomId, r.roomSize, r.roomAttendees, r.gender, r.airConditional, rd.price
 from Room r inner join RegisterRoomDetail rd
-on (r.roomId = rd.roomId AND ((rd.startDay < GETDATE() AND GETDATE() <= rd.endDay) OR (rd.startDay < GETDATE() AND rd.endDay IS NULL))) 
+on (r.roomId = rd.roomId AND ((rd.startDay <= GETDATE() AND GETDATE() < rd.endDay) OR (rd.startDay <= GETDATE() AND rd.endDay IS NULL))) 
+
 
 select * from RoomDetailView where roomSize = 6 AND roomAttendees <= 3 AND gender = 'M' AND airConditional = 'Y' AND price <= 3000000
 
@@ -199,8 +209,10 @@ create view RoomRegistrationView as
 select rg.reRoomID, rg.roomId, rg.userId, rg.date, rg.semester, rg.status, rd.price 
 from RegisterRoom rg inner join Room r on rg.roomId = r.roomId
 inner join RegisterRoomDetail rd
-on (r.roomId = rd.roomId AND ((rd.startDay < GETDATE() AND GETDATE() <= rd.endDay) OR (rd.startDay < GETDATE() AND rd.endDay IS NULL)))
-where userId = 'SE160094'
+on (r.roomId = rd.roomId AND ((rd.startDay <= rg.date AND rg.date <= rd.endDay) OR (rd.startDay <= rg.date AND rd.endDay IS NULL)))
+
+
+drop view RoomRegistrationView
 
 select * from [RoomRegistrationView]
 where userId = 'SE160094'
@@ -208,7 +220,18 @@ order by reRoomID
 
 select * from [RoomRegistrationView] order by reRoomID
 
+select * from RegisterRoom
+
+select * from RegisterRoomDetail order by roomId
+
 select * from RoomDetailView
+
+update RegisterRoomDetail set endDay = (GETDATE() -1)
+                     where roomId = 106 and (RegisterRoomDetail.startDay <= GETDATE() AND RegisterRoomDetail.endDay IS NULL)
+                     
+                     insert into RegisterRoomDetail ([roomId], [startDay], [endDay], [price]) VALUES 
+                     (106, GETDATE(), null, 3100000)
+
 update RegisterRoom set status = 'Rejected' where reRoomID = 19
 
 select * from Account
@@ -217,15 +240,21 @@ select * from Person
 
 select roomID from RoomRegistrationView where reroomID = 1
 
-
 create trigger updateRoomAttendeesTrigger on RegisterRoom AFTER INSERT, UPDATE, DELETE AS
 BEGIN
 update Room set roomAttendees = (select COUNT(roomID) from RegisterRoom rg where rg.roomId = Room.roomID AND rg.status LIKE 'Success') 
 END
 
+select * from RoomRegistrationView where [roomID] = 106 AND [userID] = 'DE152894' AND (status = 'Registered' OR status = 'Success')
+
 --create view DynamicRoomDetailView as
 --select r.roomId, r.roomSize, (select COUNT(rg.roomId) from RegisterRoom rg where rg.roomId = r.roomID AND rg.status LIKE 'Success') as roomAttendees, r.gender, r.airConditional, rd.price
 --from Room r inner join RegisterRoomDetail rd
---on (r.roomId = rd.roomId AND ((rd.startDay < GETDATE() AND GETDATE() <= rd.endDay) OR (rd.startDay < GETDATE() AND rd.endDay IS NULL))) 
+--on (r.roomId = rd.roomId AND ((rd.startDay <= GETDATE() AND GETDATE() < rd.endDay) OR (rd.startDay < =GETDATE() AND rd.endDay IS NULL))) 
 
 --drop view DynamicRoomDetailView
+
+
+insert into Person
+VALUES
+('DE170649', N'DE170649.png', N'Ngo Ho Gia Kiet', N'802347032', 2003-15-08, 'M', '0123123123', 'ktech3020@gmail.com', N'SV House, Lo B1-09 Le Duc Tho, Dien Ngoc, Dien Ban')

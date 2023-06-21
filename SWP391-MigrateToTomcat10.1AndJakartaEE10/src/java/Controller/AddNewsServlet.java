@@ -6,31 +6,28 @@ package Controller;
 
 import dao.DormDAO;
 import entity.Account;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.Part;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
+/**
+ *
+ * @author HP
+ */
 
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
         maxFileSize = 1024 * 1024 * 10, // 10MB
         maxRequestSize = 1024 * 1024 * 50) // 50MB
+public class AddNewsServlet extends HttpServlet {
 
-/**
- *
- * @author LENOVO
- */
-public class ManageProfile extends HttpServlet {
-
-    //String savePath = "C:\\Users\\HP\\Desktop\\GitHub\\DormitoryManagement-SWP391\\SWP391-MigrateToTomcat10.1AndJakartaEE10\\web\\images";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -48,10 +45,10 @@ public class ManageProfile extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ManageProfile</title>");
+            out.println("<title>Servlet AddNewsServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ManageProfile at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet AddNewsServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -69,12 +66,7 @@ public class ManageProfile extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
-        DormDAO dao = new DormDAO();
-        HttpSession session = request.getSession();
-        Account account = (Account) session.getAttribute("accountS");
-        request.setAttribute("profile", dao.getPersonProfile(account.getUserid()));
-        request.getRequestDispatcher("manageProfile.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -88,34 +80,23 @@ public class ManageProfile extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
         DormDAO dao = new DormDAO();
-        String idPerson = request.getParameter("idPerson");
-
-        String name = request.getParameter("name");
-        String cmnd = request.getParameter("cmnd");
-        String dob = request.getParameter("dob");
-        String gender = request.getParameter("gender");
-        String phone = request.getParameter("phone");
-        String email = request.getParameter("email");
-        String address = request.getParameter("address");
-
+        HttpSession session = request.getSession();
+        Account account = (Account) session.getAttribute("accountS");
+        
+        String title = request.getParameter("title");
+        String content = request.getParameter("content");
+        
         Part part = request.getPart("img");
 
-        if (part == null || part.getSize()==0) {
-            dao.updateProfileNoImageChange(idPerson, name, cmnd, dob, gender, phone, email, address);
-            response.sendRedirect("index");
-        } else {
-            String realPath = request.getServletContext().getRealPath("/images");
-            String fileName = Paths.get(part.getSubmittedFileName()).getFileName().toString();
-            if (!Files.exists(Paths.get(realPath))) {
-                Files.createDirectory(Paths.get(realPath));
-            }
-            part.write(realPath + "/" + fileName);
-
-            dao.updateProfile(idPerson, fileName, name, cmnd, dob, gender, phone, email, address);
-            response.sendRedirect("index");
+        String realPath = request.getServletContext().getRealPath("/images");
+        String fileName = Paths.get(part.getSubmittedFileName()).getFileName().toString();
+        if (!Files.exists(Paths.get(realPath))) {
+            Files.createDirectory(Paths.get(realPath));
         }
+        part.write(realPath + "/" + fileName);
+        dao.addNews(title, content, account.getUserid(), fileName);
+        response.sendRedirect("ManageNewsServlet");
     }
 
     /**
