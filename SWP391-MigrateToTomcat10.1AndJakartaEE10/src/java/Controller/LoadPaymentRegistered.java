@@ -68,7 +68,7 @@ public class LoadPaymentRegistered extends HttpServlet {
         ArrayList<RoomRegistration> result = dao.viewRegisteredRoomByStudent(userid);
         int lastPage = dao.lastPagesP(10);
         if(result.isEmpty() || result == null){
-            request.setAttribute("err", "Không có yêu cầu đăng ký phòng cần thanh toán!");            
+            request.setAttribute("err", "Không có yêu cầu đăng ký phòng cần thanh toán!"); 
             request.getRequestDispatcher("paymentForRoom.jsp").forward(request, response);
         }
         else{
