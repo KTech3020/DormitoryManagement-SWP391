@@ -15,6 +15,7 @@ public class News {
     private String content;
     private String userId;
     private Date time;
+    private String image;
     private int isAdmin;
 
     public News() {
@@ -27,7 +28,17 @@ public class News {
         this.userId = userId;
         this.time = time;
         this.isAdmin = isAdmin;
+        this.image = image;
     }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+    
 
     public String getNotiID() {
         return notiID;

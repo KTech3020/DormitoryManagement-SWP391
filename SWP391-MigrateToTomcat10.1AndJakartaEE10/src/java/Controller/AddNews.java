@@ -11,22 +11,17 @@ import entity.News;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import jakarta.servlet.http.Part;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.List;
+import java.util.Date;
 
 /**
  *
  * @author p4t3
  */
-@WebServlet(name="ManageNews", urlPatterns={"/managenews"})
-public class ManageNews extends HttpServlet {
+public class AddNews extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -35,24 +30,26 @@ public class ManageNews extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response, int isAdmin)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
-         Account account = (Account) session.getAttribute("accountS");
-         String userId = account.getUserid();
-         DormDAO dao = new DormDAO();
-        List<News> list = dao.getNewsbyisAdmin(isAdmin);
-         
-        request.setAttribute("listP", list);
-        request.getRequestDispatcher("banner_news.jsp").forward(request, response);
-    }
-    protected void doGet(HttpServletRequest request, HttpServletResponse response, int isAdmin)
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-         
-        }
-     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+        String notiID =request.getParameter("notiID");
+        String subject =request.getParameter("subject");
+        String content =request.getParameter("content");
+        String userId =request.getParameter("userId");
+        Date time =request.getParameter("time");
+        String image=request.getParameter(image);
+        HttpSession sesion = request.getSession();
+        Account a = (Account) session.getAttribute("acc");
+        String notiID = a.getnotiID();
+        
+        DormDAO dao = new DormDAO();
+        dao.addNews(notiID,subject,content,userId,time,image);
+        response.sendRedirect("managenews");
+        
+    } 
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
      * Handles the HTTP <code>GET</code> method.
      * @param request servlet request
@@ -61,8 +58,22 @@ public class ManageNews extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+        processRequest(request, response);
+    } 
+
+    /** 
+     * Handles the HTTP <code>POST</code> method.
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        processRequest(request, response);
     }
 
     /** 
@@ -75,6 +86,3 @@ public class ManageNews extends HttpServlet {
     }// </editor-fold>
 
 }
-
-
-   

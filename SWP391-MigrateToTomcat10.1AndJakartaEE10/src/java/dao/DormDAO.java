@@ -414,12 +414,12 @@ public class DormDAO {
         return list;
     }
     
-     public void deleteNews(int notiID) {
+     public void deleteNews(String notiID) {
         String sql = "delete from News where [notiID] =?";
         try {
             con = new DBContext().getConnection();
             ps = con.prepareStatement(sql);
-            ps.setInt(1, notiID);
+            ps.setString(1, notiID);
             ps.executeUpdate();
         } catch (Exception e) {
             System.out.println(e);
@@ -444,4 +444,23 @@ public class DormDAO {
         } catch (Exception e) {
         }
     }
+     public void addNews(String notiID, String subject, String content, String userId, Date time, String image){
+        String sql= "INSERT [dbo].News \n"
+                +"([notiID],[subject],[content],[userId],[time],[image])\n"
+                +"VALUES(?,?,?,?,?,?)";
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, notiID);
+            ps.setString(2, subject);
+            ps.setString(3, content);
+            ps.setString(4, userId);
+            ps.setDate(5, (java.sql.Date) time);
+            ps.setString(5, image);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
 }
