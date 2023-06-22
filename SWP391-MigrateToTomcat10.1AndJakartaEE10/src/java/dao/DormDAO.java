@@ -7,6 +7,8 @@ package dao;
 import entity.Person;
 import context.DBContext;
 import entity.Account;
+import entity.ChangeRoom;
+import entity.News;
 import entity.Room;
 import entity.RoomRegistration;
 import java.sql.Connection;
@@ -419,6 +421,218 @@ public class DormDAO {
             ps.executeUpdate();
         } catch (Exception e) {
             System.out.println(e);
+        }
+    }
+    
+     public void acceptChangeRoomRequest1(String userID1, String userID2, LocalDateTime date2) {
+        String sql = "update RegisterRoom set userId =? where userId =? and date =?";
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, userID1);
+            ps.setString(2, userID2);
+            ps.setObject(3, date2);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+     
+     public void deleteChangeRoomRequest(String changeRoomID) {
+        String sql = "delete from ChangeRoom where changeRoomID = ?";
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, changeRoomID);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+     
+     public RoomRegistration getRegisterRoomByIdAndSemester(String userId, String semester) {
+        String sql = "select * from RegisterRoom where [userID] = ? AND status = 'Success' and semester = ?";
+
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, userId);
+            ps.setString(2, semester);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return new RoomRegistration(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getTimestamp(4).toLocalDateTime(), rs.getString(5), rs.getString(6));
+            }
+        } catch (Exception e) {
+        }
+
+        return null;
+    }
+         
+     public void addNews(String subject, String content, String userId, String image) {
+        String sql = "insert into Notification VALUES(?,?,?,GETDATE(),?)";
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, subject);
+            ps.setString(2, content);
+            ps.setString(3, userId);
+            ps.setString(4, image);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+     }
+
+    public void deleteNews(String notiID) {
+        String sql = "delete from Notification where [notiID] =?";
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, notiID);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+    
+    public News getSingleNews(String notiID) {
+        String sql = "select * from Notification where [notiID] = ?";
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, notiID);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return new News(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getTimestamp(5).toLocalDateTime(), rs.getString(6));
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+        return null;
+    }
+    
+    public void editNewsNoImageChange(String notiID, String subject, String content, String userId) {
+        try {
+            String sql = "update Notification set [subject] = ?, [content] = ?, [userId] = ?, [time] = GETDATE()where [notiID] = ? ";
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, subject);
+            ps.setString(2, content);
+            ps.setString(3, userId);
+            ps.setString(4, notiID);
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
+
+    public void editNews(String notiID, String subject, String content, String userId, String image) {
+        try {
+            String sql = "update Notification set [subject] = ?, [content] = ?, [userId] = ?, [time] = GETDATE(), [img] = ? where [notiID] = ? ";
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, subject);
+            ps.setString(2, content);
+            ps.setString(3, userId);
+
+            ps.setString(4, image);
+            ps.setString(5, notiID);
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
+    
+    public ArrayList<News> getTwoLatestNews() {
+        String sql = "select top 2 * from Notification";
+        ArrayList<News> list = new ArrayList<>();
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new News(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getTimestamp(5).toLocalDateTime(), rs.getString(6)));
+            }
+            return list;
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+        return null;
+    }
+    
+    public ArrayList<News> getAllNews() {
+        String sql = "select * from Notification";
+        ArrayList<News> list = new ArrayList<>();
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new News(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getTimestamp(5).toLocalDateTime(), rs.getString(6)));
+            }
+            return list;
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+        return null;
+    }
+    
+    public boolean checkStudentAlreadyRegisteredRoom(String userID, String semester) {
+        boolean isRegisteredRoom = true;
+        String sql = "select * from RegisterRoom where [userID] = ? AND status = 'Success' and semester = ?";
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, userID);
+            ps.setString(2, semester);
+            rs = ps.executeQuery();
+            if (rs != null) {
+                isRegisteredRoom = false;
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return isRegisteredRoom;
+    }
+    
+    public void createChangeRoomRequest(String userID1, String userID2, LocalDateTime date) {
+        String sql = "insert into ChangeRoom VALUES (?,?,?)";
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, userID1);
+            ps.setString(2, userID2);
+            ps.setObject(3, date);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+    
+    public ArrayList<ChangeRoom> displayAllChangeRoomRequest() {
+        String sql = "select * from ChangeRoom";
+        ArrayList<ChangeRoom> list = new ArrayList<>();
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new ChangeRoom(rs.getString(1), rs.getString(2), rs.getString(3),
+                        rs.getTimestamp(4).toLocalDateTime()));
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+        return list;
+    }
+    
+    public void deleteRegisteredByStudent(int reRoomID){
+        try {
+            String sql = "update update RegisterRoom set status = 'Rejected' where reRoomID = ?";
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, reRoomID);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
         }
     }
 }
