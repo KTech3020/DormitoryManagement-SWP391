@@ -11,6 +11,7 @@ import entity.ChangeRoom;
 import entity.News;
 import entity.Room;
 import entity.RoomRegistration;
+import entity.Statistics;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -163,7 +164,7 @@ public class DormDAO {
         } catch (Exception e) {
         }
     }
-    
+
     public void updateProfileNoImageChange(String idPerson, String name, String cmnd,
             String dob, String gender, String phone, String email, String address) {
         try {
@@ -284,7 +285,7 @@ public class DormDAO {
 
     public ArrayList viewRegistrationMatchStudent(String userID) {
         ArrayList<RoomRegistration> result = new ArrayList();
-        String sql = "select * from RoomRegistrationView where userId = ? order by reRoomID";
+        String sql = "select * from RoomRegistrationView where userId = ? AND NOT [status] = 'Removed' order by reRoomID";
         try {
             con = new DBContext().getConnection();
             ps = con.prepareStatement(sql);
@@ -336,7 +337,6 @@ public class DormDAO {
 
     public void updateRegistrationStatus(String registerID, String status) {
         String sql = "update RegisterRoom set status = ? where reRoomID = ?";
-        int roomID;
         try {
             con = new DBContext().getConnection();
             ps = con.prepareStatement(sql);
@@ -476,6 +476,25 @@ public class DormDAO {
         return isRegistered;
     }
 
+    public boolean checkAlreadySuccessRegistered(String userID) {
+        boolean isRegistered = false;
+        String sql = "select userID from RoomRegistrationView where [userID] = ? AND status = 'Success'";
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, userID);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                if (rs.getString(1).equals(userID)) {
+                    isRegistered = true;
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return isRegistered;
+    }
+
     public ArrayList<News> getAllNews() {
         String sql = "select * from Notification";
         ArrayList<News> list = new ArrayList<>();
@@ -553,7 +572,7 @@ public class DormDAO {
         } catch (Exception e) {
         }
     }
-    
+
     public void editNewsNoImageChange(String notiID, String subject, String content, String userId) {
         try {
             String sql = "update Notification set [subject] = ?, [content] = ?, [userId] = ?, [time] = GETDATE()where [notiID] = ? ";
@@ -582,7 +601,7 @@ public class DormDAO {
             System.out.println(e);
         }
     }
-    
+
     public boolean checkStudentAlreadyRegisteredRoom(String userID, String semester) {
         boolean isRegisteredRoom = true;
         String sql = "select * from RegisterRoom where [userID] = ? AND status = 'Success' and semester = ?";
@@ -675,4 +694,87 @@ public class DormDAO {
             System.out.println(e);
         }
     }
+
+    public Statistics viewStatistics(String semID) {
+        String sql = """
+                     select 
+                     (select SUM(roomSize) from RoomDetailView) as column1, 
+                     (select count(roomAttendees) from RoomDetailView) as column2, 
+                     (select SUM(roomSize - roomAttendees) from RoomDetailView) as column3,
+                     (select count(roomAttendees) from RoomDetailView where gender = 'M') as column4,
+                     (select count(roomAttendees) from RoomDetailView where gender = 'f') as column5,
+                     (select count(*) from RoomDetailView) as column6,
+                     (select count(*) from RoomDetailView where (roomAttendees = roomSize)) as column7,
+                     (select count(*) from RoomDetailView where (roomAttendees > 0)) as column8,
+                     (select count(*) from RoomDetailView where (roomAttendees = 0)) as column9,
+                     (select SUM(price) from RoomRegistrationView where status = 'Success') as column10,
+                     (select SUM(price) from RoomRegistrationView where status = 'Success' AND semester like ?) as column11
+                     """;
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, semID);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return new Statistics(String.valueOf(rs.getInt(1)), String.valueOf(rs.getInt(2)),
+                        String.valueOf(rs.getInt(3)), String.valueOf(rs.getInt(4)),
+                        String.valueOf(rs.getInt(5)), String.valueOf(rs.getInt(6)), 
+                        String.valueOf(rs.getInt(7)), String.valueOf(rs.getInt(8)),
+                        String.valueOf(rs.getInt(9)), rs.getString(10),
+                       rs.getString(11));
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+    
+    public void removeRegistration(String registerID){
+        String sql = "update RegisterRoom set status = 'Removed' where reRoomID = ?";
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, registerID);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public ArrayList<Person> viewRoommates(int roomID) {
+        String sql = "select * from RoomMembersList where roomId = ?";
+        ArrayList<Person> list = new ArrayList<>();
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, roomID);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Person(rs.getString(1), rs.getString(10), rs.getString(2), 
+                        rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6),
+                        rs.getString(7), rs.getString(8), rs.getString(9)));
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+        return list;
+    }
+    
+    public int getRoomIdOfUser (String userID){
+        String sql = "select rr.roomID from Person p inner join RegisterRoom rr "
+                   + "on p.idPerson = rr.userId AND rr.status = 'Success' where p.idPerson = ?";
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, userID);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+        return 0;
+    }    
 }
+

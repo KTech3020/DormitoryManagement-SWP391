@@ -4,18 +4,7 @@
     Author     : MSI GL63
 --%>
 <%@ include file="/includes/header.jsp" %>
-<script>    
-    function paymentStatus(type,event){
-        event.preventDefault();
-        if (type === 1)
-            alert("Thanh toán thành công!");
-        else if (type === 2)
-            alert("Thanh toán thất bại!");
-        else 
-            alert("Danh tính không hợp lệ!");
-        return true;
-    }
-</script>
+
 <style>
     .paggingmanage{
                 display: flex;
@@ -100,6 +89,7 @@
         </table>
         <%} %>  
         <%
+            if (request.getParameterNames().hasMoreElements()){
             //return after payment from VNPAY
             Map fields = new HashMap();
             for (Enumeration params = request.getParameterNames(); params.hasMoreElements();) {
@@ -151,9 +141,9 @@
                         window.location.href = "LoadPaymentRegistered?userID=<%= userID %>";
                     };
                 </script>                
-            <%
-            }%>
+            <%}}%>
         </div>
+        
         <div class="paggingmanage">
 
             <div class="pagging active">
@@ -172,12 +162,25 @@
                 <a href="paymentForRoom.jsp?numPage=${lastPage}">>></a>
             </div>
         </div>
-        <header>
-            <h1>THANH TOÁN TIỀN ĐIỆN NƯỚC</h1>
-        </header>
+            
         <button><a href="index.jsp" class="nav-item nav-link">Về trang chủ</a></button>
     </div>
 </section>
+</div></div>
+
 
 <%@ include file="/includes/column_left_home.jsp" %>
 <%@ include file="/includes/footer.jsp" %>
+
+<script>    
+    function paymentStatus(type,event){
+        event.preventDefault();
+        if (type === 1)
+            alert("Thanh toán thành công!");
+        else if (type === 2)
+            alert("Thanh toán thất bại!");
+        else 
+            alert("Danh tính không hợp lệ!");
+        return true;
+    }
+</script>

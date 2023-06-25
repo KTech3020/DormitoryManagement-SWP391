@@ -1,7 +1,18 @@
 <%@page contentType="text/html" pageEncoding="utf-8" %>	
 <%@ page import="java.util.ArrayList,java.time.format.DateTimeFormatter,entity.News" %>
 <%@ include file="/includes/header.jsp" %>
+
+<script>
+    function confirmDelete(event) {
+        if (confirm("Bạn có chắc chắn xóa hay không?")) {
+            alert("Xóa thành công!");
+        } else {
+            event.preventDefault();
+        }
+        return true;
+    }
 </script>
+
 <section id="banner">
     <div class="content">
         <header>
@@ -30,8 +41,8 @@
                 <td><%= news.getUserId() %></td>
                 <td>
                     <a style="white-space: nowrap;" href="EditNewsServlet?notiID=<%= news.getNewsID() %>">Sửa</a>
-                    <a>&nbsp;|&nbsp;</a>
-                    <a style="white-space: nowrap;" href="DeleteNewsServlet?notiID=<%= news.getNewsID() %>">Xóa</a>
+
+                    <a style="white-space: nowrap;" onclick="confirmDelete(event);" href="DeleteNewsServlet?notiID=<%= news.getNewsID() %>">Xóa</a>
                 </td>
             </tr>
             <% } %>

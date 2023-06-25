@@ -112,6 +112,18 @@
         <servlet-name>LoadPaymentRegistered</servlet-name>
         <servlet-class>Controller.LoadPaymentRegistered</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>StatisticsServlet</servlet-name>
+        <servlet-class>Controller.StatisticsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CancelRegisterServlet</servlet-name>
+        <servlet-class>Controller.CancelRegisterServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewRoommatesServlet</servlet-name>
+        <servlet-class>Controller.ViewRoommatesServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -223,6 +235,18 @@
     <servlet-mapping>
         <servlet-name>LoadPaymentRegistered</servlet-name>
         <url-pattern>/LoadPaymentRegistered</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StatisticsServlet</servlet-name>
+        <url-pattern>/StatisticsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CancelRegisterServlet</servlet-name>
+        <url-pattern>/CancelRegisterServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewRoommatesServlet</servlet-name>
+        <url-pattern>/ViewRoommatesServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

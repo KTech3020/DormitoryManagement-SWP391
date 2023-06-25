@@ -40,10 +40,11 @@ create table RegisterRoom(
 [userId] varchar (10),
 [date] datetime,
 [semester] varchar (5),
-[status] varchar(10) check (status in ('Success', 'Registered', 'Rejected')),
+[status] varchar(10) check (status in ('Success', 'Registered', 'Rejected', 'Removed')),
 CONSTRAINT fk_register1 foreign key (userId) references Account (userId),
 CONSTRAINT fk_register2 foreign key ([roomId]) references Room ([roomId])
 )
+
 
 create table ElectricWaterUsed (
 [ElectricWaterUsedID] int identity(1,1) primary key,
@@ -211,14 +212,14 @@ from RegisterRoom rg inner join Room r on rg.roomId = r.roomId
 inner join RegisterRoomDetail rd
 on (r.roomId = rd.roomId AND ((rd.startDay <= rg.date AND rg.date <= rd.endDay) OR (rd.startDay <= rg.date AND rd.endDay IS NULL)))
 
-
-drop view RoomRegistrationView
-
 select * from [RoomRegistrationView]
 where userId = 'SE160094'
 order by reRoomID
 
-select * from [RoomRegistrationView] order by reRoomID
+select * from RoomRegistrationView where NOT [status] = 'Removed' order by reRoomID
+
+
+select * from RoomRegistrationView order by reRoomID
 
 select * from RegisterRoom
 
@@ -257,4 +258,57 @@ select * from RoomRegistrationView where [roomID] = 106 AND [userID] = 'DE152894
 
 insert into Person
 VALUES
-('DE170649', N'DE170649.png', N'Ngo Ho Gia Kiet', N'802347032', 2003-15-08, 'M', '0123123123', 'ktech3020@gmail.com', N'SV House, Lo B1-09 Le Duc Tho, Dien Ngoc, Dien Ban')
+('DE170649', N'DE170649.png', N'Ngo Ho Gia Kiet', N'802347032', 2003-15-08, 'M', '0123123123', 'ktech3020@gmail.com', N'SV House, Lo B1-09 Le Duc Tho, Dien Ngoc, Dien Ban'),
+('admin', N'admin.png', N'admin', N'121212121', 2000-01-01, 'M', '0123123123', 'kietngotb@gmail.comn', N'admin.getLocation();')
+
+
+select * from ChangeRoom
+
+select * from RegisterRoom where status = 'Success'
+
+select * from Account
+
+select * from RoomRegistrationView where userId = 'DE170561' and status LIKE 'Registered' order by reRoomID
+
+delete from RegisterRoom where  userId = 'DE170561' AND roomId = 104
+
+select * from RoomDetailView order by roomID
+
+select SUM(roomSize) from RoomDetailView
+select count(roomAttendees) from RoomDetailView
+select SUM(roomSize - roomAttendees) from RoomDetailView
+select count(roomAttendees) from RoomDetailView where gender = 'M'
+select count(roomAttendees) from RoomDetailView where gender = 'F'
+
+select count(*) from RoomDetailView
+select count(*) from RoomDetailView where (roomAttendees = roomSize)
+select count(*) from RoomDetailView where (roomAttendees > 0)
+select count(*) from RoomDetailView where (roomAttendees = 0)
+
+select SUM(price) from RoomRegistrationView where status = 'Success'
+select SUM(price) from RoomRegistrationView where status = 'Success' AND semester = 'FA23'
+
+select * from ChangeRoom
+
+select 
+(select SUM(roomSize) from RoomDetailView) as column1, 
+(select count(roomAttendees) from RoomDetailView) as column2, 
+(select SUM(roomSize - roomAttendees) from RoomDetailView) as column3,
+(select count(roomAttendees) from RoomDetailView where gender = 'M') as column4,
+(select count(roomAttendees) from RoomDetailView where gender = 'f') as column5,
+(select count(*) from RoomDetailView) as column6,
+(select count(*) from RoomDetailView where (roomAttendees = roomSize)) as column7,
+(select count(*) from RoomDetailView where (roomAttendees > 0)) as column8,
+(select count(*) from RoomDetailView where (roomAttendees = 0)) as column9,
+(select SUM(price) from RoomRegistrationView where status = 'Success') as column10,
+(select SUM(price) from RoomRegistrationView where status = 'Success' AND semester = 'FA23') as column11
+
+(select SUM(price) from RoomRegistrationView where status = 'Success' AND semester = 'FA23') as column11
+
+select * from RegisterRoom
+
+create view RoomMembersList as
+select p.*, rr.roomId from Person p inner join RegisterRoom rr on p.idPerson = rr.userId AND rr.status = 'Success'
+
+select * from RoomMembersList where roomId = 104
+
