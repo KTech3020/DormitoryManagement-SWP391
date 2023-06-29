@@ -3,10 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/p4t3/Documents/GitHub/DormitoryManagement-SWP391/SWP391-MigrateToTomcat10.1AndJakartaEE10/nbproject/private/private.properties</file>
-            <file>file:/C:/Users/p4t3/Documents/GitHub/DormitoryManagement-SWP391/SWP391-MigrateToTomcat10.1AndJakartaEE10/src/java/Controller/LoadNewsToMainpageServlet.java</file>
-            <file>file:/C:/Users/p4t3/Documents/GitHub/DormitoryManagement-SWP391/SWP391-MigrateToTomcat10.1AndJakartaEE10/src/java/context/DBContext.java</file>
+            <file>file:/C:/Users/p4t3/Documents/GitHub/DormitoryManagement-SWP391/SWP391-MigrateToTomcat10.1AndJakartaEE10/web/includes/banner_news.jsp</file>
+            <file>file:/C:/Users/p4t3/Documents/GitHub/DormitoryManagement-SWP391/SWP391-MigrateToTomcat10.1AndJakartaEE10/src/java/Controller/SingleNews.java</file>
+            <file>file:/C:/Users/p4t3/Documents/GitHub/DormitoryManagement-SWP391/SWP391-MigrateToTomcat10.1AndJakartaEE10/web/editNews.jsp</file>
+            <file>file:/C:/Users/p4t3/Documents/GitHub/DormitoryManagement-SWP391/SWP391-MigrateToTomcat10.1AndJakartaEE10/web/allnews.jsp</file>
             <file>file:/C:/Users/p4t3/Documents/GitHub/DormitoryManagement-SWP391/SWP391-MigrateToTomcat10.1AndJakartaEE10/src/java/dao/DormDAO.java</file>
+            <file>file:/C:/Users/p4t3/Documents/GitHub/DormitoryManagement-SWP391/SWP391-MigrateToTomcat10.1AndJakartaEE10/src/java/Controller/StatisticsServlet.java</file>
+            <file>file:/C:/Users/p4t3/Documents/GitHub/DormitoryManagement-SWP391/SWP391-MigrateToTomcat10.1AndJakartaEE10/web/News.jsp</file>
         </group>
     </open-files>
 </project-private>

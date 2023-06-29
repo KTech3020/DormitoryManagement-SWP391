@@ -83,29 +83,7 @@ public class SingleNews extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        DormDAO dao = new DormDAO();
-        HttpSession session = request.getSession();
-        Account account = (Account) session.getAttribute("accountS");
-
-        String notiID = request.getParameter("notiID");
-        String subject = request.getParameter("subject");
-        String content = request.getParameter("content");
-
-        Part part = request.getPart("img");
-        if (part == null || part.getSize()==0) {
-            dao.editNewsNoImageChange(notiID, subject, content, account.getUserid());
-            response.sendRedirect("allnews.jsp");
-        } else {
-
-            String realPath = request.getServletContext().getRealPath("/images");
-            String fileName = Paths.get(part.getSubmittedFileName()).getFileName().toString();
-            if (!Files.exists(Paths.get(realPath))) {
-                Files.createDirectory(Paths.get(realPath));
-            }
-            part.write(realPath + "/" + fileName);
-            dao.editNews(notiID, subject, content, account.getUserid(), fileName);
-            response.sendRedirect("allnews.jsp");
-        }
+        processRequest(request, response);
     }
 
     /**
