@@ -4,11 +4,13 @@
 <section>
     <header class="major">
         <h2>Thông báo mới nhất</h2>
+        
     </header>
     <div class="posts">
         <% ArrayList newsList = (ArrayList)request.getAttribute("newsList"); 
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
                 for (Object o : newsList){News news =(News) o;%>
+                
         <article>
             <a class="image"><img src="images/<%= news.getImage() %>" alt="" /></a>
             <h3><%= news.getSubject() %></h3>
@@ -16,9 +18,12 @@
             </br>
             <p><%= news.getContent() %></p>
         </article>      
-        <% } %>        
+        <% } %> 
+        
     </div>
 </section>
 <% } %>
+        <button onclick="window.location = 'AllNews';">XEM TẤT CẢ THÔNG BÁO</button>
+
 </div>
 </div>

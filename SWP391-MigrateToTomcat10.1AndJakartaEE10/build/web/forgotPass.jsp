@@ -10,13 +10,13 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="assets/css/loginlogout.css"/>
-        <title>JSP Page</title>
+        <title>Đổi mật khẩu</title>
     </head>
     <body>
         <div class="login-page">
             <div class="form pag">
                 <h1>Đổi mật khẩu</h1>
-                <form class="login-form" action="ForgotpassServlet" method="post">
+                <form class="login-form" action="ChangePasswordServlet" method="post">
                     <input type="text" value="${name}" placeholder="Tài khoản" name="username"/>
                     <input type="password" value="${pass}" placeholder="Mật khẩu cũ" name="oldpassword"/>
                     <input type="password" placeholder="Nhập mật khẩu mới" name="newpassword" />
@@ -26,7 +26,7 @@
                     <button>Xác nhận</button>
 
                 </form>
-                <a class="home" href="index.jsp">Trang chủ</a>
+                <a class="home" href="index">Trang chủ</a>
             </div>
         </div>
     </body>

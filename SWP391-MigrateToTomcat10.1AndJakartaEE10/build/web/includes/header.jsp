@@ -4,7 +4,7 @@
 <!DOCTYPE HTML>
 <html>
     <head>
-        <title>FPTU_Website Demo </title>
+        <title>FDorm Website Demo </title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
         <link rel="stylesheet" href="assets/css/main.css" />
@@ -20,7 +20,7 @@
 
                     <!-- Header -->
                     <header id="header">
-                        <a href="index.jsp">
+                        <a href="index">
                             <img src="images/fpt_logo.png" alt="" />
                         </a>
                        

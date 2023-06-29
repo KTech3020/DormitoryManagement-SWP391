@@ -1,7 +1,35 @@
 <%@page contentType="text/html" pageEncoding="utf-8" %>	
-<%@ page import="java.util.ArrayList,entity.Room" %>
+<%@ page import="java.util.ArrayList,entity.Room,dao.DormDAO,entity.Account,entity.Person" %>
+
+<script>
+    function changeMaxSize() {
+        var size = document.getElementById('roomSize').value;
+        document.getElementById('maxMembers').max = size;
+    }
+
+    function invalidRoomRegister(type, event) {
+        event.preventDefault();
+        if (type === 1)
+            alert("Bạn không thể đăng ký phòng này!\nLý do: Bạn đã đăng ký phòng này rồi.");
+        else if (type === 2)
+            alert("Bạn không thể đăng ký phòng này!\nLý do: Giới tính của bạn không trùng giới tính phòng");
+        else
+            alert("Lỗi không xác định");
+        return true;
+    }
+</script>
+
 <section id="banner">
     <div class="content">
+        <%
+        DormDAO dao = new DormDAO();
+                Account account = (Account) session.getAttribute("accountS");
+                Person person = dao.getPersonProfile(account.getUserid());
+        %>
+        <%if (dao.checkAlreadySuccessRegistered(account.getUserid())){%>
+        <h4>Có vẻ như bạn đã có phòng rồi!</h4>
+        <p>Nhấn vào <a href="ViewRoommatesServlet">đây</a> để xem bạn cùng phòng với bạn.</p>
+            <%}%>        
         <header>
             <h1>TÌM KIẾM PHÒNG</h1>
         </header>
@@ -10,7 +38,7 @@
                 <div class="col-2 col-12-xsmall"></div>
                 <div class="col-4 col-12-xsmall">
                     <label>Kích thước phòng</label>
-                    <select required name="roomSize">
+                    <select id="roomSize" required name="roomSize" oninput="changeMaxSize()">
                         <option value="" disabled selected hidden>Chọn kích thước</option><!-- dummy default option -->
                         <option value="4">Phòng 4 chỗ</option>
                         <option value="6">Phòng 6 chỗ</option>
@@ -28,7 +56,7 @@
                 <div class="col-2 col-12-xsmall"></div><div class="col-2 col-12-xsmall"></div>
                 <div class="col-4 col-12-small">
                     <label>Số lượng người tối đa trong phòng</label>
-                    <input type="number" required step=1 min=0 max=8 placeholder=0 name="roomAttendees"/>
+                    <input id= "maxMembers" type="number" required step=1 min=0 max=0 placeholder=0 name="roomAttendees"/>
                 </div>
                 <div class="col-4 col-12-small">
                     <label>Mức giá tối đa</label>
@@ -64,10 +92,12 @@
                 <th>Có điều hòa?</th>
                 <th>Mức giá phòng</th>
                 <th>Đăng ký</th>
-            </tr>
-
-            <%ArrayList roomList = (ArrayList)request.getAttribute("roomList"); 
-                    for (Object o : roomList){Room room =(Room) o;%>
+            </tr>            
+            <%  
+                     
+                ArrayList roomList = (ArrayList)request.getAttribute("roomList"); 
+                for (Object o : roomList){Room room =(Room) o;
+            %>
             <tr>
                 <td><%= room.getRoomID() %></td>
                 <td><%= room.getRoomSize() %></td>
@@ -76,10 +106,12 @@
                 <td><%= room.getHasAirConditioner() %></td>
                 <td><%= room.getPrice() %></td>
                 <td>
-                    <%if (room.getRoomAttendees() < room.getRoomSize()) {%>
-                    <a href="RegisterRoomServlet?roomID=<%= room.getRoomID() %>">Đăng ký</a>
+                    <%if (dao.checkAlreadyRegistered(String.valueOf(room.getRoomID()), person.getIdPerson())) {%>
+                    <a href="RoomSearchServlet" onclick="return invalidRoomRegister(1, event)">Đăng ký</a>
+                    <%} else if (!person.getGender().equals(room.getGender())) {%>
+                    <a href="RoomSearchServlet" onclick="return invalidRoomRegister(2, event)">Đăng ký</a>
                     <%} else {%>
-                    <a href="#">Phòng đầy!</a>
+                    <a href="RegisterRoomServlet?roomID=<%= room.getRoomID() %>&price=<%= room.getPrice() %>">Đăng ký</a>
                     <%}%>
                 </td>
             </tr>
