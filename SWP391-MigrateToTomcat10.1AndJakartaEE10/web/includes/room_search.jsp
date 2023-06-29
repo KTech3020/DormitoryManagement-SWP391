@@ -1,14 +1,35 @@
 <%@page contentType="text/html" pageEncoding="utf-8" %>	
-<%@ page import="java.util.ArrayList,entity.Room" %>
+<%@ page import="java.util.ArrayList,entity.Room,dao.DormDAO,entity.Account,entity.Person" %>
 
 <script>
-    function changeMaxSize(){
+    function changeMaxSize() {
         var size = document.getElementById('roomSize').value;
         document.getElementById('maxMembers').max = size;
     }
+
+    function invalidRoomRegister(type, event) {
+        event.preventDefault();
+        if (type === 1)
+            alert("Bạn không thể đăng ký phòng này!\nLý do: Bạn đã đăng ký phòng này rồi.");
+        else if (type === 2)
+            alert("Bạn không thể đăng ký phòng này!\nLý do: Giới tính của bạn không trùng giới tính phòng");
+        else
+            alert("Lỗi không xác định");
+        return true;
+    }
 </script>
+
 <section id="banner">
     <div class="content">
+        <%
+        DormDAO dao = new DormDAO();
+                Account account = (Account) session.getAttribute("accountS");
+                Person person = dao.getPersonProfile(account.getUserid());
+        %>
+        <%if (dao.checkAlreadySuccessRegistered(account.getUserid())){%>
+        <h4>Có vẻ như bạn đã có phòng rồi!</h4>
+        <p>Nhấn vào <a href="ViewRoommatesServlet">đây</a> để xem bạn cùng phòng với bạn.</p>
+            <%}%>        
         <header>
             <h1>TÌM KIẾM PHÒNG</h1>
         </header>
@@ -71,10 +92,12 @@
                 <th>Có điều hòa?</th>
                 <th>Mức giá phòng</th>
                 <th>Đăng ký</th>
-            </tr>
-
-            <%ArrayList roomList = (ArrayList)request.getAttribute("roomList"); 
-                    for (Object o : roomList){Room room =(Room) o;%>
+            </tr>            
+            <%  
+                     
+                ArrayList roomList = (ArrayList)request.getAttribute("roomList"); 
+                for (Object o : roomList){Room room =(Room) o;
+            %>
             <tr>
                 <td><%= room.getRoomID() %></td>
                 <td><%= room.getRoomSize() %></td>
@@ -83,10 +106,12 @@
                 <td><%= room.getHasAirConditioner() %></td>
                 <td><%= room.getPrice() %></td>
                 <td>
-                    <%if (room.getRoomAttendees() < room.getRoomSize()) {%>
-                    <a href="RegisterRoomServlet?roomID=<%= room.getRoomID() %>&price=<%= room.getPrice() %>">Đăng ký</a>
+                    <%if (dao.checkAlreadyRegistered(String.valueOf(room.getRoomID()), person.getIdPerson())) {%>
+                    <a href="RoomSearchServlet" onclick="return invalidRoomRegister(1, event)">Đăng ký</a>
+                    <%} else if (!person.getGender().equals(room.getGender())) {%>
+                    <a href="RoomSearchServlet" onclick="return invalidRoomRegister(2, event)">Đăng ký</a>
                     <%} else {%>
-                    <a>Phòng đầy!</a>
+                    <a href="RegisterRoomServlet?roomID=<%= room.getRoomID() %>&price=<%= room.getPrice() %>">Đăng ký</a>
                     <%}%>
                 </td>
             </tr>

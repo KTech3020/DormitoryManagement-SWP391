@@ -30,6 +30,15 @@ public class RoomRegistration {
         this.priceAtTheTime = priceAtTheTime;
     }
 
+     public RoomRegistration(int registerID, int roomID, String userID, LocalDateTime registrationTime, String semester, String status) {
+        this.registerID = registerID;
+        this.roomID = roomID;
+        this.userID = userID;
+        this.registrationTime = registrationTime;
+        this.semester = semester;
+        this.status = status;
+    }
+    
     public int getRegisterID() {
         return registerID;
     }

@@ -8,26 +8,24 @@ package entity;
  *
  * @author p4t3
  */
-import java.util.Date;
+import java.time.LocalDateTime;
 public class News {
-    private String notiID;
+    private String newsID;
     private String subject;
     private String content;
     private String userId;
-    private Date time;
+    private LocalDateTime time;
     private String image;
-    private int isAdmin;
 
     public News() {
     }
 
-    public News(String notiID, String subject, String content,String userId, Date time, int isAdmin) {
-        this.notiID = notiID;
+    public News(String notiID, String subject, String content, String userId, LocalDateTime time, String image) {
+        this.newsID = notiID;
         this.subject = subject;
         this.content = content;
         this.userId = userId;
         this.time = time;
-        this.isAdmin = isAdmin;
         this.image = image;
     }
 
@@ -40,12 +38,12 @@ public class News {
     }
     
 
-    public String getNotiID() {
-        return notiID;
+    public String getNewsID() {
+        return newsID;
     }
 
-    public void setNotiID(String notiID) {
-        this.notiID = notiID;
+    public void setNewsID(String notiID) {
+        this.newsID = notiID;
     }
 
     public String getSubject() {
@@ -72,22 +70,12 @@ public class News {
         this.userId = userId;
     }
 
-    public Date getTime() {
+    public LocalDateTime getTime() {
         return time;
     }
 
-    public void setTime(Date time) {
+    public void setTime(LocalDateTime time) {
         this.time = time;
     }
 
-    public int getIsAdmin() {
-        return isAdmin;
-    }
-
-    public void setIsAdmin(int isAdmin) {
-        this.isAdmin = isAdmin;
-    }
-
-    
 }
-

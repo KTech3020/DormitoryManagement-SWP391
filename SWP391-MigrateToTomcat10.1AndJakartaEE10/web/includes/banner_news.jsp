@@ -1,33 +1,24 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!-- Section --><%@page contentType="text/html" pageEncoding="utf-8" %>
+<%@page contentType="text/html" pageEncoding="utf-8" %>
+<%@ page import="java.util.ArrayList,java.time.format.DateTimeFormatter,entity.News" %>
+<%if (request.getAttribute("newsList") !=null){%>
 <section>
     <header class="major">
-        <h2>Thông báo</h2>
-        <c:if test="${sessionScope.accountS.isAdmin==1}">
-
-        <li><a href="addNews.jsp" class="button">Create News</a></li>
-        </c:if>
+        <h2>Thông báo mới nhất</h2>
     </header>
     <div class="posts">
-       
-        <c:forEach items="${listP}" var= "o">
+        <% ArrayList newsList = (ArrayList)request.getAttribute("newsList"); 
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                for (Object o : newsList){News news =(News) o;%>
         <article>
-            <a href="#" class="image"><img src="${o.image}" alt="" /></a>
-            <h3>${o.subject} </h3>
-            <p>${o.content}</p>
-        
-            <c:if test="${sessionScope.accountS.isAdmin==1}">
-            <ul class="actions">
-                <li><a href="News.jsp" class="button">More</a></li>
-                <li><a href="editNews.jsp" class='button'>Edit </a></li>
-                <li><a href="delete?notiID=${o.notiID}" class='button'>Delete </a></li>
-            </ul>
-            </c:if>
-        </article>
-        </c:forEach>
-        							
+            <a class="image"><img src="images/<%= news.getImage() %>" alt="" /></a>
+            <h3><%= news.getSubject() %></h3>
+            <p>Cập nhật vào: <%= news.getTime().format(formatter) %></p>
+            </br>
+            <p><%= news.getContent() %></p>
+        </article>      
+        <% } %>        
     </div>
 </section>
-
+<% } %>
 </div>
 </div>
