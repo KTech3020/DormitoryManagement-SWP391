@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
@@ -64,7 +65,23 @@ public class ViewRoommatesServlet extends HttpServlet {
         HttpSession session = request.getSession();
         Account account = (Account) session.getAttribute("accountS");
         int roomID = dao.getRoomIdOfUser(account.getUserid());
-        ArrayList<Person> roommatesList = dao.viewRoommates(roomID);
+        
+        LocalDateTime dateIn4Months = LocalDateTime.now().plusMonths(4);
+            int month = dateIn4Months.getMonth().getValue();
+            String semester = "";
+            if (month >= 1 && month <= 4) {
+                semester = semester.concat("SP");
+            } else if (month >= 5 && month <= 8) {
+                semester = semester.concat("SU");
+            } else if (month >= 9 && month <= 12) {
+                semester = semester.concat("FA");
+            }
+
+            String year = Integer.toString(dateIn4Months.getYear());
+            year = year.substring(year.length() - 2);
+            semester = semester.concat(year);
+        
+        ArrayList<Person> roommatesList = dao.viewRoommates(roomID, semester);
         request.setAttribute("roommatesList", roommatesList);
         request.getRequestDispatcher("roommates_list.jsp").forward(request, response);
     }

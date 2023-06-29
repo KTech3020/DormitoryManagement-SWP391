@@ -513,7 +513,7 @@ public class DormDAO {
     }
 
     public ArrayList<News> getTwoLatestNews() {
-        String sql = "select top 2 * from Notification";
+        String sql = "select top 2 * from Notification order by time DESC";
         ArrayList<News> list = new ArrayList<>();
         try {
             con = new DBContext().getConnection();
@@ -741,13 +741,14 @@ public class DormDAO {
         }
     }
     
-    public ArrayList<Person> viewRoommates(int roomID) {
-        String sql = "select * from RoomMembersList where roomId = ?";
+    public ArrayList<Person> viewRoommates(int roomID, String semester) {
+        String sql = "select * from RoomMembersList where roomId = ? and semester = ?";
         ArrayList<Person> list = new ArrayList<>();
         try {
             con = new DBContext().getConnection();
             ps = con.prepareStatement(sql);
             ps.setInt(1, roomID);
+            ps.setString(2, semester);
             rs = ps.executeQuery();
             while (rs.next()) {
                 list.add(new Person(rs.getString(1), rs.getString(10), rs.getString(2), 

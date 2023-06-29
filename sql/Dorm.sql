@@ -308,7 +308,18 @@ select
 select * from RegisterRoom
 
 create view RoomMembersList as
-select p.*, rr.roomId from Person p inner join RegisterRoom rr on p.idPerson = rr.userId AND rr.status = 'Success'
+select p.*, rr.roomId, rr.semester from Person p inner join RegisterRoom rr on p.idPerson = rr.userId AND rr.status = 'Success'
 
 select * from RoomMembersList where roomId = 104
+
+select rr.roomID from Person p inner join RegisterRoom rr on p.idPerson = rr.userId AND rr.status = 'Success' where p.idPerson = 'DE170649'
+
+select * from RegisterRoom 
+
+insert into RegisterRoom VALUES
+(104, 'DE170561', 2022-10-23, 'FA22', 'Success')
+
+select * from Person
+
+select * from RoomRegistrationView where status = 'Success' order by roomID
 
