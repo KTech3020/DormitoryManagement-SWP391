@@ -1,40 +1,33 @@
-<%-- 
-    Document   : updateStudent
-    Created on : May 24, 2023, 8:57:06 PM
-    Author     : MSI GL63
---%>
-<%@ include file="/includes/header.jsp" %> 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<form action ="EditNewsServlet" method ="post"  enctype="multipart/form-data">
+<%@page contentType="text/html" pageEncoding="utf-8" %>	
+<%@ page import="java.util.ArrayList,java.time.format.DateTimeFormatter,entity.News" %>
+<%@ include file="/includes/header.jsp" %>
+
+<form action ="SingleNew" method ="post"  enctype="multipart/form-data">
     <table>
-         <tr>
-            <td>ID bài đăng</td>
-            <td><input type="text" name="notiID" value="${news.newsID}" required></td>             
+        
+        <tr>
+           
+                <h2>${SingleNew.subject}</h2>                  
         </tr>
         <tr>
-            <td>Tiêu đề</td>
-            <td><input type="text" name="subject" value="${news.subject}" required></td>             
+        <p><strong>Cập nhật lần cuối: </strong>${SingleNew.time}</p>
+        
+        </tr>
+        <tr>
+        <p><strong>Người đăng: </strong>${SingleNew.userId}</p>
         </tr>
 
         <tr>
-            <td>Nội dung</td>
-            <td><textarea rows="15" name="content"required>${news.content}</textarea></td>             
+            <td>${SingleNew.content}</td>            
         </tr>
         <tr>
-            <td>Ảnh</td>
-            <td><img src="images/${news.image}" height="150px" width="240px">
-                <input type="file" name="img">
-            </td>   
+        <a class="image"><img src="images/${SingleNew.image}"  /></a>
+             
         </tr>
 
-        <tr>
-            <td><button type ="submit">Cập nhật</button></td>
-            <td>
-                <a href="index" type = "cancel"> <button> Cancel</button> </a>
-            </td>
-        </tr>
+        
     </table> 
 </form>
 </div></div>
-<%@ include file="/includes/column_left_home.jsp" %> 
-<%@ include file="/includes/footer.jsp" %> 
+<%@ include file="/includes/column_left_home.jsp" %>
+<%@ include file="/includes/footer.jsp" %>

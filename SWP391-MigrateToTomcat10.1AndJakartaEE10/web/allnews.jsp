@@ -19,8 +19,8 @@
                 <th>ID</th>
                 <th>Tiêu đề</th>
                 <th>Chỉnh sửa lần cuối</th>
-                <th>Người chỉnh sửa</th>
-                <th>Chức năng</th>
+                <th>Người Đăng</th>
+               
             </tr>
             <% ArrayList newsList = (ArrayList)request.getAttribute("newsList"); 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -31,7 +31,7 @@
                 <td><%= news.getTime().format(formatter) %></td>
                 <td><%= news.getUserId() %></td>
                 <td>
-                    <a style="white-space: nowrap;" href="singlenews?notiID=<%= news.getNewsID() %>">Xem</a>
+                    <a style="white-space: nowrap;" href="SingleNew?nid=<%= news.getNewsID() %>">Xem</a>
 
                 </td>
             </tr>
