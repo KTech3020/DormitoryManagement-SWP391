@@ -79,15 +79,15 @@ create table Bill(
 CONSTRAINT fk_Bill foreign key ([reRoomID]) references RegisterRoom([reRoomID])
 )
 */
- 
+ /*
 create table StudentRequest(
 [RequestId] int identity(1,1) primary key,
 [userId] varchar (10),
 [request] Ntext,
 [day] date,
 CONSTRAINT fk_studentRequest foreign key (userId) references Account (userId),
-)
-drop table StudentRequest
+)*/
+
 
 create table ChangeRoom(
 [changeRoomID] int identity(1,1) primary key,
@@ -96,15 +96,6 @@ create table ChangeRoom(
 [day] date,
 CONSTRAINT fk_changeRoom foreign key ([userId1]) references Account (userId)
 )
-insert into ChangeRoom VALUES ('','','')
-
-
-
-insert into ChangeRoom
-VALUES
-('','',''),
-
-drop table ChangeRoom
 
 
 create table Notification(
@@ -170,8 +161,6 @@ VALUES
 ('SE160094', N'SE160094.png', N'Tran Thi Ly', N'2094174859', '2002-06-02', 'F', '0948756283', 'lyttse160094@fpt.edu.vn', N'K17 Binh An 7- Hai Chau- Da Nang'),
 ('DE169019', N'DE169019.png', N'Ho Ngoc An', N'1093276478', '2002-09-13', 'M', '0794857618', 'anhnde169019@fpt.edu.vn', N'45 y Lan Nguyen Phi- Hai Chau- Da Nang'),
 ('DE150287', N'DE150287.png', N'Ho Tuan Khai', N'0398618940', '2001-06-14', 'M', '0994872353', 'khaihtde150287@fpt.edu.vn', N'90 Ham Nghi- Ngu Hanh Son- Da Nang')
-select * from Account
-
 
 insert into Account
 VALUES
@@ -184,9 +173,7 @@ VALUES
 ('SE160938', N'mylinh0300', 0),
 ('SE170983', N'123', 0)
 
-insert into RegisterRoom
-VALUES
-('101', 'DE169019', '2022-07-18', 'SU22', 'Success')
+
 
 insert into RegisterRoom
 VALUES
@@ -198,10 +185,9 @@ VALUES
 ('111', 'SE160938', '2023-07-19', 'FA23', 'Success'),
 ('110', 'SE170983', '2023-07-20', 'FA23', 'Success')
 
-delete RegisterRoom where 
-insert into RegisterRoom
-VALUES
-('101', 'DE169019', '2021-01-18', 'SP22', 'Registered')
+
+------NHÁP--------------------------------------------------------------
+
 
 select r.roomId, r.roomSize, r.roomAttendees, r.gender, r.airConditional, rd.price 
 from Room r inner join RegisterRoomDetail rd
