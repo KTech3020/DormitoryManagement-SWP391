@@ -2,9 +2,6 @@
 <%@ include file="/includes/header.jsp" %> 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
-
-
 <section id="banner">
     <div class="content">
         <header>
@@ -28,7 +25,6 @@
                     <button type = "submit">Chọn</button>
                 </div>
                 <div class="col-2 col-12-xsmall"></div><div class="col-2 col-12-xsmall"></div>    
-
             </div>
         </form>
         <%
@@ -37,10 +33,7 @@
         <%
                if(check.equals("changeRoom")){
         %> 
-
         <h2>CÁC YÊU CẦU ĐỔI PHÒNG</h2>
-
-
         <table>
             <thead>
                 <tr>
@@ -74,35 +67,13 @@
                         </td>
                     </tr>
                 </c:forEach>
-
-
             </tbody>
-
-
-
-
-
-
         </table>
         <%
             }
         %> 
-
-
-
     </div>
-
-
-
 </section>
-
-
-
-
-
-
 </div></div>
-
-
 <%@ include file="/includes/column_left_home.jsp" %> 
 <%@ include file="/includes/footer.jsp" %> 

@@ -15,6 +15,7 @@
                 <th>Thời gian đăng ký</th>
                 <th>Đăng ký cho kì</th>
                 <th>Trạng thái đăng ký</th>
+                <th>Hủy đăng ký</th>
             </tr>
 
             <%ArrayList historyList = (ArrayList)request.getAttribute("historyList"); 
@@ -25,11 +26,16 @@
                 <td><%= room.getRegistrationTime().format(formatter) %></td>
                 <td><%= room.getSemester() %></td>
                 <td><%= room.getStatus() %></td>
+                <td>
+                    <%if (room.getStatus().equals("Registered")){%>
+                        <a href="CancelRegisterServlet?reRoomID=<%= room.getRegisterID() %>">Hủy</a>
+                    <%}%>
+                </td> 
             </tr>
             <%}%>
         </table>
         <%} %>    
-        <button><a href="index.jsp" class="nav-item nav-link">Về trang chủ</a></button>
+        <button><a href="index" class="nav-item nav-link">Về trang chủ</a></button>
         </div>
     </div>
 </section>

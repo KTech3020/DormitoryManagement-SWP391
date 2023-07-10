@@ -63,7 +63,7 @@
       
         <tr>
             <td>Image</td>
-            <td><img src="images/${profile.img}" height="200px" width="180px">
+            <td><img src="images/${profile.img}" value="${profile.img}" height="200px" width="180px">
                 <input type="file" name="img">
             </td>   
         </tr>

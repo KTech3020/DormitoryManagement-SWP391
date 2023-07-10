@@ -61,6 +61,30 @@
         <servlet-class>Controller.DeleteRoomServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>PaymentServlet</servlet-name>
+        <servlet-class>Controller.PaymentServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddNewsServlet</servlet-name>
+        <servlet-class>Controller.AddNewsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditNewsServlet</servlet-name>
+        <servlet-class>Controller.EditNewsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManageNewsServlet</servlet-name>
+        <servlet-class>Controller.ManageNewsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteNewsServlet</servlet-name>
+        <servlet-class>Controller.DeleteNewsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>index</servlet-name>
+        <servlet-class>Controller.LoadNewsToMainpageServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>TypeRequestServlet</servlet-name>
         <servlet-class>Controller.TypeRequestServlet</servlet-class>
     </servlet>
@@ -83,6 +107,22 @@
     <servlet>
         <servlet-name>ComplainSeverlet</servlet-name>
         <servlet-class>Controller.ComplainSeverlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoadPaymentRegistered</servlet-name>
+        <servlet-class>Controller.LoadPaymentRegistered</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StatisticsServlet</servlet-name>
+        <servlet-class>Controller.StatisticsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CancelRegisterServlet</servlet-name>
+        <servlet-class>Controller.CancelRegisterServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewRoommatesServlet</servlet-name>
+        <servlet-class>Controller.ViewRoommatesServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -145,6 +185,30 @@
         <url-pattern>/DeleteRoomServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>PaymentServlet</servlet-name>
+        <url-pattern>/PaymentServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddNewsServlet</servlet-name>
+        <url-pattern>/AddNewsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditNewsServlet</servlet-name>
+        <url-pattern>/EditNewsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageNewsServlet</servlet-name>
+        <url-pattern>/ManageNewsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteNewsServlet</servlet-name>
+        <url-pattern>/DeleteNewsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>index</servlet-name>
+        <url-pattern>/index</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>TypeRequestServlet</servlet-name>
         <url-pattern>/TypeRequestServlet</url-pattern>
     </servlet-mapping>
@@ -168,12 +232,28 @@
         <servlet-name>ComplainSeverlet</servlet-name>
         <url-pattern>/ComplainSeverlet</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoadPaymentRegistered</servlet-name>
+        <url-pattern>/LoadPaymentRegistered</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StatisticsServlet</servlet-name>
+        <url-pattern>/StatisticsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CancelRegisterServlet</servlet-name>
+        <url-pattern>/CancelRegisterServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewRoommatesServlet</servlet-name>
+        <url-pattern>/ViewRoommatesServlet</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>index</welcome-file>
     </welcome-file-list>
 </web-app>

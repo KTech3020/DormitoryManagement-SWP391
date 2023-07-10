@@ -76,7 +76,7 @@ public class AcceptChangeRoomServlet extends HttpServlet {
         String userId1 = request.getParameter("userId1");
         String userId2 = request.getParameter("userId2");
         String changeRoomID = request.getParameter("changeRoomID");
-        
+
         LocalDateTime dateIn4Months = LocalDateTime.now().plusMonths(4);
         int month = dateIn4Months.getMonth().getValue();
         String semester = "";
@@ -91,7 +91,7 @@ public class AcceptChangeRoomServlet extends HttpServlet {
         String year = Integer.toString(dateIn4Months.getYear());
         year = year.substring(year.length() - 2);
         semester = semester.concat(year);
-        
+
         RoomRegistration roomRegistration1 = dao.getRegisterRoomByIdAndSemester(userId1, semester);
         RoomRegistration roomRegistration2 = dao.getRegisterRoomByIdAndSemester(userId2, semester);
         LocalDateTime dateTime1 = roomRegistration1.getRegistrationTime();
@@ -99,10 +99,10 @@ public class AcceptChangeRoomServlet extends HttpServlet {
 
         dao.acceptChangeRoomRequest1(userId1, userId2, dateTime2);
         dao.acceptChangeRoomRequest1(userId2, userId1, dateTime1);
-        
-        
+
+
         dao.deleteChangeRoomRequest(changeRoomID);
-        
+
         response.sendRedirect("TypeManageRequestServlet");
     }
 

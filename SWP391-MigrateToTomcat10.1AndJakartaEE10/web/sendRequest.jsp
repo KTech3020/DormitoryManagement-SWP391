@@ -1,11 +1,5 @@
-
 <%@ include file="/includes/header.jsp" %> 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
-
-
-
-
 <section id="banner">
     <div class="content">
         <header>
@@ -80,7 +74,7 @@
                 </select>
             </div>
 
-                
+
 
             <!-- Message input -->
             <div class="form-outline mb-4">

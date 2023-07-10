@@ -5,7 +5,6 @@
 package entity;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 /**
  *
@@ -15,12 +14,12 @@ public class ChangeRoom {
     private String changeRoomID;
     private String userId1;
     private String userId2;
-    private Date date ;
+    private LocalDateTime date ;
 
     public ChangeRoom() {
     }
 
-    public ChangeRoom(String changeRoomID, String userId1, String userId2, Date date) {
+    public ChangeRoom(String changeRoomID, String userId1, String userId2, LocalDateTime date) {
         this.changeRoomID = changeRoomID;
         this.userId1 = userId1;
         this.userId2 = userId2;
@@ -51,13 +50,11 @@ public class ChangeRoom {
         this.userId2 = userId2;
     }
 
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
-    
-    
 }

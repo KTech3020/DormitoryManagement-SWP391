@@ -58,12 +58,12 @@ public class TypeRequestServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         String option = "";
         String error ="";   
         request.setAttribute("option", option);
         request.setAttribute("error", error);
-        
+
         request.getRequestDispatcher("sendRequest.jsp").forward(request, response);
     }
 
@@ -84,7 +84,7 @@ public class TypeRequestServlet extends HttpServlet {
         HttpSession session = request.getSession();
         Account account = (Account) session.getAttribute("accountS");
         request.setAttribute("profile", dao.getPersonProfile(account.getUserid()));
-        
+
         request.setAttribute("option", option);
         request.getRequestDispatcher("sendRequest.jsp").forward(request, response);
 

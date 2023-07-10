@@ -76,7 +76,7 @@ public class ComplainSeverlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/HTML; charset=UTF-8");
         HttpSession session = request.getSession();
-        
+
         Account account = (Account) session.getAttribute("accountS");
         DormDAO dao = new DormDAO();
         Person person = dao.getPersonProfile(account.getUserid());
@@ -86,15 +86,15 @@ public class ComplainSeverlet extends HttpServlet {
         String subject1 = request.getParameter("subject");
         String subject2 = request.getParameter("subject");
         String message = request.getParameter("message");
-        
+
         if(subject1 == "baotri"){
             subject1 = "bảo trì";
         }else{
             subject1 = "khiếu nại";
         }
-        
+
         sendMailContext.sendRequestToManager(subject1, message, person);
-        
+
         request.setAttribute("error", "Bạn đã gửi yêu cầu thành công.");       
         request.setAttribute("option", option);
         request.setAttribute("subject", subject2);

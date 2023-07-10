@@ -39,7 +39,7 @@
                         <th>ID</th>
                         <th>Phòng</th>
                         <th>Họ và tên</th>
-                        <th>CMND/ CCCD</th>
+                        <th>CMND/CCCD</th>
                         <th>Giới tính</th>
                         <th>Ngày sinh</th>
                         <th>SĐT</th>

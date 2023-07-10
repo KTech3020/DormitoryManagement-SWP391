@@ -113,7 +113,7 @@ public class LoginServlet extends HttpServlet {
             response.addCookie(cookieAdminID);
             response.addCookie(cookieUname);
             response.addCookie(cookiePass);
-            response.sendRedirect("index.jsp");
+            response.sendRedirect("index");
 
         }
         

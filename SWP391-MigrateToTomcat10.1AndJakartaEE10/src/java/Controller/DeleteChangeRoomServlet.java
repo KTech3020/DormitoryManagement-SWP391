@@ -18,7 +18,7 @@ import jakarta.servlet.http.HttpServletResponse;
  * @author LENOVO
  */
 public class DeleteChangeRoomServlet extends HttpServlet {
-   
+
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request

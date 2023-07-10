@@ -18,7 +18,6 @@ import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.Part;
 
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
@@ -103,15 +102,20 @@ public class ManageProfile extends HttpServlet {
 
         Part part = request.getPart("img");
 
-        String realPath = request.getServletContext().getRealPath("/images");
-        String fileName = Paths.get(part.getSubmittedFileName()).getFileName().toString();
-        if (!Files.exists(Paths.get(realPath))) {
-            Files.createDirectory(Paths.get(realPath));
-        }
-        part.write(realPath + "/" + fileName);
+        if (part == null || part.getSize()==0) {
+            dao.updateProfileNoImageChange(idPerson, name, cmnd, dob, gender, phone, email, address);
+            response.sendRedirect("index");
+        } else {
+            String realPath = request.getServletContext().getRealPath("/images");
+            String fileName = Paths.get(part.getSubmittedFileName()).getFileName().toString();
+            if (!Files.exists(Paths.get(realPath))) {
+                Files.createDirectory(Paths.get(realPath));
+            }
+            part.write(realPath + "/" + fileName);
 
-        dao.updateProfile(idPerson, fileName, name, cmnd, dob, gender, phone, email, address);
-        response.sendRedirect("index.jsp");
+            dao.updateProfile(idPerson, fileName, name, cmnd, dob, gender, phone, email, address);
+            response.sendRedirect("index");
+        }
     }
 
     /**

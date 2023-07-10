@@ -20,7 +20,7 @@ import java.util.ArrayList;
  * @author LENOVO
  */
 public class TypeManageRequestServlet extends HttpServlet {
-   
+
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
@@ -58,7 +58,7 @@ public class TypeManageRequestServlet extends HttpServlet {
     throws ServletException, IOException {
         String option = "";
         DormDAO dao = new DormDAO();
-      
+
         request.setAttribute("option", option);       
         request.getRequestDispatcher("manageRequest.jsp").forward(request, response);
     } 
@@ -77,7 +77,7 @@ public class TypeManageRequestServlet extends HttpServlet {
         DormDAO dao = new DormDAO();
         ArrayList<ChangeRoom> list = dao.displayAllChangeRoomRequest();
         request.setAttribute("list", list);
-        
+
         request.setAttribute("option", option);
         request.getRequestDispatcher("manageRequest.jsp").forward(request, response);
     }
