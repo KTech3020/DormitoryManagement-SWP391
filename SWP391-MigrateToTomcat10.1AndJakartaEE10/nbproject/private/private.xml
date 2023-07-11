@@ -3,10 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/FPTU/Ky5/SWP391/Nhom/V2/FixBug/SWP391-MigrateToTomcat10.1AndJakartaEE10/src/java/context/DBContext.java</file>
-            <file>file:/D:/FPTU/Ky5/SWP391/Nhom/V2/FixBug/SWP391-MigrateToTomcat10.1AndJakartaEE10/src/java/dao/DormDAO.java</file>
-            <file>file:/D:/FPTU/Ky5/SWP391/Nhom/V2/FixBug/SWP391-MigrateToTomcat10.1AndJakartaEE10/src/java/Controller/ManageProfile.java</file>
-            <file>file:/D:/FPTU/Ky5/SWP391/Nhom/V2/FixBug/SWP391-MigrateToTomcat10.1AndJakartaEE10/web/manageProfile.jsp</file>
+            <file>file:/D:/FPTU/Ky5/SWP391/Nhom/V2/FixBug/SWP391-MigrateToTomcat10.1AndJakartaEE10/src/java/filter/FilterForManageNews.java</file>
+            <file>file:/D:/FPTU/Ky5/SWP391/Nhom/V2/FixBug/SWP391-MigrateToTomcat10.1AndJakartaEE10/src/java/filter/FilterForJspFile.java</file>
+            <file>file:/D:/FPTU/Ky5/SWP391/Nhom/V2/FixBug/SWP391-MigrateToTomcat10.1AndJakartaEE10/src/java/Controller/StatisticsServlet.java</file>
         </group>
     </open-files>
 </project-private>

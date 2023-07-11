@@ -1,5 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <filter>
+        <filter-name>FilterForManageNews</filter-name>
+        <filter-class>filter.FilterForManageNews</filter-class>
+    </filter>
+    <filter>
+        <filter-name>FilterForManageRoom</filter-name>
+        <filter-class>filter.FilterForManageRoom</filter-class>
+    </filter>
+    <filter>
+        <filter-name>FilterForTypeManageRequest</filter-name>
+        <filter-class>filter.FilterForTypeManageRequest</filter-class>
+    </filter>
+    <filter>
+        <filter-name>FilterForStatisticsServlet</filter-name>
+        <filter-class>filter.FilterForStatisticsServlet</filter-class>
+    </filter>
+    <filter>
+        <filter-name>FilterForJspFile</filter-name>
+        <filter-class>filter.FilterForJspFile</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>FilterForJspFile</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>FilterForStatisticsServlet</filter-name>
+        <servlet-name>StatisticsServlet</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>FilterForTypeManageRequest</filter-name>
+        <servlet-name>TypeManageRequestServlet</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>FilterForManageRoom</filter-name>
+        <servlet-name>ManageRoomServlet</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>FilterForManageNews</filter-name>
+        <servlet-name>ManageNewsServlet</servlet-name>
+    </filter-mapping>
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>Controller.LoginServlet</servlet-class>
