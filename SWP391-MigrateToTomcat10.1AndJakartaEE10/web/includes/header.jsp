@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="utf-8" %>
+<%@ page import="entity.Account" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 
 <!DOCTYPE HTML>

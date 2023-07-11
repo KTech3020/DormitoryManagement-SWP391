@@ -1,8 +1,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    Account account = (Account) session.getAttribute("accountS");
+    if (account == null || account.getIsAdmin() == 0){
+        response.sendRedirect("/SWP391-MigrateToTomcat10.1AndJakartaEE10/index");
+    } else { %>
 <%@ include file="/includes/header.jsp" %>
-
-
-
 <form action="UpdateRoomServlet" method ="post" >
     <h1 style="text-align: center; padding-top: 20px">CẬP NHẬT PHÒNG Ở</h1>
     <table>
@@ -64,3 +66,4 @@
 
 <%@ include file="/includes/column_left_home.jsp" %> 
 <%@ include file="/includes/footer.jsp" %> 
+<%}%>

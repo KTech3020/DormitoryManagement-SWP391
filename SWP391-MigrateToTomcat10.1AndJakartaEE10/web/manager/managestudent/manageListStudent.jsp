@@ -3,8 +3,14 @@
     Created on : Jun 7, 2023, 5:21:18 PM
     Author     : MSI GL63
 --%>
+<%@ page import="entity.Account" %>
 <%@page contentType="text/html" pageEncoding="utf-8" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%
+    Account account = (Account) session.getAttribute("accountS");
+    if (account == null || account.getIsAdmin() == 0){
+        response.sendRedirect("/SWP391-MigrateToTomcat10.1AndJakartaEE10/index");
+    } else { %>
 <session>
     <head>
         <!-- Google Web Fonts -->
@@ -94,6 +100,7 @@
         </div>
     </div>
 </session>
+<%}%>
 <style>
     body {
         color: #404E67;

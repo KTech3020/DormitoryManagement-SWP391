@@ -1,3 +1,8 @@
+<%
+    Account account = (Account) session.getAttribute("accountS");
+    if (account == null || account.getIsAdmin() == 1){
+        response.sendRedirect("/SWP391-MigrateToTomcat10.1AndJakartaEE10/index");
+    } else { %>
 <%@ include file="/includes/header.jsp" %> 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <section id="banner">
@@ -28,11 +33,8 @@
         </form>
         <%
             String check = (String)request.getAttribute("option");
-        %>            
-        <%
-               if(check.equals("changeRoom")){
+            if(check.equals("changeRoom")){
         %> 
-
         <h2>PHIẾU YÊU CẦU ĐỔI PHÒNG</h2>
         <form  action ="SendChangeRoomServlet" method="POST">   
 
@@ -45,7 +47,6 @@
                     <td>Mã số sinh viên bạn muốn đổi phòng</td>
                     <td><input type="text" name="idUser2" required></td>             
                 </tr>
-
             </table>
             <div class="row gtr-uniform">
                 <div class="col-4 col-12-xsmall"></div>
@@ -54,16 +55,9 @@
             </div>
             <button type = "submit">Gửi yêu cầu đổi phòng</button>  
         </form>
-
         <%
-            }
+            } if(check.equals("complain")){
         %> 
-
-
-        <%
-               if(check.equals("complain")){
-        %> 
-
         <form action="ComplainSeverlet" method="post">  
 
             <div class="form-outline mb-4">
@@ -73,9 +67,6 @@
                     <option value="khieunai" ${option.equals("square")?"selected":""}>Khiếu nại</option>
                 </select>
             </div>
-
-
-
             <!-- Message input -->
             <div class="form-outline mb-4">
                 <label class="form-label" for="form4Example3">Nội dung khiếu nại</label>
@@ -89,17 +80,9 @@
         <%
             }
         %>
-
-
     </div>
-
-
-
 </section>
-
-
 </div></div>
-
-
 <%@ include file="/includes/column_left_home.jsp" %> 
 <%@ include file="/includes/footer.jsp" %> 
+<%}%>

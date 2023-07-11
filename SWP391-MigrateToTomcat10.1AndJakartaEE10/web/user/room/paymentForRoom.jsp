@@ -3,6 +3,11 @@
     Created on : Jun 19, 2023, 11:08:07 PM
     Author     : MSI GL63
 --%>
+<%
+    Account account = (Account) session.getAttribute("accountS");
+    if (account == null || account.getIsAdmin() == 1){
+        response.sendRedirect("/SWP391-MigrateToTomcat10.1AndJakartaEE10/index");
+    } else { %>
 <%@ include file="/includes/header.jsp" %>
 
 <style>
@@ -184,3 +189,4 @@
         return true;
     }
 </script>
+<%}%>

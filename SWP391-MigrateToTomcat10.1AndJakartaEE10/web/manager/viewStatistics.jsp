@@ -1,4 +1,8 @@
-
+<%
+    Account account = (Account) session.getAttribute("accountS");
+    if (account == null || account.getIsAdmin() == 0){
+        response.sendRedirect("/SWP391-MigrateToTomcat10.1AndJakartaEE10/index");
+    } else { %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="entity.Statistics" %>
 <%@ include file="/includes/header.jsp" %>
@@ -64,3 +68,4 @@
 </div></div>
 <%@ include file="/includes/column_left_home.jsp" %>
 <%@ include file="/includes/footer.jsp" %>
+<%}%>

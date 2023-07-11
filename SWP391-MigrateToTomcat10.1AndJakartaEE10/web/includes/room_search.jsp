@@ -22,12 +22,12 @@
 <section id="banner">
     <div class="content">
         <%
-        if(session.getAttribute("accountS") == null){
+        if (account == null || account.getIsAdmin() == 1){
             response.sendRedirect("/SWP391-MigrateToTomcat10.1AndJakartaEE10/index");
-        }
-        DormDAO dao = new DormDAO();
-        Account account = (Account) session.getAttribute("accountS");
-        Person person = dao.getPersonProfile(account.getUserid());
+        } else {
+            DormDAO dao = new DormDAO();
+            
+            Person person = dao.getPersonProfile(account.getUserid());
         %>
         <%if (dao.checkAlreadySuccessRegistered(account.getUserid())){%>
         <h4>Có vẻ như bạn đã có phòng rồi!</h4>
@@ -120,7 +120,7 @@
             </tr>
             <%}%>
         </table>
-        <%}%>
+        <%}}%>
     </div>
 </section>
 </div>
