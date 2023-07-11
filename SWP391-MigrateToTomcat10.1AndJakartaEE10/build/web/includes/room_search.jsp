@@ -22,14 +22,17 @@
 <section id="banner">
     <div class="content">
         <%
+        if(session.getAttribute("accountS") == null){
+            response.sendRedirect("/SWP391-MigrateToTomcat10.1AndJakartaEE10/index");
+        }
         DormDAO dao = new DormDAO();
-                Account account = (Account) session.getAttribute("accountS");
-                Person person = dao.getPersonProfile(account.getUserid());
+        Account account = (Account) session.getAttribute("accountS");
+        Person person = dao.getPersonProfile(account.getUserid());
         %>
         <%if (dao.checkAlreadySuccessRegistered(account.getUserid())){%>
         <h4>Có vẻ như bạn đã có phòng rồi!</h4>
         <p>Nhấn vào <a href="ViewRoommatesServlet">đây</a> để xem bạn cùng phòng với bạn.</p>
-            <%}%>        
+        <%}%>        
         <header>
             <h1>TÌM KIẾM PHÒNG</h1>
         </header>

@@ -1,4 +1,4 @@
-﻿	﻿create database Dorm
+﻿create database Dorm
 use Dorm
 
 -- use master
@@ -87,6 +87,8 @@ create table ChangeRoom(
 [day] date,
 CONSTRAINT fk_changeRoom foreign key ([userId1]) references Account (userId)
 )
+
+
 
 insert into Notification
 VALUES
@@ -188,23 +190,10 @@ insert into RegisterRoom
 VALUES
 ('101', 'DE169019', '2021-01-18', 'SP22', 'Registered')
 
-select r.roomId, r.roomSize, r.roomAttendees, r.gender, r.airConditional, rd.price 
-from Room r inner join RegisterRoomDetail rd
-on (r.roomId = rd.roomId AND ((rd.startDay <= GETDATE() AND GETDATE() < rd.endDay) OR (rd.startDay <= GETDATE() AND rd.endDay IS NULL))) 
-where roomSize = 6 AND roomAttendees <= 3 AND gender = 'M' AND airConditional = 'Y' AND price <= 3000000
-
 create view RoomDetailView as
 select r.roomId, r.roomSize, r.roomAttendees, r.gender, r.airConditional, rd.price
 from Room r inner join RegisterRoomDetail rd
 on (r.roomId = rd.roomId AND ((rd.startDay <= GETDATE() AND GETDATE() < rd.endDay) OR (rd.startDay <= GETDATE() AND rd.endDay IS NULL))) 
-
-
-select * from RoomDetailView where roomSize = 6 AND roomAttendees <= 3 AND gender = 'M' AND airConditional = 'Y' AND price <= 3000000
-
-select * from RoomDetailView where roomID = 101
-
-select * from RegisterRoom
-select * from RegisterRoomDetail
 
 create view RoomRegistrationView as
 select rg.reRoomID, rg.roomId, rg.userId, rg.date, rg.semester, rg.status, rd.price 
@@ -212,49 +201,11 @@ from RegisterRoom rg inner join Room r on rg.roomId = r.roomId
 inner join RegisterRoomDetail rd
 on (r.roomId = rd.roomId AND ((rd.startDay <= rg.date AND rg.date <= rd.endDay) OR (rd.startDay <= rg.date AND rd.endDay IS NULL)))
 
-select * from [RoomRegistrationView]
-where userId = 'SE160094'
-order by reRoomID
-
-select * from RoomRegistrationView where NOT [status] = 'Removed' order by reRoomID
-
-
-select * from RoomRegistrationView order by reRoomID
-
-select * from RegisterRoom
-
-select * from RegisterRoomDetail order by roomId
-
-select * from RoomDetailView
-
-update RegisterRoomDetail set endDay = (GETDATE() -1)
-                     where roomId = 106 and (RegisterRoomDetail.startDay <= GETDATE() AND RegisterRoomDetail.endDay IS NULL)
-                     
-                     insert into RegisterRoomDetail ([roomId], [startDay], [endDay], [price]) VALUES 
-                     (106, GETDATE(), null, 3100000)
-
-update RegisterRoom set status = 'Rejected' where reRoomID = 19
-
-select * from Account
-select * from Person
-
-
-select roomID from RoomRegistrationView where reroomID = 1
 
 create trigger updateRoomAttendeesTrigger on RegisterRoom AFTER INSERT, UPDATE, DELETE AS
 BEGIN
 update Room set roomAttendees = (select COUNT(roomID) from RegisterRoom rg where rg.roomId = Room.roomID AND rg.status LIKE 'Success') 
 END
-
-select * from RoomRegistrationView where [roomID] = 106 AND [userID] = 'DE152894' AND (status = 'Registered' OR status = 'Success')
-
---create view DynamicRoomDetailView as
---select r.roomId, r.roomSize, (select COUNT(rg.roomId) from RegisterRoom rg where rg.roomId = r.roomID AND rg.status LIKE 'Success') as roomAttendees, r.gender, r.airConditional, rd.price
---from Room r inner join RegisterRoomDetail rd
---on (r.roomId = rd.roomId AND ((rd.startDay <= GETDATE() AND GETDATE() < rd.endDay) OR (rd.startDay < =GETDATE() AND rd.endDay IS NULL))) 
-
---drop view DynamicRoomDetailView
-
 
 insert into Person
 VALUES
@@ -262,33 +213,6 @@ VALUES
 ('admin', N'admin.png', N'admin', N'121212121', 2000-01-01, 'M', '0123123123', 'kietngotb@gmail.comn', N'admin.getLocation();')
 
 
-select * from ChangeRoom
-
-select * from RegisterRoom where status = 'Success'
-
-select * from Account
-
-select * from RoomRegistrationView where userId = 'DE170561' and status LIKE 'Registered' order by reRoomID
-
-delete from RegisterRoom where  userId = 'DE170561' AND roomId = 104
-
-select * from RoomDetailView order by roomID
-
-select SUM(roomSize) from RoomDetailView
-select count(roomAttendees) from RoomDetailView
-select SUM(roomSize - roomAttendees) from RoomDetailView
-select count(roomAttendees) from RoomDetailView where gender = 'M'
-select count(roomAttendees) from RoomDetailView where gender = 'F'
-
-select count(*) from RoomDetailView
-select count(*) from RoomDetailView where (roomAttendees = roomSize)
-select count(*) from RoomDetailView where (roomAttendees > 0)
-select count(*) from RoomDetailView where (roomAttendees = 0)
-
-select SUM(price) from RoomRegistrationView where status = 'Success'
-select SUM(price) from RoomRegistrationView where status = 'Success' AND semester = 'FA23'
-
-select * from ChangeRoom
 
 select 
 (select SUM(roomSize) from RoomDetailView) as column1, 
@@ -303,23 +227,11 @@ select
 (select SUM(price) from RoomRegistrationView where status = 'Success') as column10,
 (select SUM(price) from RoomRegistrationView where status = 'Success' AND semester = 'FA23') as column11
 
-(select SUM(price) from RoomRegistrationView where status = 'Success' AND semester = 'FA23') as column11
-
-select * from RegisterRoom
-
 create view RoomMembersList as
 select p.*, rr.roomId, rr.semester from Person p inner join RegisterRoom rr on p.idPerson = rr.userId AND rr.status = 'Success'
 
-select * from RoomMembersList where roomId = 104
+CREATE VIEW ChangeRoomView AS
 
-select rr.roomID from Person p inner join RegisterRoom rr on p.idPerson = rr.userId AND rr.status = 'Success' where p.idPerson = 'DE170649'
+SELECT changeRoomID, userId1, userId2, day
 
-select * from RegisterRoom 
-
-insert into RegisterRoom VALUES
-(104, 'DE170561', 2022-10-23, 'FA22', 'Success')
-
-select * from Person
-
-select * from RoomRegistrationView where status = 'Success' order by roomID
-
+FROM ChangeRoom

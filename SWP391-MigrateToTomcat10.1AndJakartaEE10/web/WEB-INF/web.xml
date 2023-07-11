@@ -2,35 +2,35 @@
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
-        <servlet-class>Controller.LoginServlet</servlet-class>
+        <servlet-class>Controller.Account.LoginServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>RegisterServlet</servlet-name>
-        <servlet-class>Controller.RegisterServlet</servlet-class>
+        <servlet-class>Controller.Account.RegisterServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LogoutServlet</servlet-name>
-        <servlet-class>Controller.LogoutServlet</servlet-class>
+        <servlet-class>Controller.Account.LogoutServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ChangePasswordServlet</servlet-name>
-        <servlet-class>Controller.ChangePasswordServlet</servlet-class>
+        <servlet-class>Controller.Account.ChangePasswordServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>RoomSearchServlet</servlet-name>
-        <servlet-class>Controller.RoomSearchServlet</servlet-class>
+        <servlet-class>Controller.User.Room.RoomSearchServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ManageProfile</servlet-name>
-        <servlet-class>Controller.ManageProfile</servlet-class>
+        <servlet-class>Controller.Account.ManageProfile</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UpdateServlet</servlet-name>
-        <servlet-class>Controller.UpdateServlet</servlet-class>
+        <servlet-class>Controller.Manager.UpdateStudentProfileServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>RegisterRoomServlet</servlet-name>
-        <servlet-class>Controller.RegisterRoomServlet</servlet-class>
+        <servlet-class>Controller.User.Room.RegisterRoomServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ContactServlet</servlet-name>
@@ -38,47 +38,47 @@
     </servlet>
     <servlet>
         <servlet-name>StudentViewRegistrationServlet</servlet-name>
-        <servlet-class>Controller.StudentViewRegistrationServlet</servlet-class>
+        <servlet-class>Controller.User.Registration.StudentViewRegistrationServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ManageRoomRegistrationServlet</servlet-name>
-        <servlet-class>Controller.ManageRoomRegistrationServlet</servlet-class>
+        <servlet-class>Controller.Manager.ManageRoomRegistrationServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ManageRoomServlet</servlet-name>
-        <servlet-class>Controller.ManageRoomServlet</servlet-class>
+        <servlet-class>Controller.Manager.Room.ManageRoomServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UpdateRoomServlet</servlet-name>
-        <servlet-class>Controller.UpdateRoomServlet</servlet-class>
+        <servlet-class>Controller.Manager.Room.UpdateRoomServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AddRoomServlet</servlet-name>
-        <servlet-class>Controller.AddRoomServlet</servlet-class>
+        <servlet-class>Controller.Manager.Room.AddRoomServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DeleteRoomServlet</servlet-name>
-        <servlet-class>Controller.DeleteRoomServlet</servlet-class>
+        <servlet-class>Controller.Manager.Room.DeleteRoomServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>PaymentServlet</servlet-name>
-        <servlet-class>Controller.PaymentServlet</servlet-class>
+        <servlet-class>Controller.User.Registration.PaymentServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AddNewsServlet</servlet-name>
-        <servlet-class>Controller.AddNewsServlet</servlet-class>
+        <servlet-class>Controller.Manager.News.AddNewsServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>EditNewsServlet</servlet-name>
-        <servlet-class>Controller.EditNewsServlet</servlet-class>
+        <servlet-class>Controller.Manager.News.EditNewsServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ManageNewsServlet</servlet-name>
-        <servlet-class>Controller.ManageNewsServlet</servlet-class>
+        <servlet-class>Controller.Manager.News.ManageNewsServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DeleteNewsServlet</servlet-name>
-        <servlet-class>Controller.DeleteNewsServlet</servlet-class>
+        <servlet-class>Controller.Manager.News.DeleteNewsServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>index</servlet-name>
@@ -86,43 +86,43 @@
     </servlet>
     <servlet>
         <servlet-name>TypeRequestServlet</servlet-name>
-        <servlet-class>Controller.TypeRequestServlet</servlet-class>
+        <servlet-class>Controller.User.Request.TypeRequestServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>SendChangeRoomServlet</servlet-name>
-        <servlet-class>Controller.SendChangeRoomServlet</servlet-class>
+        <servlet-class>Controller.User.Request.SendChangeRoomServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>TypeManageRequestServlet</servlet-name>
-        <servlet-class>Controller.TypeManageRequestServlet</servlet-class>
+        <servlet-class>Controller.Manager.TypeManageRequestServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AcceptChangeRoomServlet</servlet-name>
-        <servlet-class>Controller.AcceptChangeRoomServlet</servlet-class>
+        <servlet-class>Controller.Manager.AcceptChangeRoomServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DeleteChangeRoomServlet</servlet-name>
-        <servlet-class>Controller.DeleteChangeRoomServlet</servlet-class>
+        <servlet-class>Controller.Manager.DeleteChangeRoomServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ComplainSeverlet</servlet-name>
-        <servlet-class>Controller.ComplainSeverlet</servlet-class>
+        <servlet-class>Controller.User.Request.ComplainSeverlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LoadPaymentRegistered</servlet-name>
-        <servlet-class>Controller.LoadPaymentRegistered</servlet-class>
+        <servlet-class>Controller.User.Registration.LoadPaymentRegistered</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>StatisticsServlet</servlet-name>
-        <servlet-class>Controller.StatisticsServlet</servlet-class>
+        <servlet-class>Controller.Manager.StatisticsServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CancelRegisterServlet</servlet-name>
-        <servlet-class>Controller.CancelRegisterServlet</servlet-class>
+        <servlet-class>Controller.User.Registration.CancelRegisterServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ViewRoommatesServlet</servlet-name>
-        <servlet-class>Controller.ViewRoommatesServlet</servlet-class>
+        <servlet-class>Controller.User.ViewRoommatesServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
