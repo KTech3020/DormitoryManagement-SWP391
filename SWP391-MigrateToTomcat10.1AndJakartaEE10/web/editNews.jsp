@@ -22,7 +22,7 @@
         </tr>
         <tr>
             <td>Ảnh</td>
-            <td><img src="images/${news.image}" height="150px" width="240px">
+            <td><img src="images/${news.image}" value="${news.image}" height="150px" width="240px">
                 <input type="file" name="img">
             </td>   
         </tr>
