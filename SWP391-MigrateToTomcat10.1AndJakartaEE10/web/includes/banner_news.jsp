@@ -1,4 +1,6 @@
 <%@page contentType="text/html" pageEncoding="utf-8" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <%@ page import="java.util.ArrayList,java.time.format.DateTimeFormatter,entity.News" %>
 <%if (request.getAttribute("newsList") !=null){%>
 <section>
@@ -11,13 +13,16 @@
                 for (Object o : newsList){News news =(News) o;%>
         <article>
             <a class="image"><img src="images/<%= news.getImage() %>" alt="" /></a>
-            <h3><%= news.getSubject() %></h3>
+            <h3><a href="StudentViewSingleNewsServlet?nid=<%= news.getNewsID() %>"><%= news.getSubject() %></a></h3>
             <p>Cập nhật vào: <%= news.getTime().format(formatter) %></p>
             </br>
-            <p><%= news.getContent() %></p>
+            <% pageContext.setAttribute("content", news.getContent()); %> 
+            <% pageContext.setAttribute("newLineChar", "\n"); %> 
+            <p>${fn:replace(content, newLineChar, "</br> ")}</p>
         </article>      
-        <% } %>        
+        <% } %>    
     </div>
+    <button onclick="window.location = 'StudentViewAllNewsServlet';">XEM TẤT CẢ THÔNG BÁO</button>
 </section>
 <% } %>
 </div>

@@ -227,11 +227,11 @@ select
 (select SUM(price) from RoomRegistrationView where status = 'Success') as column10,
 (select SUM(price) from RoomRegistrationView where status = 'Success' AND semester = 'FA23') as column11
 
+select * from RoomRegistrationView order by semester
+
 create view RoomMembersList as
 select p.*, rr.roomId, rr.semester from Person p inner join RegisterRoom rr on p.idPerson = rr.userId AND rr.status = 'Success'
 
 CREATE VIEW ChangeRoomView AS
-
 SELECT changeRoomID, userId1, userId2, day
-
 FROM ChangeRoom

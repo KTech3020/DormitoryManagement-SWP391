@@ -164,6 +164,14 @@
         <servlet-name>ViewRoommatesServlet</servlet-name>
         <servlet-class>Controller.ViewRoommatesServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>StudentViewAllNewsServlet</servlet-name>
+        <servlet-class>Controller.StudentViewAllNewsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StudentViewSingleNewsServlet</servlet-name>
+        <servlet-class>Controller.StudentViewSingleNewsServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -287,6 +295,14 @@
     <servlet-mapping>
         <servlet-name>ViewRoommatesServlet</servlet-name>
         <url-pattern>/ViewRoommatesServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StudentViewAllNewsServlet</servlet-name>
+        <url-pattern>/StudentViewAllNewsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StudentViewSingleNewsServlet</servlet-name>
+        <url-pattern>/StudentViewSingleNewsServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
