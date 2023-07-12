@@ -4,12 +4,15 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/HP/Desktop/GitHub/DormitoryManagement-SWP391/SWP391-MigrateToTomcat10.1AndJakartaEE10/web/forgotPass.jsp</file>
+            <file>file:/C:/Users/HP/Desktop/GitHub/DormitoryManagement-SWP391/SWP391-MigrateToTomcat10.1AndJakartaEE10/web/manager/news/listNews.jsp</file>
+            <file>file:/C:/Users/HP/Desktop/GitHub/DormitoryManagement-SWP391/SWP391-MigrateToTomcat10.1AndJakartaEE10/web/includes/header.jsp</file>
             <file>file:/C:/Users/HP/Desktop/GitHub/DormitoryManagement-SWP391/SWP391-MigrateToTomcat10.1AndJakartaEE10/web/login.jsp</file>
             <file>file:/C:/Users/HP/Desktop/GitHub/DormitoryManagement-SWP391/SWP391-MigrateToTomcat10.1AndJakartaEE10/web/manager/managestudent/listStudent.jsp</file>
+            <file>file:/C:/Users/HP/Desktop/GitHub/DormitoryManagement-SWP391/SWP391-MigrateToTomcat10.1AndJakartaEE10/web/manager/news/addNews.jsp</file>
             <file>file:/C:/Users/HP/Desktop/GitHub/DormitoryManagement-SWP391/SWP391-MigrateToTomcat10.1AndJakartaEE10/web/manageProfile.jsp</file>
+            <file>file:/C:/Users/HP/Desktop/GitHub/DormitoryManagement-SWP391/SWP391-MigrateToTomcat10.1AndJakartaEE10/web/manager/news/editNews.jsp</file>
             <file>file:/C:/Users/HP/Desktop/GitHub/DormitoryManagement-SWP391/SWP391-MigrateToTomcat10.1AndJakartaEE10/web/includes/room_search.jsp</file>
             <file>file:/C:/Users/HP/Desktop/GitHub/DormitoryManagement-SWP391/SWP391-MigrateToTomcat10.1AndJakartaEE10/web/manager/managestudent/manageListStudent.jsp</file>
-            <file>file:/C:/Users/HP/Desktop/GitHub/DormitoryManagement-SWP391/SWP391-MigrateToTomcat10.1AndJakartaEE10/src/java/Controller/Account/ChangePasswordServlet.java</file>
         </group>
     </open-files>
 </project-private>

@@ -122,12 +122,11 @@ public class DormDAO {
     }
 
     public ArrayList<Person> getPersonProfileManager() {
-        String sql = """
-                     select p.idPerson, reRoom.roomId, p.img , p.fullname, p.CMND, p.birth, p.gender, p.phone, p.email, p.address 
-                     from Account acc, RegisterRoom reRoom, Person p
-                     where acc.userId = p.idPerson
-                     and reRoom.userId = acc.userId
-                     and reRoom.status = 'Success'""";
+        String sql = "select p.idPerson, reRoom.roomId, p.img , p.fullname, p.CMND, p.birth, p.gender, p.phone, p.email, p.address \n" +
+"                     from Account acc, RegisterRoom reRoom, Person p\n" +
+"                     where acc.userId = p.idPerson\n" +
+"                     and reRoom.userId = acc.userId\n" +
+"                     and reRoom.status = 'Success'";
         ArrayList<Person> list = new ArrayList<>();
         try {
             con = new DBContext().getConnection();
@@ -350,11 +349,10 @@ public class DormDAO {
 
     public int lastPagesP(int size) {
         int lastPages = 0;
-        String createQuery = """
-                            select count(*) 
-                            from Room r,  RegisterRoomDetail rd 
-                            where r.roomId = rd.roomId
-                            AND ((rd.startDay <= GETDATE() AND GETDATE() < rd.endDay) OR (rd.startDay <= GETDATE() AND rd.endDay IS NULL))""";
+        String createQuery = "select count(*) \n" +
+"                            from Room r,  RegisterRoomDetail rd \n" +
+"                            where r.roomId = rd.roomId\n" +
+"                            AND ((rd.startDay <= GETDATE() AND GETDATE() < rd.endDay) OR (rd.startDay <= GETDATE() AND rd.endDay IS NULL))" ;
         try {
             con = new DBContext().getConnection();
             ps = con.prepareStatement(createQuery);
@@ -393,16 +391,14 @@ public class DormDAO {
 
     public void updateRoom(int roomID, int roomSize, int roomAttendees, String gender,
             String hasAirConditioner, double newPrice) {
-        String sql = """
-                     update Room set roomSize= ?, roomAttendees= ?, gender= ?, airConditional=?
-                     where roomId = ?
-                     
-                     update RegisterRoomDetail set endDay = (GETDATE() -1)
-                     where roomId = ? and (RegisterRoomDetail.startDay <= GETDATE() AND RegisterRoomDetail.endDay IS NULL)
-                     
-                     insert into RegisterRoomDetail ([roomId], [startDay], [endDay], [price]) VALUES 
-                     (?, GETDATE(), null, ?)
-                     """;
+        String sql = "update Room set roomSize= ?, roomAttendees= ?, gender= ?, airConditional=?\n" +
+"                     where roomId = ?\n" +
+"                     \n" +
+"                     update RegisterRoomDetail set endDay = (GETDATE() -1)\n" +
+"                     where roomId = ? and (RegisterRoomDetail.startDay <= GETDATE() AND RegisterRoomDetail.endDay IS NULL)\n" +
+"                     \n" +
+"                     insert into RegisterRoomDetail ([roomId], [startDay], [endDay], [price]) VALUES \n" +
+"                     (?, GETDATE(), null, ?)";
 
         try {
             con = new DBContext().getConnection();
@@ -422,9 +418,8 @@ public class DormDAO {
     }
 
     public void addRoom(int roomID, int roomSize, int roomAttendees, String gender, String hasAirConditioner, double price, Date startDay) {
-        String sql = """
-                     insert into Room VALUES (?,?,?,?,?)
-                     insert into RegisterRoomDetail ([roomId], [startDay], [endDay], [price]) VALUES ( ?, ?, null, ?)""";
+        String sql = "insert into Room VALUES (?,?,?,?,?)\n" +
+"                     insert into RegisterRoomDetail ([roomId], [startDay], [endDay], [price]) VALUES ( ?, ?, null, ?)";
         try {
             con = new DBContext().getConnection();
             ps = con.prepareStatement(sql);
@@ -696,20 +691,18 @@ public class DormDAO {
     }
 
     public Statistics viewStatistics(String semID) {
-        String sql = """
-                     select 
-                     (select SUM(roomSize) from RoomDetailView) as column1, 
-                     (select count(roomAttendees) from RoomDetailView) as column2, 
-                     (select SUM(roomSize - roomAttendees) from RoomDetailView) as column3,
-                     (select count(roomAttendees) from RoomDetailView where gender = 'M') as column4,
-                     (select count(roomAttendees) from RoomDetailView where gender = 'f') as column5,
-                     (select count(*) from RoomDetailView) as column6,
-                     (select count(*) from RoomDetailView where (roomAttendees = roomSize)) as column7,
-                     (select count(*) from RoomDetailView where (roomAttendees > 0)) as column8,
-                     (select count(*) from RoomDetailView where (roomAttendees = 0)) as column9,
-                     (select SUM(price) from RoomRegistrationView where status = 'Success') as column10,
-                     (select SUM(price) from RoomRegistrationView where status = 'Success' AND semester like ?) as column11
-                     """;
+        String sql = "select \n" +
+"                     (select SUM(roomSize) from RoomDetailView) as column1, \n" +
+"                     (select count(roomAttendees) from RoomDetailView) as column2, \n" +
+"                     (select SUM(roomSize - roomAttendees) from RoomDetailView) as column3,\n" +
+"                     (select count(roomAttendees) from RoomDetailView where gender = 'M') as column4,\n" +
+"                     (select count(roomAttendees) from RoomDetailView where gender = 'f') as column5,\n" +
+"                     (select count(*) from RoomDetailView) as column6,\n" +
+"                     (select count(*) from RoomDetailView where (roomAttendees = roomSize)) as column7,\n" +
+"                     (select count(*) from RoomDetailView where (roomAttendees > 0)) as column8,\n" +
+"                     (select count(*) from RoomDetailView where (roomAttendees = 0)) as column9,\n" +
+"                     (select SUM(price) from RoomRegistrationView where status = 'Success') as column10,\n" +
+"                     (select SUM(price) from RoomRegistrationView where status = 'Success' AND semester like ?) as column11";
         try {
             con = new DBContext().getConnection();
             ps = con.prepareStatement(sql);

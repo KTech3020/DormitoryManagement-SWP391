@@ -58,7 +58,7 @@
                         <a href="ManageNewsServlet" class="nav-item nav-link">Quản lý thông báo</a>
                     </li>
                     <li>
-                        <a href="manager/managestudent/listStudent.jsp" class="nav-item nav-link">Quản lý sinh viên</a>
+                        <a href="listStudent.jsp" class="nav-item nav-link">Quản lý sinh viên</a>
                     </li>
                     <li>
                         <a href="ManageRoomServlet" class="nav-item nav-link">Quản lý phòng ở</a>

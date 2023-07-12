@@ -1,9 +1,5 @@
-<%@ page import="entity.Account" %>
-<%
-    Account account = (Account) session.getAttribute("accountS");
-    if (account != null){
-        response.sendRedirect("/SWP391-MigrateToTomcat10.1AndJakartaEE10/index");
-    } else { %>
+
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -30,4 +26,3 @@
         </div>
     </body>
 </html>
-<%}%>
