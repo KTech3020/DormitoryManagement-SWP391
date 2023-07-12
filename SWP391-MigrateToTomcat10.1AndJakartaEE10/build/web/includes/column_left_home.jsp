@@ -64,7 +64,7 @@
                         <a href="ManageRoomServlet" class="nav-item nav-link">Quản lý phòng ở</a>
                     </li>
                     <li>    
-                        <a href="unimplementedPage.jsp" class="nav-item nav-link">Quản lý hóa đơn</a>
+                        <a href="ManageElectricAndWaterServlet" class="nav-item nav-link">Quản lý hóa đơn</a>
                     </li>
                     <li>
                         <a href="TypeManageRequestServlet" class="nav-item nav-link">Xem yêu cầu, khiếu nại</a>

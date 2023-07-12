@@ -45,18 +45,15 @@ CONSTRAINT fk_register1 foreign key (userId) references Account (userId),
 CONSTRAINT fk_register2 foreign key ([roomId]) references Room ([roomId])
 )
 
-
 create table ElectricWaterUsed (
 [ElectricWaterUsedID] int identity(1,1) primary key,
 [reRoomID] int,
-[dateStartSemester] date,
-[dateEndSemester] date,
-
+[semester] varchar (10),
 [oldElectricityIndex] int,
 [newElectricityIndex] int,
-
 [oldWaterIndex] int,
 [newWaterIndex] int,
+[status] varchar(10) check (status in ('Success', 'Waiting'))
 CONSTRAINT fk_ewu2 foreign key ([reRoomID]) references RegisterRoom([reRoomID])
 )
 
@@ -235,3 +232,11 @@ select p.*, rr.roomId, rr.semester from Person p inner join RegisterRoom rr on p
 CREATE VIEW ChangeRoomView AS
 SELECT changeRoomID, userId1, userId2, day
 FROM ChangeRoom
+
+insert into ElectricWaterUsed
+VALUES
+('35','FA23', '0', '15', '0', '30', 'Waiting'),
+('28','FA23', '0', '30', '0', '30', 'Waiting'),
+('33','SU23', '0', '7', '7', '45', 'Success')
+
+select * from RegisterRoom
