@@ -5,8 +5,6 @@
 package Controller;
 
 import dao.DormDAO;
-import entity.Account;
-import entity.ElectricWaterUsed;
 import entity.RoomRegistration;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,15 +12,13 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 /**
  *
  * @author LENOVO
  */
-public class LoadPaymentElecAndWater extends HttpServlet {
+public class AddElectricWaterServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,10 +37,10 @@ public class LoadPaymentElecAndWater extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet LoadPaymentElecAndWater</title>");
+            out.println("<title>Servlet AddElectricWaterServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet LoadPaymentElecAndWater at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet AddElectricWaterServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -62,10 +58,26 @@ public class LoadPaymentElecAndWater extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        DormDAO dao = new DormDAO();
-        HttpSession session = request.getSession();
-        Account account = (Account) session.getAttribute("accountS");
+        processRequest(request, response);
+    }
 
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        DormDAO dao = new DormDAO();
+        String studentID = request.getParameter("studentID");
+        int oldElectricityIndex = Integer.parseInt(request.getParameter("oldElectricityIndex"));
+        int newElectricityIndex = Integer.parseInt(request.getParameter("newElectricityIndex"));
+        int oldWaterIndex = Integer.parseInt(request.getParameter("oldWaterIndex"));
+        int newWaterIndex = Integer.parseInt(request.getParameter("newWaterIndex"));
         LocalDateTime dateIn4Months = LocalDateTime.now().plusMonths(4);
         int month = dateIn4Months.getMonth().getValue();
         String semester = "";
@@ -81,39 +93,15 @@ public class LoadPaymentElecAndWater extends HttpServlet {
         year = year.substring(year.length() - 2);
         semester = semester.concat(year);
 
-        RoomRegistration roomRegistration = dao.getRegisterRoomByIdAndSemester(account.getUserid(), semester);
-        ArrayList<ElectricWaterUsed> result = dao.viewElectricWaterByReRoomId(semester, roomRegistration.getRegisterID());
-
-        if (result == null) {
-            request.setAttribute("err", "Chưa có tiền điện,nước cần thanh toán!");
-            request.getRequestDispatcher("paymentForElectricAndWater.jsp").forward(request, response);
+        RoomRegistration roomRegistration = dao.getRegisterRoomByIdAndSemester(studentID, semester);
+        if (roomRegistration == null) {
+            request.setAttribute("err", "Sinh viên này chưa đăng ký phòng kỳ hiện tại");
+            request.getRequestDispatcher("addElectricAndWater.jsp").forward(request, response);
         } else {
-
-            int roomAttendees = dao.roomAttendees(semester, account.getUserid());
-            float total = 0;
-            for (ElectricWaterUsed electricWaterUsed : result) {
-                total = (((float) (electricWaterUsed.getNewElectricityIndex() - electricWaterUsed.getOldElectricityIndex()) /roomAttendees) * (float) 2000)
-                        + (((float) (electricWaterUsed.getNewWaterIndex() - electricWaterUsed.getOldWaterIndex()) /roomAttendees) * (float) 10000);
-            }
-            request.setAttribute("total", total);
-            request.setAttribute("result", result);
-            request.getRequestDispatcher("paymentForElectricAndWater.jsp").forward(request, response);
+            dao.addElectricWater(roomRegistration.getRegisterID(), semester, oldElectricityIndex, newElectricityIndex, oldWaterIndex, newWaterIndex);
+            response.sendRedirect("ManageElectricAndWaterServlet");
         }
 
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
     }
 
     /**

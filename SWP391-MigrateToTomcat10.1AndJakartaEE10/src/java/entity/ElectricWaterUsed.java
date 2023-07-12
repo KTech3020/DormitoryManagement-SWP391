@@ -12,11 +12,12 @@ public class ElectricWaterUsed {
     int ElectricWaterUsedID, reRoomID;
     String semester;
     int oldElectricityIndex, newElectricityIndex, oldWaterIndex, newWaterIndex;
+    String status;
 
     public ElectricWaterUsed() {
     }
 
-    public ElectricWaterUsed(int ElectricWaterUsedID, int reRoomID, String semester, int oldElectricityIndex, int newElectricityIndex, int oldWaterIndex, int newWaterIndex) {
+    public ElectricWaterUsed(int ElectricWaterUsedID, int reRoomID, String semester, int oldElectricityIndex, int newElectricityIndex, int oldWaterIndex, int newWaterIndex, String status) {
         this.ElectricWaterUsedID = ElectricWaterUsedID;
         this.reRoomID = reRoomID;
         this.semester = semester;
@@ -24,7 +25,18 @@ public class ElectricWaterUsed {
         this.newElectricityIndex = newElectricityIndex;
         this.oldWaterIndex = oldWaterIndex;
         this.newWaterIndex = newWaterIndex;
+        this.status = status;
     }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    
 
     public int getElectricWaterUsedID() {
         return ElectricWaterUsedID;
@@ -84,7 +96,9 @@ public class ElectricWaterUsed {
 
     @Override
     public String toString() {
-        return "ElectricWaterUsed{" + "ElectricWaterUsedID=" + ElectricWaterUsedID + ", reRoomID=" + reRoomID + ", semester=" + semester + ", oldElectricityIndex=" + oldElectricityIndex + ", newElectricityIndex=" + newElectricityIndex + ", oldWaterIndex=" + oldWaterIndex + ", newWaterIndex=" + newWaterIndex + '}';
+        return "ElectricWaterUsed{" + "ElectricWaterUsedID=" + ElectricWaterUsedID + ", reRoomID=" + reRoomID + ", semester=" + semester + ", oldElectricityIndex=" + oldElectricityIndex + ", newElectricityIndex=" + newElectricityIndex + ", oldWaterIndex=" + oldWaterIndex + ", newWaterIndex=" + newWaterIndex + ", status=" + status + '}';
     }
+
+   
     
 }

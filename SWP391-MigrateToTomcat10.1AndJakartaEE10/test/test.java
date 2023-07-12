@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class test {
     public static void main(String[] args) {
         DormDAO dao = new DormDAO();
-        ArrayList<ElectricWaterUsed> result = dao.viewElectricWater("FA23", 5);
+        ArrayList<ElectricWaterUsed> result = dao.viewElectricWaterByReRoomId("FA23", 5);
         for (ElectricWaterUsed electricWaterUsed: result) {
             System.out.println(electricWaterUsed);
         }

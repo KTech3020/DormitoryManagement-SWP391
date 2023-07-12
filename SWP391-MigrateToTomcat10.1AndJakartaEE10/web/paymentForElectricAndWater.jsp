@@ -1,8 +1,4 @@
-<%-- 
-    Document   : paymentForElectricAndWater
-    Created on : Jul 12, 2023, 5:51:03 PM
-    Author     : LENOVO
---%>
+
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ include file="/includes/header.jsp" %>
@@ -44,6 +40,7 @@
                     <th>Số nước cũ</th>
                     <th>Số nước đã dùng</th>
                     <th>Tổng tiền</th>
+                    <th>Trạng thái</th>
                     <th>Chức năng</th>
                 </tr>
             </thead>
@@ -54,8 +51,9 @@
                         <td>${l.oldElectricityIndex}</td>
                         <td>${l.newElectricityIndex}</td>
                         <td>${l.oldWaterIndex}</td>
-                        <td>${l.newWaterIndex}</td>
+                        <td>${l.newWaterIndex}</td>                       
                         <td>${total}</td>
+                        <td>${l.status}</td>
                         <td>
                             <a href="#">Thanh toán</a>
                         </td>

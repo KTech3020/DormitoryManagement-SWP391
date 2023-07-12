@@ -2,7 +2,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Filter.java to edit this template
  */
-package filter;
 
 import entity.Account;
 import java.io.IOException;
@@ -23,22 +22,22 @@ import jakarta.servlet.http.HttpSession;
  *
  * @author LENOVO
  */
-public class FilterForJspFile implements Filter {
-
+public class FilterForManageElectricAndWater implements Filter {
+    
     private static final boolean debug = true;
 
     // The filter configuration object we are associated with.  If
     // this value is null, this filter instance is not currently
     // configured. 
     private FilterConfig filterConfig = null;
-
-    public FilterForJspFile() {
-    }
-
+    
+    public FilterForManageElectricAndWater() {
+    }    
+    
     private void doBeforeProcessing(ServletRequest request, ServletResponse response)
             throws IOException, ServletException {
         if (debug) {
-            log("FilterForJspFile:DoBeforeProcessing");
+            log("FilterForManageElectricAndWater:DoBeforeProcessing");
         }
 
         // Write code here to process the request and/or response before
@@ -61,12 +60,12 @@ public class FilterForJspFile implements Filter {
 	    log(buf.toString());
 	}
          */
-    }
-
+    }    
+    
     private void doAfterProcessing(ServletRequest request, ServletResponse response)
             throws IOException, ServletException {
         if (debug) {
-            log("FilterForJspFile:DoAfterProcessing");
+            log("FilterForManageElectricAndWater:DoAfterProcessing");
         }
 
         // Write code here to process the request and/or response after
@@ -100,36 +99,21 @@ public class FilterForJspFile implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain chain)
             throws IOException, ServletException {
+        
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
         HttpSession session = req.getSession();
-        String URL = req.getServletPath();
-
-        if ((session.getAttribute("accountS") == null && URL.endsWith("listNews.jsp")) || (session.getAttribute("accountS") == null && URL.endsWith("listStudent.jsp"))
-                || (session.getAttribute("accountS") == null && URL.endsWith("manageRoom.jsp")) || (session.getAttribute("accountS") == null && URL.endsWith("unimplementedPage.jsp"))
-                || (session.getAttribute("accountS") == null && URL.endsWith("manageRequest.jsp")) || (session.getAttribute("accountS") == null && URL.endsWith("viewStatistics.jsp"))
-                || (session.getAttribute("accountS") == null && URL.endsWith("ManageElectricAndWaterPayment.jsp"))) {
-
-            req.getRequestDispatcher("index").forward(request, response);
-
-        }  else {
-            chain.doFilter(request, response);
+        
+        if (session.getAttribute("accountS") == null) {
+            res.sendRedirect("LoginServlet");
+        } else {
+            Account account = (Account) session.getAttribute("accountS");
+            if (account.getIsAdmin() != 1 ) {
+                req.getRequestDispatcher("index").forward(request, response);
+            } else {
+                chain.doFilter(request, response);
+            }
         }
-        //if (session.getAttribute("accountS") != null) {
-           // Account account = (Account) session.getAttribute("accountS");
-
-//            if(account.getIsAdmin() == 1){
-//                req.getRequestDispatcher("index").forward(request, response);
-//            }
-//            if ((account.getIsAdmin() != 1 && URL.endsWith("listStudent.jsp")) || (account.getIsAdmin() != 1 && URL.endsWith("unimplementedPage.jsp"))) {
-//                req.getRequestDispatcher("index").forward(request, response);
-//            }
-
-//            if(account.getIsAdmin() != 1){
-//                req.getRequestDispatcher("index").forward(request, response);
-//            }
-        //} 
-
     }
 
     /**
@@ -151,17 +135,17 @@ public class FilterForJspFile implements Filter {
     /**
      * Destroy method for this filter
      */
-    public void destroy() {
+    public void destroy() {        
     }
 
     /**
      * Init method for this filter
      */
-    public void init(FilterConfig filterConfig) {
+    public void init(FilterConfig filterConfig) {        
         this.filterConfig = filterConfig;
         if (filterConfig != null) {
-            if (debug) {
-                log("FilterForJspFile:Initializing filter");
+            if (debug) {                
+                log("FilterForManageElectricAndWater:Initializing filter");
             }
         }
     }
@@ -172,27 +156,27 @@ public class FilterForJspFile implements Filter {
     @Override
     public String toString() {
         if (filterConfig == null) {
-            return ("FilterForJspFile()");
+            return ("FilterForManageElectricAndWater()");
         }
-        StringBuffer sb = new StringBuffer("FilterForJspFile(");
+        StringBuffer sb = new StringBuffer("FilterForManageElectricAndWater(");
         sb.append(filterConfig);
         sb.append(")");
         return (sb.toString());
     }
-
+    
     private void sendProcessingError(Throwable t, ServletResponse response) {
-        String stackTrace = getStackTrace(t);
-
+        String stackTrace = getStackTrace(t);        
+        
         if (stackTrace != null && !stackTrace.equals("")) {
             try {
                 response.setContentType("text/html");
                 PrintStream ps = new PrintStream(response.getOutputStream());
-                PrintWriter pw = new PrintWriter(ps);
+                PrintWriter pw = new PrintWriter(ps);                
                 pw.print("<html>\n<head>\n<title>Error</title>\n</head>\n<body>\n"); //NOI18N
 
                 // PENDING! Localize this for next official release
-                pw.print("<h1>The resource did not process correctly</h1>\n<pre>\n");
-                pw.print(stackTrace);
+                pw.print("<h1>The resource did not process correctly</h1>\n<pre>\n");                
+                pw.print(stackTrace);                
                 pw.print("</pre></body>\n</html>"); //NOI18N
                 pw.close();
                 ps.close();
@@ -209,7 +193,7 @@ public class FilterForJspFile implements Filter {
             }
         }
     }
-
+    
     public static String getStackTrace(Throwable t) {
         String stackTrace = null;
         try {
@@ -223,9 +207,9 @@ public class FilterForJspFile implements Filter {
         }
         return stackTrace;
     }
-
+    
     public void log(String msg) {
-        filterConfig.getServletContext().log(msg);
+        filterConfig.getServletContext().log(msg);        
     }
-
+    
 }

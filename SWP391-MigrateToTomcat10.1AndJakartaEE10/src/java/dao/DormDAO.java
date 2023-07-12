@@ -789,14 +789,14 @@ public class DormDAO {
         return 0;
     }
 
-    public ArrayList<ElectricWaterUsed> viewElectricWater(String semester, int reRoomID) {
+    public ArrayList<ElectricWaterUsed> viewElectricWaterByReRoomId(String semester, int reRoomID) {
 
         String sql = "select elecWaterBill.ElectricWaterUsedID, elecWaterBill.reRoomID, elecWaterBill.semester, \n"
                 + "elecWaterBill.oldElectricityIndex, elecWaterBill.newElectricityIndex, elecWaterBill.oldWaterIndex, \n"
-                + "elecWaterBill.newWaterIndex\n"
+                + "elecWaterBill.newWaterIndex, elecWaterBill.status\n"
                 + "from ElectricWaterUsed elecWaterBill, RegisterRoom registRoom\n"
                 + "where elecWaterBill.reRoomID = registRoom.reRoomID\n"
-                + "and elecWaterBill.semester = ? and elecWaterBill.reRoomID = ?";
+                + "and elecWaterBill.semester = ? and elecWaterBill.reRoomID = ? and elecWaterBill.status = 'Waiting'";
         ArrayList<ElectricWaterUsed> list = new ArrayList<>();
         try {
             con = new DBContext().getConnection();
@@ -805,7 +805,7 @@ public class DormDAO {
             ps.setInt(2, reRoomID);
             rs = ps.executeQuery();
             while (rs.next()) {
-                list.add(new ElectricWaterUsed(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getInt(6), rs.getInt(7)));
+                list.add(new ElectricWaterUsed(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getInt(6), rs.getInt(7), rs.getString(8)));
             }
         } catch (Exception e) {
             System.out.println("Error: " + e);
@@ -827,11 +827,125 @@ public class DormDAO {
             rs = ps.executeQuery();
             while (rs.next()) {
                 return rs.getInt(1);
-            }          
+            }
         } catch (Exception e) {
             System.out.println("Error: " + e);
         }
         return 0;
+    }
+
+    public ArrayList<ElectricWaterUsed> viewAllElectricWater(String semester) {
+
+        String sql = "select elecWaterBill.ElectricWaterUsedID, elecWaterBill.reRoomID, elecWaterBill.semester, \n"
+                + "elecWaterBill.oldElectricityIndex, elecWaterBill.newElectricityIndex, elecWaterBill.oldWaterIndex, \n"
+                + "elecWaterBill.newWaterIndex, elecWaterBill.status\n"
+                + "from ElectricWaterUsed elecWaterBill, RegisterRoom registRoom\n"
+                + "where elecWaterBill.reRoomID = registRoom.reRoomID\n"
+                + "and elecWaterBill.semester = ? ";
+        ArrayList<ElectricWaterUsed> list = new ArrayList<>();
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, semester);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new ElectricWaterUsed(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getInt(6), rs.getInt(7), rs.getString(8)));
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+        return list;
+    }
+
+    public int lastPagesManageElectricAndWater(int size, String semester) {
+        int lastPages = 0;
+        String createQuery = "select COUNT(*)\n"
+                + "from ElectricWaterUsed elecWaterBill, RegisterRoom registRoom\n"
+                + "where elecWaterBill.reRoomID = registRoom.reRoomID\n"
+                + "and elecWaterBill.semester = ? ";
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(createQuery);
+            ps.setString(1, semester);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int total = rs.getInt(1);
+                lastPages = total / size;
+
+                if (total % size != 0) {
+                    lastPages++;
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+        return lastPages;
+    }
+
+    public ElectricWaterUsed getElectricWaterUsedById(int ElectricWaterUsedID) {
+        String sql = "select * from ElectricWaterUsed where ElectricWaterUsedID = ?";
+
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, ElectricWaterUsedID);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return new ElectricWaterUsed(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getInt(6), rs.getInt(7), rs.getString(8));
+            }
+        } catch (Exception e) {
+        }
+
+        return null;
+    }
+
+    public void updateElectricWater(int newElectricityIndex, int newWaterIndex, int electricWaterUsedID) {
+        String sql = "update ElectricWaterUsed set newElectricityIndex= ?, newWaterIndex= ? where ElectricWaterUsedID = ?";
+
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, newElectricityIndex);
+            ps.setInt(2, newWaterIndex);
+            ps.setInt(3, electricWaterUsedID);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+    }
+
+    public void deleteElectricWater(int electricWaterUsedID) {
+        String sql = "delete from ElectricWaterUsed where [ElectricWaterUsedID] = ?";
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, electricWaterUsedID);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public void addElectricWater(int reRoomID, String semester, int oldElectricityIndex, int newElectricityIndex,
+            int oldWaterIndex, int newWaterIndex) {
+        String sql = "insert into ElectricWaterUsed\n"
+                + "VALUES\n"
+                + "(?,?, ?, ?, ?, ?, 'Waiting')";
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, reRoomID);
+            ps.setString(2, semester);
+            ps.setInt(3, oldElectricityIndex);
+            ps.setInt(4, newElectricityIndex);
+            ps.setInt(5, oldWaterIndex);
+            ps.setInt(6, newWaterIndex);
+
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
     }
 
 }

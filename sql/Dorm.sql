@@ -48,15 +48,18 @@ CONSTRAINT fk_register1 foreign key (userId) references Account (userId),
 CONSTRAINT fk_register2 foreign key ([roomId]) references Room ([roomId])
 )
 
+--drop table ElectricWaterUsed
+
+
 create table ElectricWaterUsed (
 [ElectricWaterUsedID] int identity(1,1) primary key,
 [reRoomID] int,
-[dateStartSemester] date,
-[dateEndSemester] date,
+[semester] varchar (10),
 [oldElectricityIndex] int,
 [newElectricityIndex] int,
 [oldWaterIndex] int,
 [newWaterIndex] int,
+[status] varchar(10) check (status in ('Success', 'Waiting'))
 CONSTRAINT fk_ewu2 foreign key ([reRoomID]) references RegisterRoom([reRoomID])
 )
 
@@ -68,26 +71,6 @@ create table RegisterRoomDetail(
 [price] money,
 CONSTRAINT fk_registerDetail2 foreign key ([roomId]) references Room ([roomId])
 )
-/*
-create table Bill(
-[billId] int identity(1,1) primary key,
-[cost] money,
-[date] datetime,
-[semester] varchar (5),
-[roomId] varchar (5),
-[reRoomID] int,
-CONSTRAINT fk_Bill foreign key ([reRoomID]) references RegisterRoom([reRoomID])
-)
-*/
- /*
-create table StudentRequest(
-[RequestId] int identity(1,1) primary key,
-[userId] varchar (10),
-[request] Ntext,
-[day] date,
-CONSTRAINT fk_studentRequest foreign key (userId) references Account (userId),
-)*/
-
 
 create table ChangeRoom(
 [changeRoomID] int identity(1,1) primary key,
@@ -186,89 +169,12 @@ VALUES
 ('110', 'SE170983', '2023-07-20', 'FA23', 'Success')
 
 
-------NHÁP--------------------------------------------------------------
 
-
-select r.roomId, r.roomSize, r.roomAttendees, r.gender, r.airConditional, rd.price 
-from Room r inner join RegisterRoomDetail rd
-on (r.roomId = rd.roomId AND ((rd.startDay < GETDATE() AND GETDATE() <= rd.endDay) OR (rd.startDay < GETDATE() AND rd.endDay IS NULL))) 
-where roomSize = 6 AND roomAttendees <= 3 AND gender = 'M' AND airConditional = 'Y' AND price <= 3000000
-
-create view RoomDetailView as
-select r.roomId, r.roomSize, r.roomAttendees, r.gender, r.airConditional, rd.price
-from Room r inner join RegisterRoomDetail rd
-on (r.roomId = rd.roomId AND ((rd.startDay < GETDATE() AND GETDATE() <= rd.endDay) OR (rd.startDay < GETDATE() AND rd.endDay IS NULL))) 
-
-select * from RoomDetailView where roomSize = 6 AND roomAttendees <= 3 AND gender = 'M' AND airConditional = 'Y' AND price <= 3000000
-
-select * from RoomDetailView where roomID = 101
-
-select * from RegisterRoom
-select * from RegisterRoomDetail
-
-create view RoomRegistrationView as
-select rg.reRoomID, rg.roomId, rg.userId, rg.date, rg.semester, rg.status, rd.price 
-from RegisterRoom rg inner join Room r on rg.roomId = r.roomId
-inner join RegisterRoomDetail rd
-on (r.roomId = rd.roomId AND ((rd.startDay < GETDATE() AND GETDATE() <= rd.endDay) OR (rd.startDay < GETDATE() AND rd.endDay IS NULL)))
-where userId = 'SE160094'
-
-select * from [RoomRegistrationView]
-where userId = 'SE160094'
-order by reRoomID
-
-select * from [RoomRegistrationView] order by reRoomID
-
-select * from RoomDetailView
-update RegisterRoom set status = 'Rejected' where reRoomID = 19
-
-select * from Account
-select * from Person
-
-
-select roomID from RoomRegistrationView where reroomID = 1
-
-
-create trigger updateRoomAttendeesTrigger on RegisterRoom AFTER INSERT, UPDATE, DELETE AS
-BEGIN
-update Room set roomAttendees = (select COUNT(roomID) from RegisterRoom rg where rg.roomId = Room.roomID AND rg.status LIKE 'Success') 
-END
-
---create view DynamicRoomDetailView as
---select r.roomId, r.roomSize, (select COUNT(rg.roomId) from RegisterRoom rg where rg.roomId = r.roomID AND rg.status LIKE 'Success') as roomAttendees, r.gender, r.airConditional, rd.price
---from Room r inner join RegisterRoomDetail rd
---on (r.roomId = rd.roomId AND ((rd.startDay < GETDATE() AND GETDATE() <= rd.endDay) OR (rd.startDay < GETDATE() AND rd.endDay IS NULL))) 
-
---drop view DynamicRoomDetailView
-
-
-select * from Person where idPerson = 'DE150287'
-select * from RegisterRoom where [userID] = 'SE160125' AND status = 'Success' and semester = 'FA23'
-select * from RoomRegistrationView where [roomID] = '101' AND [userID] = 'SE160125' AND (status = 'Registered' OR status = 'Success')
-
-select * from ChangeRoom
+insert into ElectricWaterUsed
+VALUES
+('5','FA23', '0', '15', '0', '30', 'Waiting'),
+('6','FA23', '0', '30', '0', '30', 'Waiting'),
+('3','SU23', '0', '7', '7', '45', 'Success')
 
 
 
-CREATE VIEW ChangeRoomView AS
-
-SELECT changeRoomID, userId1, userId2, day
-
-FROM ChangeRoom
-
-select * from ChangeRoomView
-
-update RegisterRoom set userId ='SE170983' where userId ='DE150287'and date ='2023-06-20 20:37:00.947' and status = 'Success' and semester ='FA23'
-update RegisterRoom set userId ='DE150287' where userId ='SE170983'and date ='2023-06-21 20:37:00.947' and status = 'Success' and semester ='FA23'
-
-
-select * from RegisterRoom where [userID] = 'SE170983' AND status = 'Success' and semester = 'FA23'
-
-
-delete from ChangeRoom where changeRoomID = ?
-
-select * from 
-
- 
-
-select * from RoomDetailView order by roomID

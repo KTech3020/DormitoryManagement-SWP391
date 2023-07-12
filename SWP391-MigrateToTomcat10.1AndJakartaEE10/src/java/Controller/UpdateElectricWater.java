@@ -5,24 +5,19 @@
 package Controller;
 
 import dao.DormDAO;
-import entity.Account;
 import entity.ElectricWaterUsed;
-import entity.RoomRegistration;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 /**
  *
  * @author LENOVO
  */
-public class LoadPaymentElecAndWater extends HttpServlet {
+public class UpdateElectricWater extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,10 +36,10 @@ public class LoadPaymentElecAndWater extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet LoadPaymentElecAndWater</title>");
+            out.println("<title>Servlet UpdateElectricWater</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet LoadPaymentElecAndWater at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet UpdateElectricWater at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -63,43 +58,9 @@ public class LoadPaymentElecAndWater extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         DormDAO dao = new DormDAO();
-        HttpSession session = request.getSession();
-        Account account = (Account) session.getAttribute("accountS");
-
-        LocalDateTime dateIn4Months = LocalDateTime.now().plusMonths(4);
-        int month = dateIn4Months.getMonth().getValue();
-        String semester = "";
-        if (month >= 1 && month <= 4) {
-            semester = semester.concat("SP");
-        } else if (month >= 5 && month <= 8) {
-            semester = semester.concat("SU");
-        } else if (month >= 9 && month <= 12) {
-            semester = semester.concat("FA");
-        }
-
-        String year = Integer.toString(dateIn4Months.getYear());
-        year = year.substring(year.length() - 2);
-        semester = semester.concat(year);
-
-        RoomRegistration roomRegistration = dao.getRegisterRoomByIdAndSemester(account.getUserid(), semester);
-        ArrayList<ElectricWaterUsed> result = dao.viewElectricWaterByReRoomId(semester, roomRegistration.getRegisterID());
-
-        if (result == null) {
-            request.setAttribute("err", "Chưa có tiền điện,nước cần thanh toán!");
-            request.getRequestDispatcher("paymentForElectricAndWater.jsp").forward(request, response);
-        } else {
-
-            int roomAttendees = dao.roomAttendees(semester, account.getUserid());
-            float total = 0;
-            for (ElectricWaterUsed electricWaterUsed : result) {
-                total = (((float) (electricWaterUsed.getNewElectricityIndex() - electricWaterUsed.getOldElectricityIndex()) /roomAttendees) * (float) 2000)
-                        + (((float) (electricWaterUsed.getNewWaterIndex() - electricWaterUsed.getOldWaterIndex()) /roomAttendees) * (float) 10000);
-            }
-            request.setAttribute("total", total);
-            request.setAttribute("result", result);
-            request.getRequestDispatcher("paymentForElectricAndWater.jsp").forward(request, response);
-        }
-
+        ElectricWaterUsed electricWaterUsed = dao.getElectricWaterUsedById(Integer.parseInt(request.getParameter("electricWaterUsedID")));
+        request.setAttribute("electricWaterUsed", electricWaterUsed);
+        request.getRequestDispatcher("updateElectricWater.jsp").forward(request, response);
     }
 
     /**
@@ -113,7 +74,12 @@ public class LoadPaymentElecAndWater extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        DormDAO dao = new DormDAO();
+        int electricWaterUsedID = Integer.parseInt(request.getParameter("electricWaterUsedID"));     
+        int newElectricityIndex = Integer.parseInt(request.getParameter("newElectricityIndex"));     
+        int newWaterIndex = Integer.parseInt(request.getParameter("newWaterIndex"));     
+        dao.updateElectricWater(newElectricityIndex, newWaterIndex, electricWaterUsedID);
+        response.sendRedirect("ManageElectricAndWaterServlet");
     }
 
     /**
