@@ -164,6 +164,10 @@
         <servlet-name>ViewRoommatesServlet</servlet-name>
         <servlet-class>Controller.ViewRoommatesServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LoadPaymentElecAndWater</servlet-name>
+        <servlet-class>Controller.LoadPaymentElecAndWater</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -287,6 +291,10 @@
     <servlet-mapping>
         <servlet-name>ViewRoommatesServlet</servlet-name>
         <url-pattern>/ViewRoommatesServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoadPaymentElecAndWater</servlet-name>
+        <url-pattern>/LoadPaymentElecAndWater</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

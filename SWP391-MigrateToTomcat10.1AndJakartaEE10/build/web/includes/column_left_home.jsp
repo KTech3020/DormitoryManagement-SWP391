@@ -42,13 +42,17 @@
                         Account accountCLH = (Account) session.getAttribute("accountS");
                 
                         if (daoCLH.checkAlreadySuccessRegistered(accountCLH.getUserid())){%>
-                        <a href="#" onclick="alreadyRegistered(event);" class="nav-item nav-link">Quản lý, thanh toán hóa đơn</a>
+                        <a href="#" onclick="alreadyRegistered(event);" class="nav-item nav-link">Quản lý, thanh toán hóa đơn phòng</a>
                         <% } else { %>
-                        <a href="LoadPaymentRegistered" class="nav-item nav-link">Quản lý, thanh toán hóa đơn</a>
+                        <a href="LoadPaymentRegistered" class="nav-item nav-link">Quản lý, thanh toán hóa đơn phòng</a>
                         <% } %>
                     </li>
                     <li>
-                        <a href="TypeRequestServlet" class="nav-item nav-link">Gửi yêu cầu/khiếu nại</a>                    </li>
+                        <a href="LoadPaymentElecAndWater" class="nav-item nav-link">Quản lý, thanh toán hóa đơn điện nước</a>
+                    </li>
+                    <li>
+                        <a href="TypeRequestServlet" class="nav-item nav-link">Gửi yêu cầu/khiếu nại</a>                    
+                    </li>
                     <li>
                         <a href="StudentViewRegistrationServlet" class="nav-item nav-link">Lịch sử đăng ký</a>
                     </li>

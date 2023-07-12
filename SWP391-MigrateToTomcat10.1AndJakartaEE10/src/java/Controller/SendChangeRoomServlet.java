@@ -84,6 +84,7 @@ public class SendChangeRoomServlet extends HttpServlet {
         Account account = (Account) session.getAttribute("accountS");
 
         Person p = dao.checkIdPersonExist(idUser2);
+        
         LocalDateTime dateIn4Months = LocalDateTime.now().plusMonths(4);
         int month = dateIn4Months.getMonth().getValue();
         String semester = "";
