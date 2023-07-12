@@ -113,7 +113,7 @@ public class RegisterRoomServlet extends HttpServlet {
         SendMailContext send = new SendMailContext();
         send.sendMailToStudentRegister(dao.getPersonProfile(userID));
         request.setAttribute("success", "Đăng kí phòng thành công.");
-        request.getRequestDispatcher("registerRoom.jsp").forward(request, response);
+        request.getRequestDispatcher("StudentViewRegistrationServlet").forward(request, response);
     }
 
     /**

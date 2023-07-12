@@ -50,10 +50,9 @@
             <%}%>
         </table>
         <%} %>    
-        <button><a href="index.jsp" class="nav-item nav-link">Về trang chủ</a></button>
+        <button><a href="index" class="nav-item nav-link">Về trang chủ</a></button>
         </div>
     </div>
 </section>
 </div>
 </div>
-

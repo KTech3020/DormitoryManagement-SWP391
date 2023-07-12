@@ -37,6 +37,7 @@
 <%@page import="java.nio.charset.StandardCharsets"%>
 <%@page import="context.Config"%>
 <%@ page import="java.util.ArrayList,java.time.format.DateTimeFormatter,entity.RoomRegistration,dao.DormDAO" %>
+
 <c:set var="numPage" value="${param.numPage}"/>  
 <c:set var="pageSize" value="10"/>
 <c:if test="${numPage ==null}">
@@ -88,6 +89,7 @@
         </table>
         <%} %>  
         <%
+            
             //return after payment from VNPAY
             Map fields = new HashMap();
             for (Enumeration params = request.getParameterNames(); params.hasMoreElements();) {
@@ -169,16 +171,3 @@
 
 <%@ include file="/includes/column_left_home.jsp" %>
 <%@ include file="/includes/footer.jsp" %>
-
-<script>    
-    function paymentStatus(type,event){
-        event.preventDefault();
-        if (type === 1)
-            alert("Thanh toán thành công!");
-        else if (type === 2)
-            alert("Thanh toán thất bại!");
-        else 
-            alert("Danh tính không hợp lệ!");
-        return true;
-    }
-</script>

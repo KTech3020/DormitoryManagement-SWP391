@@ -2,10 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
+
 package Controller;
 
 import dao.DormDAO;
-import entity.Room;
+import entity.ChangeRoom;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -16,40 +17,37 @@ import java.util.ArrayList;
 
 /**
  *
- * @author LENOVO
+ * @author MSI GL63
  */
-public class RoomSearchServlet extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
+public class TypeManageRequestServlet extends HttpServlet {
+   
+    /** 
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet RegisterServlet</title>");
+            out.println("<title>Servlet TypeManageRequestServlet</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet RegisterServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet TypeManageRequestServlet at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
-    }
+    } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
+    /** 
      * Handles the HTTP <code>GET</code> method.
-     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -57,21 +55,16 @@ public class RoomSearchServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
+        String option = "";
         DormDAO dao = new DormDAO();
-        ArrayList<Room> result = dao.returnAllNonFullRooms();
-        if (result.isEmpty()) {
-            request.setAttribute("err", "Không tồn tại phòng");
-            request.getRequestDispatcher("room_search.jsp").forward(request, response);
-        } else {
-            request.setAttribute("roomList", result);
-            request.getRequestDispatcher("room_search.jsp").forward(request, response);
-        }
-    }
 
-    /**
+        request.setAttribute("option", option);       
+        request.getRequestDispatcher("manageRequest.jsp").forward(request, response);
+    } 
+
+    /** 
      * Handles the HTTP <code>POST</code> method.
-     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -79,31 +72,18 @@ public class RoomSearchServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String roomSize = request.getParameter("roomSize");
-        String roomAttendees = request.getParameter("roomAttendees");
-        String gender = request.getParameter("gender");
-        String hasAirCon = request.getParameter("hasAirCon");
-        String price = request.getParameter("price");
-
-        if (hasAirCon == null) {
-            hasAirCon = "N";
-        }
+    throws ServletException, IOException {
+        String option = request.getParameter("option");
         DormDAO dao = new DormDAO();
-        ArrayList<Room> result = dao.returnRoomMatchQuery(roomSize, roomAttendees, gender, hasAirCon, price);
-        if (result.isEmpty()) {
-            request.setAttribute("err", "Không có phòng như yêu cầu!");
-            request.getRequestDispatcher("room_search.jsp").forward(request, response);
-        } else {
-            request.setAttribute("roomList", result);
-            request.getRequestDispatcher("room_search.jsp").forward(request, response);
-        }
+        ArrayList<ChangeRoom> list = dao.displayAllChangeRoomRequest();
+        request.setAttribute("list", list);
 
+        request.setAttribute("option", option);
+        request.getRequestDispatcher("manageRequest.jsp").forward(request, response);
     }
 
-    /**
+    /** 
      * Returns a short description of the servlet.
-     *
      * @return a String containing servlet description
      */
     @Override

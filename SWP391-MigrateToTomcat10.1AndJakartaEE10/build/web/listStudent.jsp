@@ -33,7 +33,7 @@
         <div class="table-wrapper">
             <div class="table-title">
                 <h2>Danh sách sinh viên</h2>
-                <a href="index.jsp">Trang chủ</a>
+                <a href="index">Trang chủ</a>
             </div>
             <table class="table table-bordered">
                 <thead >
@@ -261,5 +261,3 @@
         font-size: 20px;
     }
 </style>
-
-

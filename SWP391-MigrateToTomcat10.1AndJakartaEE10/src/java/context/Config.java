@@ -26,6 +26,7 @@ public class Config {
     private static final long serialVersionUID = 1L;
     public static String vnp_PayUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
     public static String vnp_Returnurl = "http://localhost:8080/SWP391-MigrateToTomcat10.1AndJakartaEE10/LoadPaymentRegistered";
+    public static String vnp_Returnurl_frEW = "http://localhost:8080/SWP391-MigrateToTomcat10.1AndJakartaEE10/LoadPaymentElecAndWater"; 
     public static String vnp_TmnCode = "RUL8XQZE";
     public static String vnp_HashSecret = "BOPOPCNPMHXDJRVZAMEKZSUJHJJHGTEZ";
     public static String vnp_apiUrl = "https://sandbox.vnpayment.vn/merchant_webapi/api/transaction";

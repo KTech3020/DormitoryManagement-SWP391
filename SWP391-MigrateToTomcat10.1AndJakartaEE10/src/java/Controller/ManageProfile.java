@@ -18,7 +18,6 @@ import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.Part;
 
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
@@ -102,7 +101,6 @@ public class ManageProfile extends HttpServlet {
         String address = request.getParameter("address");
 
         Part part = request.getPart("img");
-
         String realPath = request.getServletContext().getRealPath("/images");
         String fileName = Paths.get(part.getSubmittedFileName()).getFileName().toString();
         if (!Files.exists(Paths.get(realPath))) {

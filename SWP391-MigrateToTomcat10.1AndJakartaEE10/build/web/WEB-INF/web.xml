@@ -68,6 +68,58 @@
         <servlet-name>LoadPaymentRegistered</servlet-name>
         <servlet-class>Controller.LoadPaymentRegistered</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AcceptChangeRoomServlet</servlet-name>
+        <servlet-class>Controller.AcceptChangeRoomServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddNewsServlet</servlet-name>
+        <servlet-class>Controller.AddNewsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ComplainServlet</servlet-name>
+        <servlet-class>Controller.ComplainServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteChangeRoomServlet</servlet-name>
+        <servlet-class>Controller.DeleteChangeRoomServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteNewsServlet</servlet-name>
+        <servlet-class>Controller.DeleteNewsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditNewsServlet</servlet-name>
+        <servlet-class>Controller.EditNewsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoadNewsToMainpageServlet</servlet-name>
+        <servlet-class>Controller.LoadNewsToMainpageServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManageNewsServlet</servlet-name>
+        <servlet-class>Controller.ManageNewsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SendChangeRoomServlet</servlet-name>
+        <servlet-class>Controller.SendChangeRoomServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TypeManageRequestServlet</servlet-name>
+        <servlet-class>Controller.TypeManageRequestServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TypeRequestServlet</servlet-name>
+        <servlet-class>Controller.TypeRequestServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteRegisteredServlet</servlet-name>
+        <servlet-class>Controller.DeleteRegisteredServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PaymentForEW</servlet-name>
+        <servlet-class>Controller.PaymentForEW</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -135,6 +187,58 @@
     <servlet-mapping>
         <servlet-name>LoadPaymentRegistered</servlet-name>
         <url-pattern>/LoadPaymentRegistered</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AcceptChangeRoomServlet</servlet-name>
+        <url-pattern>/AcceptChangeRoomServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddNewsServlet</servlet-name>
+        <url-pattern>/AddNewsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ComplainServlet</servlet-name>
+        <url-pattern>/ComplainServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteChangeRoomServlet</servlet-name>
+        <url-pattern>/DeleteChangeRoomServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteNewsServlet</servlet-name>
+        <url-pattern>/DeleteNewsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditNewsServlet</servlet-name>
+        <url-pattern>/EditNewsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoadNewsToMainpageServlet</servlet-name>
+        <url-pattern>/LoadNewsToMainpageServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageNewsServlet</servlet-name>
+        <url-pattern>/ManageNewsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SendChangeRoomServlet</servlet-name>
+        <url-pattern>/SendChangeRoomServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TypeManageRequestServlet</servlet-name>
+        <url-pattern>/TypeManageRequestServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TypeRequestServlet</servlet-name>
+        <url-pattern>/TypeRequestServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteRegisteredServlet</servlet-name>
+        <url-pattern>/DeleteRegisteredServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PaymentForEW</servlet-name>
+        <url-pattern>/PaymentForEW</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

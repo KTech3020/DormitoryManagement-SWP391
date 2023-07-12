@@ -3,11 +3,7 @@
     <div class="content">
         <header>
             <h1>XÁC NHẬN ĐĂNG KÝ PHÒNG: ${roomID}</h1>
-        </header>
-        <%if (request.getAttribute("error") !=null){%>
-        <div style="color: red">${error}</div>
-        <a href="index.jsp"><button>Quay về trang chủ</button></a>
-        <%} else {%>
+        </header>        
         <form class="dangkiphong" action ="RegisterRoomServlet" method="POST">
             <table>
                 <tr>
@@ -29,27 +25,27 @@
                     <td>Phí cần trả</td>
                     <td><input type="text" name="price" value="${price}" readonly></td>             
                 </tr>
-                <%if (request.getAttribute("success") !=null){%>
-            </table>
-        </form> 
-        <form action="index.jsp">
-            <table>
                 <tr>
-                    <td><button>Quay về trang chủ</button></td>
-                    <td><span style="color: green">${success}</span></td>
+                    <td><button onclick="showPopup()" type = "submit">Xác nhận đăng ký</button></td>
                 </tr>
             </table>
         </form>
-        <%} else {%>
-        <tr>
-            <td><button type = "submit">Xác nhận đăng ký</button></td>
-        </tr>
-        <%} %>
-        </table>
-        </form>
-        <%} %>
     </div>
+    <%if (request.getAttribute("error") !=null){%>
+    <script>
+            window.alert("${error}");
+    </script>
+    <%}%>
+    <%if (request.getAttribute("success") !=null){%>
+    <script>
+            window.alert("${success}");
+    </script>
+    <%}%>
+    <script>
+        function showPopup(){
+            window.alert("Đăng ký thành công!");
+        }
+    </script>
 </section>
 </div>
 </div>
-
