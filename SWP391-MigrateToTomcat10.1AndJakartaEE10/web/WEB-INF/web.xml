@@ -25,12 +25,12 @@
         <filter-class>filter.FilterForManageElectricAndWater</filter-class>
     </filter>
     <filter-mapping>
-        <filter-name>FilterForJspFile</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
         <filter-name>FilterForManageElectricAndWater</filter-name>
         <servlet-name>ManageElectricAndWaterServlet</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>FilterForJspFile</filter-name>
+        <url-pattern>/*</url-pattern>
     </filter-mapping>
     <filter-mapping>
         <filter-name>FilterForStatisticsServlet</filter-name>
@@ -173,22 +173,6 @@
         <servlet-class>Controller.ViewRoommatesServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>StudentViewAllNewsServlet</servlet-name>
-        <servlet-class>Controller.StudentViewAllNewsServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>StudentViewSingleNewsServlet</servlet-name>
-        <servlet-class>Controller.StudentViewSingleNewsServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>AddElectricWaterServlet</servlet-name>
-        <servlet-class>Controller.AddElectricWaterServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>DeleteElectricWater</servlet-name>
-        <servlet-class>Controller.DeleteElectricWater</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>LoadPaymentElecAndWater</servlet-name>
         <servlet-class>Controller.LoadPaymentElecAndWater</servlet-class>
     </servlet>
@@ -199,6 +183,18 @@
     <servlet>
         <servlet-name>UpdateElectricWater</servlet-name>
         <servlet-class>Controller.UpdateElectricWater</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteElectricWater</servlet-name>
+        <servlet-class>Controller.DeleteElectricWater</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddElectricWaterServlet</servlet-name>
+        <servlet-class>Controller.AddElectricWaterServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PaymentForEW</servlet-name>
+        <servlet-class>Controller.PaymentForEW</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -325,22 +321,6 @@
         <url-pattern>/ViewRoommatesServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>StudentViewAllNewsServlet</servlet-name>
-        <url-pattern>/StudentViewAllNewsServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>StudentViewSingleNewsServlet</servlet-name>
-        <url-pattern>/StudentViewSingleNewsServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AddElectricWaterServlet</servlet-name>
-        <url-pattern>/AddElectricWaterServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>DeleteElectricWater</servlet-name>
-        <url-pattern>/DeleteElectricWater</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>LoadPaymentElecAndWater</servlet-name>
         <url-pattern>/LoadPaymentElecAndWater</url-pattern>
     </servlet-mapping>
@@ -351,6 +331,18 @@
     <servlet-mapping>
         <servlet-name>UpdateElectricWater</servlet-name>
         <url-pattern>/UpdateElectricWater</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteElectricWater</servlet-name>
+        <url-pattern>/DeleteElectricWater</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddElectricWaterServlet</servlet-name>
+        <url-pattern>/AddElectricWaterServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PaymentForEW</servlet-name>
+        <url-pattern>/PaymentForEW</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -29,6 +29,7 @@ public class Config {
     public static String vnp_TmnCode = "RUL8XQZE";
     public static String vnp_HashSecret = "BOPOPCNPMHXDJRVZAMEKZSUJHJJHGTEZ";
     public static String vnp_apiUrl = "https://sandbox.vnpayment.vn/merchant_webapi/api/transaction";
+    public static String vnp_Returnurl_frEW = "http://localhost:8080/SWP391-MigrateToTomcat10.1AndJakartaEE10/LoadPaymentElecAndWater";
     public static String vnp_Version = "2.1.0";
     public static String vnp_Command = "pay";
     public static String md5(String message) {

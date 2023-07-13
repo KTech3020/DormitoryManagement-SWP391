@@ -7,6 +7,12 @@
             alert("Bạn đã đăng ký và thanh toán phòng thành công rồi!");
         return true;
     }
+    
+    function notAlreadyRegistered(event){
+        event.preventDefault();
+            alert("Bạn chưa đăng ký và thanh toán phòng!");
+        return true;
+    }
 </script>
 <!-- Sidebar -->
 <div id="sidebar">
@@ -45,6 +51,13 @@
                         <a href="#" onclick="alreadyRegistered(event);" class="nav-item nav-link">Quản lý, thanh toán hóa đơn</a>
                         <% } else { %>
                         <a href="LoadPaymentRegistered" class="nav-item nav-link">Quản lý, thanh toán hóa đơn</a>
+                        <% } %>
+                    </li>
+                    <li>
+                        <% if (daoCLH.getRegisterRoomByIdAndSemester(accountCLH.getUserid(),daoCLH.getSemesterCurrentTime()) == null) {%>
+                        <a href="#" onclick="notAlreadyRegistered(event);" class="nav-item nav-link">Quản lý, thanh toán hóa đơn điện nước</a>
+                        <% } else { %>
+                        <a href="LoadPaymentElecAndWater" class="nav-item nav-link">Quản lý, thanh toán hóa đơn điện nước</a>
                         <% } %>
                     </li>
                     <li>

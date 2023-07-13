@@ -930,4 +930,34 @@ public class DormDAO {
             System.out.println("Error: " + e);
         }
     }
+    
+    public void updateStatusElectricWater(int electricWaterUsedID) {
+        String sql = "update ElectricWaterUsed set status = 'Success' where ElectricWaterUsedID = ?";
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, electricWaterUsedID);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+    
+    public String getSemesterCurrentTime(){
+        LocalDateTime dateIn4Months = LocalDateTime.now().plusMonths(4);
+        int month = dateIn4Months.getMonth().getValue();
+        String semester = "";
+        if (month >= 1 && month <= 4) {
+            semester = semester.concat("SP");
+        } else if (month >= 5 && month <= 8) {
+            semester = semester.concat("SU");
+        } else if (month >= 9 && month <= 12) {
+            semester = semester.concat("FA");
+        }
+
+        String year = Integer.toString(dateIn4Months.getYear());
+        year = year.substring(year.length() - 2);
+        semester = semester.concat(year);
+        return semester;
+    }
 }

@@ -95,7 +95,7 @@ public class EditNewsServlet extends HttpServlet {
             response.sendRedirect("ManageNewsServlet");
         } else {
 
-            String realPath = request.getServletContext().getResource("/images").toString();
+            String realPath = request.getServletContext().getRealPath("/images");
             String fileName = Paths.get(part.getSubmittedFileName()).getFileName().toString();
             if (!Files.exists(Paths.get(realPath))) {
                 Files.createDirectory(Paths.get(realPath));

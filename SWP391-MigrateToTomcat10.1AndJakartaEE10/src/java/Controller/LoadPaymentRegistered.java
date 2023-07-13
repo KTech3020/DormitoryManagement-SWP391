@@ -69,7 +69,7 @@ public class LoadPaymentRegistered extends HttpServlet {
         int lastPage = dao.lastPagesP(10);
         if(result.isEmpty() || result == null){
             request.setAttribute("err", "Không có yêu cầu đăng ký phòng cần thanh toán!"); 
-            request.getRequestDispatcher("paymentForRoom.jsp").forward(request, response);
+            request.getRequestDispatcher("index").forward(request, response);
         }
         else{
             request.setAttribute("registersList", result);

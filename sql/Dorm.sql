@@ -201,8 +201,10 @@ on (r.roomId = rd.roomId AND ((rd.startDay <= rg.date AND rg.date <= rd.endDay) 
 
 create trigger updateRoomAttendeesTrigger on RegisterRoom AFTER INSERT, UPDATE, DELETE AS
 BEGIN
-update Room set roomAttendees = (select COUNT(roomID) from RegisterRoom rg where rg.roomId = Room.roomID AND rg.status LIKE 'Success') 
+update Room set roomAttendees = (select COUNT(roomID) from RegisterRoom rg where rg.roomId = Room.roomID AND rg.status LIKE 'Success' AND semester LIKE dbo.GetSemester()) 
 END
+
+drop trigger updateRoomAttendeesTrigger
 
 insert into Person
 VALUES
@@ -224,7 +226,7 @@ select
 (select SUM(price) from RoomRegistrationView where status = 'Success') as column10,
 (select SUM(price) from RoomRegistrationView where status = 'Success' AND semester = 'FA23') as column11
 
-select * from RoomRegistrationView order by semester
+select * from RegisterRoom order by semester, status
 
 create view RoomMembersList as
 select p.*, rr.roomId, rr.semester from Person p inner join RegisterRoom rr on p.idPerson = rr.userId AND rr.status = 'Success'
@@ -240,3 +242,24 @@ VALUES
 ('33','SU23', '0', '7', '7', '45', 'Success')
 
 select * from RegisterRoom
+
+insert into Person VALUES
+('DE179999', N'DE179999.png', N'Nguyen Nhat Thinh', N'9856934234', '2003-01-11', 'M', '0989898989', 'ktech3020@gmail.com', N'Rap Xiec Trung Uong')
+
+create function GetSemester()
+returns varchar(4)
+as
+BEGIN
+	DECLARE @return_value CHAR(4);
+	DECLARE @year int = year(GETDATE());
+	DECLARE @month int = month(GETDATE());
+	SELECT @return_value = CASE 
+		WHEN @month >= 4 AND @month <= 4 THEN 'SU' + SUBSTRING(CONVERT(varchar, @year),3,2)
+		WHEN @month >= 5 AND @month <= 8 THEN 'FA' + SUBSTRING(CONVERT(varchar, @year),3,2)
+		WHEN @month >= 9 AND @month <= 12 THEN 'SP' + SUBSTRING(CONVERT(varchar, @year),3,2)
+		ELSE 'N/A'
+		END
+	RETURN @return_value;
+END
+
+select dbo.GetSemester() as test
