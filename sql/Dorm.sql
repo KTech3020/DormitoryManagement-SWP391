@@ -1,10 +1,6 @@
 ﻿create database Dorm
 use Dorm
 
--- use master
--- ALTER database Dorm set offline with ROLLBACK IMMEDIATE;
--- DROP database Dorm;
-
 
 create table Room(
 [roomId] int primary key,
@@ -102,9 +98,7 @@ N'Nhà trường đã ra thông báo, kể từ ngày 5/2/2021, nhà trường s
 N'Trường Đại học FPT với kiến trúc xanh và không gian như một khu resort sang xịn mịn cùng hàng loạt góc sống ảo đẹp không góc chết. Và ký túc xá sinh viên thì được trang hoàng chả khác gì khách sạn luôn.\n
 Nằm ở Hòa Lạc, các trung tâm thành phố khoảng 30km, Trường Đại học FPT như 1 khu resort đích thực khi kiến trúc xịn sò, quang cảnh tuyệt đẹp và đặc biệt là siêu yên tĩnh. Nếu như sinh viên các trường bị ám ảnh bởi cuộc sống ở những khu ký túc xá cũ đầy tối tăm, chật hẹp thì sinh viên FPT lại rất tự hào và hãnh diện vì cuộc sống sinh viên nơi đây sướng hơn cả ở khách sạn.', 'MA093891', '2022-11-06', 'News3.png')
 
-select * from Account
 
--- TODO FIX ALL DATA
 
 insert into Room
 VALUES
@@ -170,96 +164,24 @@ VALUES
 ('DE169019', N'an928001', 0),
 ('DE150287', N'khaiht666', 0),
 ('DE152894', N'duongdaihiep@00', 0),
-('SE160938', N'mylinh0300', 0)
+('SE160938', N'mylinh0300', 0),
+('SE170983', N'123', 0)
 
 insert into RegisterRoom
 VALUES
-('101', 'DE169019', '2022-07-18', 'SU22', 'Success')
+('102', 'DE150928', '2023-04-18', 'SU23', 'Success'),
+('104', 'DE150287', '2022-12-18', 'SP23', 'Success'),
+('105', 'DE152894', '2023-01-30', 'SU23', 'Success'),
+('106', 'DE169019', '2023-07-19', 'FA23', 'Success'),
+('106', 'SE170983', '2023-07-19', 'FA23', 'Success'),
+('111', 'SE160938', '2023-07-19', 'FA23', 'Success'),
+('110', 'DE152894', '2023-07-20', 'FA23', 'Success')
 
-insert into RegisterRoom
-VALUES
-('102', 'SE160094', '2022-04-18', 'SP22', 'Success'),
-('104', 'DE150287', '2022-12-18', 'FA22', 'Success'),
-('105', 'DE152894', '2022-01-30', 'SP22', 'Success'),
-('106', 'SE160938', '2022-07-19', 'SU22', 'Success')
-
-insert into RegisterRoom
-VALUES
-('101', 'DE169019', '2021-01-18', 'SP22', 'Registered')
-
-create view RoomDetailView as
-select r.roomId, r.roomSize, r.roomAttendees, r.gender, r.airConditional, rd.price
-from Room r inner join RegisterRoomDetail rd
-on (r.roomId = rd.roomId AND ((rd.startDay <= GETDATE() AND GETDATE() < rd.endDay) OR (rd.startDay <= GETDATE() AND rd.endDay IS NULL))) 
-
-create view RoomRegistrationView as
-select rg.reRoomID, rg.roomId, rg.userId, rg.date, rg.semester, rg.status, rd.price 
-from RegisterRoom rg inner join Room r on rg.roomId = r.roomId
-inner join RegisterRoomDetail rd
-on (r.roomId = rd.roomId AND ((rd.startDay <= rg.date AND rg.date <= rd.endDay) OR (rd.startDay <= rg.date AND rd.endDay IS NULL)))
-
-
-create trigger updateRoomAttendeesTrigger on RegisterRoom AFTER INSERT, UPDATE, DELETE AS
-BEGIN
-update Room set roomAttendees = (select COUNT(roomID) from RegisterRoom rg where rg.roomId = Room.roomID AND rg.status LIKE 'Success' AND semester LIKE dbo.GetSemester()) 
-END
-
-drop trigger updateRoomAttendeesTrigger
-
-insert into Person
-VALUES
-('DE170649', N'DE170649.png', N'Ngo Ho Gia Kiet', N'802347032', 2003-15-08, 'M', '0123123123', 'ktech3020@gmail.com', N'SV House, Lo B1-09 Le Duc Tho, Dien Ngoc, Dien Ban'),
-('admin', N'admin.png', N'admin', N'121212121', 2000-01-01, 'M', '0123123123', 'kietngotb@gmail.comn', N'admin.getLocation();')
-
-
-
-select 
-(select SUM(roomSize) from RoomDetailView) as column1, 
-(select count(roomAttendees) from RoomDetailView) as column2, 
-(select SUM(roomSize - roomAttendees) from RoomDetailView) as column3,
-(select count(roomAttendees) from RoomDetailView where gender = 'M') as column4,
-(select count(roomAttendees) from RoomDetailView where gender = 'f') as column5,
-(select count(*) from RoomDetailView) as column6,
-(select count(*) from RoomDetailView where (roomAttendees = roomSize)) as column7,
-(select count(*) from RoomDetailView where (roomAttendees > 0)) as column8,
-(select count(*) from RoomDetailView where (roomAttendees = 0)) as column9,
-(select SUM(price) from RoomRegistrationView where status = 'Success') as column10,
-(select SUM(price) from RoomRegistrationView where status = 'Success' AND semester = 'FA23') as column11
-
-select * from RegisterRoom order by semester, status
-
-create view RoomMembersList as
-select p.*, rr.roomId, rr.semester from Person p inner join RegisterRoom rr on p.idPerson = rr.userId AND rr.status = 'Success'
-
-CREATE VIEW ChangeRoomView AS
-SELECT changeRoomID, userId1, userId2, day
-FROM ChangeRoom
 
 insert into ElectricWaterUsed
 VALUES
-('35','FA23', '0', '15', '0', '30', 'Waiting'),
-('28','FA23', '0', '30', '0', '30', 'Waiting'),
-('33','SU23', '0', '7', '7', '45', 'Success')
+('5','FA23', '0', '15', '0', '30', 'Waiting'),
+('6','FA23', '0', '30', '0', '30', 'Waiting'),
+('3','SU23', '0', '7', '7', '45', 'Success')
 
-select * from RegisterRoom
 
-insert into Person VALUES
-('DE179999', N'DE179999.png', N'Nguyen Nhat Thinh', N'9856934234', '2003-01-11', 'M', '0989898989', 'ktech3020@gmail.com', N'Rap Xiec Trung Uong')
-
-create function GetSemester()
-returns varchar(4)
-as
-BEGIN
-	DECLARE @return_value CHAR(4);
-	DECLARE @year int = year(GETDATE());
-	DECLARE @month int = month(GETDATE());
-	SELECT @return_value = CASE 
-		WHEN @month >= 4 AND @month <= 4 THEN 'SU' + SUBSTRING(CONVERT(varchar, @year),3,2)
-		WHEN @month >= 5 AND @month <= 8 THEN 'FA' + SUBSTRING(CONVERT(varchar, @year),3,2)
-		WHEN @month >= 9 AND @month <= 12 THEN 'SP' + SUBSTRING(CONVERT(varchar, @year),3,2)
-		ELSE 'N/A'
-		END
-	RETURN @return_value;
-END
-
-select dbo.GetSemester() as test
