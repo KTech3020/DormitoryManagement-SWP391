@@ -13,7 +13,7 @@
             <div class="form pag">
                 <h1>Đăng nhập</h1>
                 <form class="login-form" action="LoginServlet" method="post">
-                    <input type="text" value="${name}" placeholder="Tài khoản" name="username"/>
+                    <input autofocus type="text" value="${name}" placeholder="Tài khoản" name="username"/>
                     <input type="password" value="${pass}" placeholder="Mật khẩu" name="password"/>
                     <input class="remember" type="checkbox"  name="remember" value="1"><span>Nhớ mật khẩu</span>
                     <br>
