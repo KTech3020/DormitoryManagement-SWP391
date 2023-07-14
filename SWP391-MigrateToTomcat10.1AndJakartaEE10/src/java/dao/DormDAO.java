@@ -695,7 +695,7 @@ public class DormDAO {
         String sql = "select \n"
                 + "                     (select SUM(roomSize) from RoomDetailView) as column1, \n"
                 + "                     (select count(roomAttendees) from RoomDetailView) as column2, \n"
-                + "                     (select SUM(roomSize - roomAttendees) from RoomDetailView) as column3,\n"
+                + "                     (select (SUM(roomSize) - count(roomAttendees)) from RoomDetailView) as column3,\n"
                 + "                     (select count(roomAttendees) from RoomDetailView where gender = 'M') as column4,\n"
                 + "                     (select count(roomAttendees) from RoomDetailView where gender = 'f') as column5,\n"
                 + "                     (select count(*) from RoomDetailView) as column6,\n"
