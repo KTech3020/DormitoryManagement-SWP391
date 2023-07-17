@@ -34,7 +34,7 @@ create table RegisterRoom(
 [reRoomID] int identity(1,1) primary key,
 [roomId] varchar (5),
 [userId] varchar (10),
-[date] datetime,
+[date] date,
 [semester] varchar (5),
 [status] varchar(10) check (status in ('Success', 'Registered', 'Rejected', 'Removed')),
 CONSTRAINT fk_register1 foreign key (userId) references Account (userId),
@@ -184,4 +184,5 @@ VALUES
 ('6','FA23', '0', '30', '0', '30', 'Waiting'),
 ('3','SU23', '0', '7', '7', '45', 'Success')
 
-
+select * from RoomRegistrationView where status = 'Success'
+select * from Account where isAdmin = 1
